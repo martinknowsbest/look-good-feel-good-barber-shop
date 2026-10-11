@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Look Good Feel Good | The Gentleman's Barbershop</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#f5f1e8;--gold:#c9a96a;--dark:#0d0b08}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--ink);font-family:Georgia,'Times New Roman',serif;overflow-x:hidden}
+.seq-section{position:relative;height:300vh}
+.seq-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:flex-end}
+.seq-sticky canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.seq-overlay{position:relative;z-index:2;width:100%;padding:4rem 2rem;background:linear-gradient(transparent,rgba(7,6,4,.55) 40%,rgba(7,6,4,.88))}
+.seq-kicker{font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;font-family:Arial,sans-serif}
+.seq-title{font-size:clamp(2.2rem,6vw,4.5rem);font-weight:400;line-height:1.05;margin-bottom:1rem}
+.seq-copy{font-size:clamp(1rem,2vw,1.25rem);line-height:1.6;max-width:36rem;opacity:.92;font-family:Arial,sans-serif;font-weight:300}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem 2rem;position:relative;z-index:2}
+.hero h1{font-size:clamp(2.8rem,8vw,6rem);line-height:1;font-weight:400;margin-bottom:1rem}
+.hero p{font-family:Arial,sans-serif;font-weight:300;font-size:clamp(1rem,2.2vw,1.3rem);opacity:.85;max-width:34rem}
+.scroll-hint{margin-top:2.5rem;font-family:Arial,sans-serif;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.book{padding:6rem 2rem;max-width:56rem;margin:0 auto;text-align:center}
+.book h2{font-size:clamp(2rem,5vw,3.2rem);font-weight:400;margin-bottom:1rem}
+.book p{font-family:Arial,sans-serif;font-weight:300;opacity:.85;margin-bottom:2rem;line-height:1.6}
+.book a{display:inline-block;background:var(--gold);color:#111;text-decoration:none;font-family:Arial,sans-serif;padding:1rem 2.5rem;border-radius:999px;font-weight:600;letter-spacing:.05em}
+footer{padding:3rem 2rem;text-align:center;font-family:Arial,sans-serif;font-size:.85rem;opacity:.6;border-top:1px solid rgba(201,169,106,.2)}
+</style>
+</head>
+<body>
+
+<section class="seq-section" data-seq="chair">
+  <div class="seq-sticky">
+    <canvas></canvas>
+    <div class="hero">
+      <h1>Look Good<br>Feel Good</h1>
+      <p>The Gentleman's Barbershop. Terre Haute, Indiana.</p>
+      <div class="scroll-hint">Scroll</div>
+    </div>
+  </div>
+</section>
+
+<section class="seq-section" data-seq="cut">
+  <div class="seq-sticky">
+    <canvas></canvas>
+    <div class="seq-overlay">
+      <div class="seq-kicker">01 &mdash; The Cut</div>
+      <div class="seq-title">Precision in<br>every line</div>
+      <div class="seq-copy">Skin fades, classic tapers, and sharp outlines. Every cut is mapped to your head shape, hair texture, and style.</div>
+    </div>
+  </div>
+</section>
+
+<section class="seq-section" data-seq="beard">
+  <div class="seq-sticky">
+    <canvas></canvas>
+    <div class="seq-overlay">
+      <div class="seq-kicker">02 &mdash; The Beard</div>
+      <div class="seq-title">Sculpted,<br>not trimmed</div>
+      <div class="seq-copy">Beard shaping with straight-razor detailing. Hot lather, precise lines, and a finish that frames your face.</div>
+    </div>
+  </div>
+</section>
+
+<section class="seq-section" data-seq="shave">
+  <div class="seq-sticky">
+    <canvas></canvas>
+    <div class="seq-overlay">
+      <div class="seq-kicker">03 &mdash; The Shave</div>
+      <div class="seq-title">The hot towel<br>ritual</div>
+      <div class="seq-copy">Steam, hot lather, and a straight razor. The classic shave, done the slow way it was meant to be done.</div>
+    </div>
+  </div>
+</section>
+
+<section class="seq-section" data-seq="rich">
+  <div class="seq-sticky">
+    <canvas></canvas>
+    <div class="seq-overlay">
+      <div class="seq-kicker">04 &mdash; The Eye</div>
+      <div class="seq-title">Behind the chair.<br>Behind the camera.</div>
+      <div class="seq-copy">Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</div>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <h2>Book your chair</h2>
+  <p>Call or text to reserve your spot.<br>Walk-ins welcome when the chair is open.</p>
+  <a href="tel:+13174800062">Call (317) 480-0062</a>
+</section>
+
+<footer>
+  Look Good Feel Good &mdash; The Gentleman's Barbershop<br>Terre Haute, Indiana
+</footer>
+
+<script>
+const seqs = {};
+document.querySelectorAll('.seq-section').forEach(sec => {
+  const name = sec.dataset.seq;
+  const canvas = sec.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const frames = [];
+  for (let i = 1; i <= 48; i++) {
+    const img = new Image();
+    img.src = `assets/seq/${name}/frame-${String(i).padStart(2,'0')}.jpg`;
+    frames.push(img);
+  }
+  seqs[name] = { sec, canvas, ctx, frames, loaded: 0 };
+  frames.forEach(img => { img.onload = () => { seqs[name].loaded++; }; });
+});
+
+function sizeCanvases() {
+  Object.values(seqs).forEach(s => {
+    s.canvas.width = s.canvas.clientWidth * devicePixelRatio;
+    s.canvas.height = s.canvas.clientHeight * devicePixelRatio;
+  });
+  render();
+}
+window.addEventListener('resize', sizeCanvases);
+
+function drawFrame(s, idx) {
+  const img = s.frames[idx];
+  if (!img || !img.complete || !img.naturalWidth) return;
+  const c = s.canvas, ctx = s.ctx;
+  const scale = Math.max(c.width / img.naturalWidth, c.height / img.naturalHeight);
+  const w = img.naturalWidth * scale, h = img.naturalHeight * scale;
+  ctx.drawImage(img, (c.width - w) / 2, (c.height - h) / 2, w, h);
+}
+
+function render() {
+  Object.values(seqs).forEach(s => {
+    const r = s.sec.getBoundingClientRect();
+    const total = r.height - window.innerHeight;
+    const p = Math.min(1, Math.max(0, -r.top / total));
+    drawFrame(s, Math.min(47, Math.floor(p * 48)));
+  });
+}
+
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) { requestAnimationFrame(() => { render(); ticking = false; }); ticking = true; }
+}, { passive: true });
+
+sizeCanvases();
+setTimeout(render, 500);
+setInterval(render, 2000);
+</script>
+</body>
+</html>
