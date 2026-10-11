@@ -30,6 +30,16 @@
     .products{min-height:900px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;padding:110px max(24px,8vw);background:radial-gradient(circle at 32% 55%,#181714 0,#090908 58%);overflow:hidden}.product-art{position:relative;height:630px}.product-art img{position:absolute;inset:7% 0 0;width:88%;height:80%;object-fit:contain;filter:saturate(.7) contrast(1.05)}.product-copy{max-width:520px}.product-copy .service-no{color:#373733}.product-copy h3{font:400 clamp(59px,6vw,88px)/.82 "Libre Caslon Display",serif;margin:-8px 0 23px;letter-spacing:-.045em}.product-copy p{color:#cbc2b5;line-height:1.7}.product-copy .tags{color:#efe6d8}
     .reviews{background:var(--paper);color:var(--ink);padding:110px max(24px,7vw)}.reviews-inner{width:min(1240px,100%);margin:auto}.reviews-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:54px}.review-rating{text-align:right}.review-rating strong{display:block;font:400 29px "Libre Caslon Display",serif}.review-rating span{font-size:9px;text-transform:uppercase;letter-spacing:.1em}.review-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:40px}.review{border-top:1px solid var(--paper-line);padding-top:22px}.review.featured{background:var(--ink-soft);color:var(--white);border:0;padding:28px}.review blockquote{margin:0;font:400 18px/1.45 "Libre Caslon Display",serif}.review cite{display:block;margin-top:27px;text-transform:uppercase;letter-spacing:.12em;font:500 8px "DM Sans";font-style:normal;color:#756e65}.review.featured cite{color:#bdb4a7}
     .contact{background:var(--ink-soft);padding:110px max(24px,7vw) 72px}.contact-inner{width:min(1240px,100%);margin:auto;display:grid;grid-template-columns:1fr 1.2fr;gap:10vw}.contact h2{font-size:clamp(58px,7vw,102px)}.contact-lead{font:400 clamp(24px,2.2vw,35px)/1.18 "Libre Caslon Display",serif;max-width:360px;margin:28px 0}.phone{display:inline-block;color:var(--gold);font:400 clamp(22px,2.3vw,34px) "Libre Caslon Display",serif;text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:6px}.contact-details{display:grid;grid-template-columns:1fr 1fr;gap:54px;border-top:1px solid var(--line);padding-top:28px}.contact-details h3{font:500 10px "DM Sans";text-transform:uppercase;letter-spacing:.17em;color:var(--gold)}.contact-details p,.hours{color:#d5cdbf;font-size:13px;line-height:1.8}.directions{display:inline-block;margin-top:12px;font-size:9px;text-transform:uppercase;letter-spacing:.12em}.hours{display:grid;grid-template-columns:1fr auto;gap:3px 30px}.socials{display:flex;flex-wrap:wrap;gap:18px;margin-top:60px;padding-top:24px;border-top:1px solid var(--line)}.socials a{font-size:9px;text-decoration:none;text-transform:uppercase;letter-spacing:.12em}.sources{margin-top:26px;color:#6e695f;font-size:8px}.sources a{color:#999184}.footer-mark{margin-top:70px;color:#5f5a53;text-transform:uppercase;letter-spacing:.17em;font-size:8px}
+    .service-v2{padding:80px max(24px,7vw);background:radial-gradient(circle at 50% 25%,#151412 0,var(--ink) 62%)}
+    .seq-hero{width:min(1000px,100%);margin:0 auto 44px;border-radius:8px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+    .seq-hero .seq-img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#111}
+    .service-copy-v2{max-width:620px;margin:0 auto;text-align:center}
+    .service-copy-v2 .service-no{font:400 44px "Libre Caslon Display",serif;color:#3a3835}
+    .service-copy-v2 h3{font:400 clamp(44px,6vw,68px)/.95 "Libre Caslon Display",serif;margin:0 0 16px;letter-spacing:-.03em}
+    .service-copy-v2 h3 em{color:var(--gold);font-style:normal}
+    .service-copy-v2 p{color:#d1c9bc;line-height:1.7;font-size:15px}
+    .service-copy-v2 .tags{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:14px;border-top:1px solid var(--line);text-transform:uppercase;letter-spacing:.11em;font-size:8px;justify-content:center}
+    .eye-v2{background:#0a0908}
     .reveal{opacity:1;transform:translateY(24px);transition:transform .75s ease}.reveal.in{transform:none}
     .walkthrough{position:relative;height:250vh;background:#080807;overflow:hidden}
     .walkthrough-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:flex-end}
@@ -38,7 +48,7 @@
     .walkthrough-copy h2{font:400 clamp(48px,6vw,84px)/.9 "Libre Caslon Display",serif;letter-spacing:-.03em;margin:12px 0 16px}
     .walkthrough-copy h2 em{color:var(--gold);font-style:normal}
     .walkthrough-copy p{max-width:520px;color:#d8cfc0;line-height:1.7;font-size:15px}
-    .seq-canvas{display:block;width:100%;aspect-ratio:16/9;background:#111}
+    
     .photo-card .seq-canvas{height:410px;aspect-ratio:auto}
     .eye{background:#0b0a08;padding:110px max(24px,8vw)}
     .eye-inner{width:min(1100px,100%);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
@@ -75,13 +85,13 @@
 
   <section class="walkthrough" id="walkthrough" aria-label="Walk through the barber shop"><div class="walkthrough-stage"><canvas class="seq-canvas" data-seq="chair" aria-label="Slow walkthrough around the vintage barber chair"></canvas><div class="walkthrough-copy"><div class="number-label" style="color:var(--gold)">Step inside</div><h2>The shop,<br><em>every corner.</em></h2><p>Scroll to walk through. Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div></div></section>
 
-  <section class="service left" id="cut"><div class="service-copy reveal"><div class="service-no">01</div><h3>The Cut</h3><p>Classic, modern, clean or lived-in. Rich reads the way your hair grows, then shapes the cut to your head, your style and the way you actually live.</p><div class="tags"><span>Men's haircuts</span><span>Modern styling</span><span>Personal consultation</span></div></div><figure class="photo-card reveal"><canvas class="seq-canvas" data-seq="cut" aria-label="Precision fade haircut, scroll to animate"></canvas><figcaption><span>Precision finish</span><span>Terre Haute</span></figcaption></figure></section>
+  <section class="service-v2" id="cut"><div class="seq-hero reveal"><img class="seq-img" data-seq="cut" src="assets/seq/cut/frame-01.jpg" alt="Precision fade haircut"></div><div class="service-copy-v2 reveal"><div class="service-no">01</div><h3>The Cut</h3><p>Classic, modern, clean or lived-in. Rich reads the way your hair grows, then shapes the cut to your head, your style and the way you actually live.</p><div class="tags"><span>Men's haircuts</span><span>Modern styling</span><span>Personal consultation</span></div></div></section>
 
-  <section class="service right" id="beard"><figure class="photo-card reveal"><canvas class="seq-canvas" data-seq="beard" aria-label="Beard sculpting, scroll to animate"></canvas><figcaption><span>Shaped by hand</span><span>No templates</span></figcaption></figure><div class="service-copy reveal"><div class="service-no">02</div><h3>The Beard</h3><p>Freehand sculpting is Rich's signature. Lines are set to strengthen your face, bulk is balanced, and the beard leaves looking intentional without looking overworked.</p><div class="tags"><span>Freehand sculpting</span><span>Beard trim</span><span>Line & shape</span></div></div></section>
+  <section class="service-v2" id="beard"><div class="seq-hero reveal"><img class="seq-img" data-seq="beard" src="assets/seq/beard/frame-01.jpg" alt="Beard sculpting"></div><div class="service-copy-v2 reveal"><div class="service-no">02</div><h3>The Beard</h3><p>Freehand sculpting is Rich's signature. Lines are set to strengthen your face, bulk is balanced, and the beard leaves looking intentional without looking overworked.</p><div class="tags"><span>Freehand sculpting</span><span>Beard trim</span><span>Line & shape</span></div></div></section>
 
-  <section class="service left shave" id="shave"><div class="service-copy reveal"><div class="service-no">03</div><h3>The Shave</h3><p>Warm towel. Rich lather. A measured razor pass. The traditional hot towel shave slows the world down for a while and leaves a finish no cartridge can match.</p><div class="tags"><span>Hot towel</span><span>Traditional razor care</span><span>Clean finish</span></div></div><figure class="photo-card reveal"><canvas class="seq-canvas" data-seq="shave" aria-label="Hot towel steam, scroll to animate"></canvas><figcaption><span>The slow ritual</span><span>Hot towel shave</span></figcaption></figure></section>
+  <section class="service-v2" id="shave"><div class="seq-hero reveal"><img class="seq-img" data-seq="shave" src="assets/seq/shave/frame-01.jpg" alt="Hot towel shave"></div><div class="service-copy-v2 reveal"><div class="service-no">03</div><h3>The Shave</h3><p>Warm towel. Rich lather. A measured razor pass. The traditional hot towel shave slows the world down for a while and leaves a finish no cartridge can match.</p><div class="tags"><span>Hot towel</span><span>Traditional razor care</span><span>Clean finish</span></div></div></section>
 
-  <section class="eye" id="eye"><div class="eye-inner"><div class="reveal"><canvas class="seq-canvas" data-seq="rich" aria-label="Rich the barber, scroll to animate"></canvas></div><div class="eye-copy reveal"><div class="service-no">04</div><h3>Behind the chair.<br><em>Behind the camera.</em></h3><p>Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</p></div></div></section>
+  <section class="service-v2 eye-v2" id="eye"><div class="seq-hero reveal"><img class="seq-img" data-seq="rich" src="assets/seq/rich/frame-01.jpg" alt="Rich the barber"></div><div class="service-copy-v2 reveal"><div class="service-no">04</div><h3>Behind the chair.<br><em>Behind the camera.</em></h3><p>Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</p></div></div></section>
 
   <section class="finish" id="finish" aria-labelledby="finish-title"><div class="finish-stage"><img class="finish-photo" src="assets/dapper-360-00.jpg" alt="Dapper gentleman with a crisp skin fade and precisely shaped beard rotating through a full 360-degree view in a warm barber shop"><canvas class="finish-canvas" aria-hidden="true"></canvas><div class="finish-copy reveal"><div class="section-kicker">04 / The finish</div><h2 id="finish-title"><span>Every angle.</span><em>Every line.</em></h2><p>Precision that holds its shape from every point of view.</p></div></div></section>
 
@@ -95,61 +105,34 @@
 (function(){
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Scroll-driven video sequences (v2) */
-  var seqCanvases=[].slice.call(document.querySelectorAll('canvas.seq-canvas'));
-  var seqData=seqCanvases.map(function(canvas){
-    var name=canvas.getAttribute('data-seq');
-    var frames=[];
-    for(var i=1;i<=48;i++){
-      var img=new Image();
-      img.src='assets/seq/'+name+'/frame-'+String(i).padStart(2,'0')+'.jpg';
-      frames.push(img);
-    }
-    return {canvas:canvas,ctx:canvas.getContext('2d'),frames:frames,name:name,last:-1};
+  /* Scroll-driven video sequences (v2) - img based */
+  var seqImgs=[].slice.call(document.querySelectorAll('img.seq-img'));
+  seqImgs.forEach(function(imgEl){
+    imgEl.setAttribute('data-last','1');
   });
-  function drawSeq(s,idx){
-    if(idx===s.last)return;
-    var img=s.frames[idx];
-    if(!img||!img.complete||!img.naturalWidth)return;
-    var c=s.canvas,ctx=s.ctx;
-    var cw=c.width,ch=c.height;
-    /* contain-fit: show the FULL frame, no aggressive crop */
-    var scale=Math.min(cw/img.naturalWidth,ch/img.naturalHeight);
-    var w=img.naturalWidth*scale,h=img.naturalHeight*scale;
-    ctx.fillStyle='#0d0b08';
-    ctx.fillRect(0,0,cw,ch);
-    ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
-    s.last=idx;
-  }
-  function sizeSeqs(){
-    seqData.forEach(function(s){
-      var r=s.canvas.getBoundingClientRect();
-      var ratio=Math.min(2,window.devicePixelRatio||1);
-      s.canvas.width=Math.max(1,Math.round(r.width*ratio));
-      s.canvas.height=Math.max(1,Math.round(r.height*ratio));
-      s.last=-1;
-    });
-    updateSeqs();
-  }
-  function updateSeqs(){
-    seqData.forEach(function(s){
-      var el=s.canvas.closest('.walkthrough')||s.canvas.closest('section');
-      if(!el)return;
-      var r=el.getBoundingClientRect();
+  function updateSeqImgs(){
+    seqImgs.forEach(function(imgEl){
+      var name=imgEl.getAttribute('data-seq');
+      var section=imgEl.closest('section');
+      if(!section)return;
+      var r=section.getBoundingClientRect();
       var vh=window.innerHeight;
       var total=Math.max(1,r.height-vh);
       var p=Math.min(1,Math.max(0,-r.top/total));
-      drawSeq(s,Math.min(47,Math.floor(p*48)));
+      var idx=Math.min(47,Math.floor(p*48))+1;
+      var last=parseInt(imgEl.getAttribute('data-last'),10);
+      if(idx!==last){
+        imgEl.src='assets/seq/'+name+'/frame-'+String(idx).padStart(2,'0')+'.jpg';
+        imgEl.setAttribute('data-last',String(idx));
+      }
     });
   }
-  if(!reduce&&seqData.length){
-    var seqTick=false;
+  if(!reduce&&seqImgs.length){
+    var imgTick=false;
     window.addEventListener('scroll',function(){
-      if(!seqTick){seqTick=true;requestAnimationFrame(function(){updateSeqs();seqTick=false})}
+      if(!imgTick){imgTick=true;requestAnimationFrame(function(){updateSeqImgs();imgTick=false})}
     },{passive:true});
-    window.addEventListener('resize',sizeSeqs);
-    sizeSeqs();
-    setTimeout(updateSeqs,600);
+    setTimeout(updateSeqImgs,500);
   }
 
   var reveals=[].slice.call(document.querySelectorAll('.reveal'));
