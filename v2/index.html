@@ -31,9 +31,9 @@
     .reviews{background:var(--paper);color:var(--ink);padding:110px max(24px,7vw)}.reviews-inner{width:min(1240px,100%);margin:auto}.reviews-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:54px}.review-rating{text-align:right}.review-rating strong{display:block;font:400 29px "Libre Caslon Display",serif}.review-rating span{font-size:9px;text-transform:uppercase;letter-spacing:.1em}.review-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:40px}.review{border-top:1px solid var(--paper-line);padding-top:22px}.review.featured{background:var(--ink-soft);color:var(--white);border:0;padding:28px}.review blockquote{margin:0;font:400 18px/1.45 "Libre Caslon Display",serif}.review cite{display:block;margin-top:27px;text-transform:uppercase;letter-spacing:.12em;font:500 8px "DM Sans";font-style:normal;color:#756e65}.review.featured cite{color:#bdb4a7}
     .contact{background:var(--ink-soft);padding:110px max(24px,7vw) 72px}.contact-inner{width:min(1240px,100%);margin:auto;display:grid;grid-template-columns:1fr 1.2fr;gap:10vw}.contact h2{font-size:clamp(58px,7vw,102px)}.contact-lead{font:400 clamp(24px,2.2vw,35px)/1.18 "Libre Caslon Display",serif;max-width:360px;margin:28px 0}.phone{display:inline-block;color:var(--gold);font:400 clamp(22px,2.3vw,34px) "Libre Caslon Display",serif;text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:6px}.contact-details{display:grid;grid-template-columns:1fr 1fr;gap:54px;border-top:1px solid var(--line);padding-top:28px}.contact-details h3{font:500 10px "DM Sans";text-transform:uppercase;letter-spacing:.17em;color:var(--gold)}.contact-details p,.hours{color:#d5cdbf;font-size:13px;line-height:1.8}.directions{display:inline-block;margin-top:12px;font-size:9px;text-transform:uppercase;letter-spacing:.12em}.hours{display:grid;grid-template-columns:1fr auto;gap:3px 30px}.socials{display:flex;flex-wrap:wrap;gap:18px;margin-top:60px;padding-top:24px;border-top:1px solid var(--line)}.socials a{font-size:9px;text-decoration:none;text-transform:uppercase;letter-spacing:.12em}.sources{margin-top:26px;color:#6e695f;font-size:8px}.sources a{color:#999184}.footer-mark{margin-top:70px;color:#5f5a53;text-transform:uppercase;letter-spacing:.17em;font-size:8px}
     .service-v2{padding:80px max(24px,7vw);background:radial-gradient(circle at 50% 25%,#151412 0,var(--ink) 62%)}
-    .seq-hero{width:min(1000px,100%);margin:0 auto 44px;border-radius:8px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}
-    .seq-hero{aspect-ratio:16/9}
-    @media (orientation: portrait){ .seq-hero{aspect-ratio:9/16;max-height:82vh;margin-left:auto;margin-right:auto} }
+    .seq-hero{width:100%;height:100svh;margin:0;position:relative;overflow:hidden}
+    /* full screen, no aspect-ratio constraint */
+
     @media (orientation: portrait){
       .seq-hero .seq-img{aspect-ratio:9/16;max-height:85vh;object-fit:cover}
       .seq-hero{max-width:520px}
@@ -46,7 +46,7 @@
     .service-copy-v2 .tags{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:14px;border-top:1px solid var(--line);text-transform:uppercase;letter-spacing:.11em;font-size:8px;justify-content:center}
     .eye-v2{background:#0a0908}
     .reveal{opacity:1;transform:translateY(24px);transition:transform .75s ease}.reveal.in{transform:none}
-    .walkthrough{position:relative;height:250vh;background:#080807;overflow:hidden}
+    .walkthrough{position:relative;height:200vh;background:#080807;overflow:hidden;margin:0}
     .walkthrough-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:flex-end}
     .walkthrough-stage canvas{position:absolute;inset:0;width:100%;height:100%}
     .walkthrough-copy{position:relative;z-index:2;padding:4rem max(24px,8vw);background:linear-gradient(transparent,rgba(5,5,4,.72) 55%)}
@@ -75,7 +75,7 @@
 <a class="call-float" href="tel:+13174800062" aria-label="Call to book an appointment"><i aria-hidden="true">☎</i><span>Book by phone</span></a>
 <main>
   <section class="hero" id="top">
-    <img class="hero-bg" src="assets/shop-photo-2.jpg" alt="The original red barber chair inside Look Good Feel Good">
+    <picture><source media="(orientation: portrait)" srcset="assets/chair-hero-916.jpg"><img class="hero-bg" src="assets/chair-hero-169.jpg" alt="The vintage barber chair inside Look Good Feel Good"></picture>
     <div class="hero-inner reveal">
       <div class="eyebrow">Terre Haute, Indiana · By appointment</div>
       <h1><span>Look Good</span><em>Feel Good</em></h1>
