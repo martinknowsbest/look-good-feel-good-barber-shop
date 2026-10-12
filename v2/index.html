@@ -59,7 +59,7 @@
     .finish{position:relative;min-height:240svh;background:#090908;isolation:isolate}.finish-stage{position:absolute;top:0;left:0;width:100%;height:100svh;overflow:hidden;isolation:isolate;background:#090908}.finish-stage.is-pinned{position:fixed;top:0;bottom:auto}.finish-stage.is-ended{top:auto;bottom:0}.finish-photo,.finish-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 43%;filter:saturate(.78) brightness(.77) contrast(1.05)}.finish-canvas{z-index:0;opacity:0;transition:opacity .16s linear}.finish-canvas.ready{opacity:1}.finish-stage::after{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,rgba(7,7,6,.78),transparent 64%),linear-gradient(0deg,#090908 3%,transparent 45%)}.finish-copy{position:absolute;z-index:2;left:max(24px,7vw);top:190px;max-width:510px}.finish .section-kicker{font:600 10px "DM Sans";letter-spacing:.17em;text-transform:uppercase}.finish h2{font:400 clamp(68px,8.5vw,124px)/.7 "DM Sans",sans-serif;letter-spacing:-.075em;margin:18px 0 25px}.finish h2 span{display:block}.finish h2 em{display:block;color:var(--gold);font:400 italic .63em/1 "Libre Caslon Display",serif;letter-spacing:-.03em}.finish p{max-width:400px;color:#eee5d6;font-size:16px}
     .products{min-height:900px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;padding:110px max(24px,8vw);background:radial-gradient(circle at 32% 55%,#181714 0,#090908 58%);overflow:hidden}.product-art{position:relative;height:630px}.product-art img{position:absolute;inset:7% 0 0;width:88%;height:80%;object-fit:contain;filter:saturate(.7) contrast(1.05)}
     .products{position:relative;overflow:hidden}
-    .joe-holo-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.65;filter:saturate(1.2);pointer-events:none;z-index:0}
+    .joe-holo-bg{position:absolute;inset:0;width:100%;height:100%;opacity:.65;filter:saturate(1.2);pointer-events:none;z-index:0}
     .product-art,.product-copy{position:relative;z-index:1}
     .product-art img{opacity:.92}
     .product-copy{background:rgba(9,9,8,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:16px;padding:28px}.product-copy{max-width:520px}.product-copy .service-no{color:#373733}.product-copy h3{font:400 clamp(59px,6vw,88px)/.82 "Libre Caslon Display",serif;margin:-8px 0 23px;letter-spacing:-.045em}.product-copy p{color:#cbc2b5;line-height:1.7}.product-copy .tags{color:#efe6d8}
@@ -328,7 +328,7 @@
 
   <section class="finish" id="finish" aria-labelledby="finish-title"><div class="finish-stage"><img class="finish-photo" src="assets/dapper-360-00.jpg" alt="Dapper gentleman with a crisp skin fade and precisely shaped beard rotating through a full 360-degree view in a warm barber shop"><canvas class="finish-canvas" aria-hidden="true"></canvas><div class="finish-copy reveal"><div class="section-kicker">04 / The finish</div><h2 id="finish-title"><span>Every angle.</span><em>Every line.</em></h2><p>Precision that holds its shape from every point of view.</p></div></div></section>
 
-  <section class="products" id="products"><video class="joe-holo-bg" muted playsinline preload="auto" aria-hidden="true"><source src="assets/joe/joe-holo-169.mp4" type="video/mp4"></video><div class="product-art reveal"><img src="assets/cutter-joes-portrait.jpg" alt="Vintage portrait for Cutter Joe's The Beard Company with the words All Natural Beard Care, Nothing Synthetic" loading="lazy"></div><div class="product-copy reveal"><div class="service-no">05</div><h3>Cutter<br>Joe’s</h3><p>Rich developed his own beard oils and balms from natural butters and oils after years of seeing what beards need in the chair: moisture, shape and a healthier feel.</p><div class="tags"><span>Beard oil</span><span>Beard balm</span><span>Made by a barber</span></div></div></section>
+  <section class="products" id="products"><canvas class="joe-holo-bg" aria-hidden="true"></canvas><div class="product-art reveal"><img src="assets/cutter-joes-portrait.jpg" alt="Vintage portrait for Cutter Joe's The Beard Company with the words All Natural Beard Care, Nothing Synthetic" loading="lazy"></div><div class="product-copy reveal"><div class="service-no">05</div><h3>Cutter<br>Joe’s</h3><p>Rich developed his own beard oils and balms from natural butters and oils after years of seeing what beards need in the chair: moisture, shape and a healthier feel.</p><div class="tags"><span>Beard oil</span><span>Beard balm</span><span>Made by a barber</span></div></div></section>
 
   <section class="reviews" aria-labelledby="reviews-title"><div class="reviews-inner"><div class="reviews-head"><div><div class="number-label">06 / From the chair</div><h2 id="reviews-title">Good word travels.</h2></div><div class="review-rating"><strong>4.8</strong><span>★★★★★<br>Google rating · 40 reviews</span></div></div><div class="review-grid"><article class="review featured reveal"><blockquote>“I always get compliments on my hair after getting it cut here, and Rich is nothing less than an artist when dealing with beards.”</blockquote><cite>Douglas Montgomery · customer review</cite></article><article class="review reveal"><blockquote>“Rich is a hair wizard! Best haircut I’ve ever had. Very personable and real.”</blockquote><cite>Evan Richard · customer review</cite></article><article class="review reveal"><blockquote>“Got a haircut and beard trim, looks great. Rich is a great guy and an awesome barber.”</blockquote><cite>J Collings · customer review</cite></article></div></div></section>
 
@@ -681,39 +681,54 @@
 
   </script>
 <script>
-/* Cutter Joe hologram: scroll-driven transformation */
+/* Cutter Joe hologram: scroll-driven canvas (12 preloaded frames) */
 (function(){
-  var v=document.querySelector('.joe-holo-bg');
-  if(!v) return;
-  var section=v.closest('.products');
-  function setSrc(){
-    var portrait=window.matchMedia('(orientation: portrait)').matches;
-    var src=portrait?'assets/joe/joe-holo-916.mp4':'assets/joe/joe-holo-169.mp4';
-    if(v.getAttribute('data-cur')!==src){ v.setAttribute('data-cur',src); v.src=src; v.load(); }
+  var canvas=document.querySelector('.joe-holo-bg');
+  if(!canvas) return;
+  var section=canvas.closest('.products');
+  var ctx=canvas.getContext('2d');
+  var N=12, frames=[], loaded=[], lastDrawn=-1;
+  for(var i=0;i<N;i++){ frames.push(new Image()); loaded.push(false); }
+  function loadAll(){
+    lastDrawn=-1;
+    frames.forEach(function(img,idx){
+      loaded[idx]=false;
+      img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
+      img.src='assets/joe/holo-frame-'+String(idx+1).padStart(2,'0')+'.jpg';
+    });
   }
-  setSrc();
-  try{ window.matchMedia('(orientation: portrait)').addEventListener('change',setSrc); }catch(e){}
-  v.pause();
-  /* Block any playback: this video is scroll-driven only */
-  v.addEventListener('play',function(){ v.pause(); });
-  var duration=0, ticking=false;
+  function closest(idx){
+    if(loaded[idx])return idx;
+    for(var d=1;d<N;d++){
+      if(idx-d>=0&&loaded[idx-d])return idx-d;
+      if(idx+d<N&&loaded[idx+d])return idx+d;
+    }
+    return -1;
+  }
+  function draw(idx){
+    var r=closest(idx);
+    if(r<0||r===lastDrawn) return;
+    var img=frames[r];
+    var cr=canvas.getBoundingClientRect(), ratio=Math.min(2,window.devicePixelRatio||1);
+    var cw=Math.max(1,Math.round(cr.width*ratio)), ch=Math.max(1,Math.round(cr.height*ratio));
+    if(canvas.width!==cw||canvas.height!==ch){ canvas.width=cw; canvas.height=ch; }
+    var scale=Math.max(cw/img.naturalWidth, ch/img.naturalHeight);
+    var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
+    ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
+    lastDrawn=r;
+  }
+  var ticking=false;
   function update(){
-    if(!duration||!section) { ticking=false; return; }
+    if(!section){ ticking=false; return; }
     var r=section.getBoundingClientRect(), vh=window.innerHeight;
     var progress=Math.max(0,Math.min(1,(vh-r.top)/(vh+r.height)));
-    var t=progress*duration;
-    if(Math.abs(v.currentTime-t)>0.04){ try{ v.currentTime=t; }catch(e){} }
+    draw(Math.min(N-1,Math.floor(progress*N)));
     ticking=false;
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
-  if(v.readyState>=1){ duration=v.duration||0; }
-  v.addEventListener('loadedmetadata',function(){ duration=v.duration||0; v.pause(); update(); });
-  /* In case metadata was already loaded, run once now */
-  if(duration) update();
-  /* Continuously enforce paused state (some browsers resume playback) */
-  setInterval(function(){ if(!v.paused) v.pause(); },500);
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll);
+  loadAll();
   update();
 })();
 </script>
