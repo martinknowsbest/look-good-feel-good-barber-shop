@@ -57,6 +57,11 @@
     .walkthrough{position:relative;height:180vh;background:#080807;margin:0;padding:0}
     .walkthrough-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:flex-end}
     .walkthrough-stage canvas{position:absolute;inset:0;width:100%;height:100%}
+    .seq-hero canvas.seq-v2canvas{opacity:0;transition:opacity .18s linear}
+    .seq-hero canvas.seq-v2canvas.ready{opacity:1}
+    .walkthrough-stage img.walkthrough-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .walkthrough-stage canvas.seq-canvas{opacity:0;transition:opacity .18s linear}
+    .walkthrough-stage canvas.seq-canvas.ready{opacity:1}
     .walkthrough-copy{position:relative;z-index:2;padding:4rem max(24px,8vw);background:linear-gradient(transparent,rgba(5,5,4,.72) 55%)}
     .walkthrough-copy h2{font:400 clamp(48px,6vw,84px)/.9 "Libre Caslon Display",serif;letter-spacing:-.03em;margin:12px 0 16px}
     .walkthrough-copy h2 em{color:var(--gold);font-style:normal}
@@ -96,7 +101,7 @@
 
   <section class="intro" id="craft"><div class="intro-inner"><div class="number-label">00 / The chair</div><div class="intro-copy reveal"><h2>Old-school care.<em>Modern precision.</em></h2><p>Rich runs a one-chair experience built around attention. No assembly line and no rushed finish. Every appointment gets the judgment, conversation and handwork that turn a haircut into a signature.</p><div class="stats"><div><strong>20+ years</strong><span>behind the chair</span></div><div><strong>4.8 stars</strong><span>Google rating</span></div><div><strong>1 chair</strong><span>personal service</span></div></div></div></div></section>
 
-  <section class="walkthrough" id="walkthrough" aria-label="Walk through the barber shop"><div class="walkthrough-stage"><canvas class="seq-canvas" data-seq="chair" aria-label="Slow walkthrough around the vintage barber chair"></canvas><div class="walkthrough-copy"><div class="number-label" style="color:var(--gold)">Step inside</div><h2>The shop,<br><em>every corner.</em></h2><p>Scroll to walk through. Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div></div></section>
+  <section class="walkthrough" id="walkthrough" aria-label="Walk through the barber shop"><div class="walkthrough-stage"><img class="walkthrough-poster" src="assets/seq/chair/frame-01.jpg" alt="" aria-hidden="true"><canvas class="seq-canvas" data-seq="chair" aria-label="Slow walkthrough around the vintage barber chair"></canvas><div class="walkthrough-copy"><div class="number-label" style="color:var(--gold)">Step inside</div><h2>The shop,<br><em>every corner.</em></h2><p>Scroll to walk through. Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div></div></section>
 
   <section class="service-v2" id="cut"><div class="seq-hero"><img class="seq-img" data-seq="cut" src="assets/seq/cut/frame-01.jpg" alt="Precision fade haircut"></div><div class="service-copy-v2 reveal"><div class="service-no">01</div><h3>The Cut</h3><p>Classic, modern, clean or lived-in. Rich reads the way your hair grows, then shapes the cut to your head, your style and the way you actually live.</p><div class="tags"><span>Men's haircuts</span><span>Modern styling</span><span>Personal consultation</span></div></div></section>
 
@@ -130,9 +135,12 @@
   v2SeqDefs.forEach(function(def){
     var container=document.querySelector(def.sel);
     if(!container) return;
-    /* sticky from CSS - do not override */
-    container.innerHTML='<canvas style="display:block;width:100%;height:100%;position:absolute;inset:0;"></canvas>';
-    var canvas=container.querySelector('canvas');
+    /* sticky from CSS - do not override; keep poster img, append canvas over it */
+    var canvas=document.createElement('canvas');
+    canvas.className='seq-v2canvas';
+    canvas.setAttribute('aria-hidden','true');
+    canvas.style.cssText='display:block;width:100%;height:100%;position:absolute;inset:0;';
+    container.appendChild(canvas);
     var ctx=canvas.getContext('2d');
     var frames=[], loaded=[], curBase='', lastDrawn=-1;
     for(var i=0;i<48;i++){ frames.push(new Image()); loaded.push(false); }
@@ -141,7 +149,7 @@
       curBase=base(); lastDrawn=-1;
       frames.forEach(function(img,idx){
         loaded[idx]=false;
-        img.onload=function(){ loaded[idx]=true; };
+        img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
         img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg';
       });
     }
@@ -164,6 +172,7 @@
       var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
       ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
       lastDrawn=r;
+      canvas.classList.add('ready');
     }
     function update(){
       if(curBase!==base()){ loadAll(); return; }
@@ -196,7 +205,7 @@
       curBase=base(); lastDrawn=-1;
       frames.forEach(function(img,idx){
         loaded[idx]=false;
-        img.onload=function(){ loaded[idx]=true; };
+        img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
         img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg';
       });
     }
@@ -226,6 +235,7 @@
       var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
       ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
       lastDrawn=c;
+      canvas.classList.add('ready');
     }
     loadAll();
     v2Players.push({update:update, reload:loadAll});
