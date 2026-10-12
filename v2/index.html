@@ -314,7 +314,7 @@
 
   <section class="finish" id="finish" aria-labelledby="finish-title"><div class="finish-stage"><img class="finish-photo" src="assets/dapper-360-00.jpg" alt="Dapper gentleman with a crisp skin fade and precisely shaped beard rotating through a full 360-degree view in a warm barber shop"><canvas class="finish-canvas" aria-hidden="true"></canvas><div class="finish-copy reveal"><div class="section-kicker">04 / The finish</div><h2 id="finish-title"><span>Every angle.</span><em>Every line.</em></h2><p>Precision that holds its shape from every point of view.</p></div></div></section>
 
-  <section class="products" id="products"><div class="product-art reveal"><video class="joe-holo" muted loop playsinline preload="metadata" poster="assets/cutter-joes-portrait.jpg" aria-label="Cutter Joe hologram"><source src="assets/joe/joe-holo-169.mp4" type="video/mp4"></video></div><div class="product-copy reveal"><div class="service-no">05</div><h3>Cutter<br>Joe’s</h3><p>Rich developed his own beard oils and balms from natural butters and oils after years of seeing what beards need in the chair: moisture, shape and a healthier feel.</p><div class="tags"><span>Beard oil</span><span>Beard balm</span><span>Made by a barber</span></div></div></section>
+  <section class="products" id="products"><div class="product-art reveal"><video class="joe-holo" muted loop playsinline autoplay preload="auto" poster="assets/cutter-joes-portrait.jpg" aria-label="Cutter Joe hologram"><source src="assets/joe/joe-holo-169.mp4" type="video/mp4"></video></div><div class="product-copy reveal"><div class="service-no">05</div><h3>Cutter<br>Joe’s</h3><p>Rich developed his own beard oils and balms from natural butters and oils after years of seeing what beards need in the chair: moisture, shape and a healthier feel.</p><div class="tags"><span>Beard oil</span><span>Beard balm</span><span>Made by a barber</span></div></div></section>
 
   <section class="reviews" aria-labelledby="reviews-title"><div class="reviews-inner"><div class="reviews-head"><div><div class="number-label">06 / From the chair</div><h2 id="reviews-title">Good word travels.</h2></div><div class="review-rating"><strong>4.8</strong><span>★★★★★<br>Google rating · 40 reviews</span></div></div><div class="review-grid"><article class="review featured reveal"><blockquote>“I always get compliments on my hair after getting it cut here, and Rich is nothing less than an artist when dealing with beards.”</blockquote><cite>Douglas Montgomery · customer review</cite></article><article class="review reveal"><blockquote>“Rich is a hair wizard! Best haircut I’ve ever had. Very personable and real.”</blockquote><cite>Evan Richard · customer review</cite></article><article class="review reveal"><blockquote>“Got a haircut and beard trim, looks great. Rich is a great guy and an awesome barber.”</blockquote><cite>J Collings · customer review</cite></article></div></div></section>
 
@@ -676,10 +676,13 @@
   }
   setSrc();
   try{ window.matchMedia('(orientation: portrait)').addEventListener('change',setSrc); }catch(e){}
+  function tryPlay(){ var p=v.play(); if(p&&p.catch){ p.catch(function(){}); } }
+  v.addEventListener('canplay',function(){ if(v.getBoundingClientRect().top<window.innerHeight&&v.getBoundingClientRect().bottom>0) tryPlay(); });
   var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); } });
-  },{threshold:0.25});
+    es.forEach(function(e){ if(e.isIntersecting){ tryPlay(); } else { v.pause(); } });
+  },{threshold:0.15});
   io.observe(v);
+  tryPlay();
 })();
 </script>
 </body>
