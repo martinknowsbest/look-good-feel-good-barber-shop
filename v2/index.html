@@ -113,6 +113,22 @@
     .jukebox-track .eq i:nth-child(3){animation-delay:.35s}
     @keyframes juke-eq{0%,100%{height:5px}50%{height:16px}}
     .jukebox-credits{position:relative;z-index:2;text-align:center;padding:14px 24px max(20px,env(safe-area-inset-bottom));color:#777067;font-size:9px;letter-spacing:.1em;text-transform:uppercase;line-height:1.9;margin:0}
+    
+    .vinyl{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,#dfb65c 0 18%,#141310 19% 38%,#2a2723 39% 40%,#141310 41%);border:1px solid rgba(223,182,92,.5);flex:none;display:block}
+    .vinyl.spinning{animation:jukespin 2.4s linear infinite}
+    .vinyl-btn{background:none;border:none;padding:0;cursor:pointer;flex:none;display:flex;align-items:center}
+    .mini-eq{display:flex;align-items:flex-end;gap:2px;height:16px;flex:none}
+    .mini-eq i{width:3px;background:var(--gold);height:5px}
+    .mini-eq.playing i{animation:juke-eq 1s ease-in-out infinite}
+    .mini-eq.playing i:nth-child(2){animation-delay:.2s}
+    .mini-eq.playing i:nth-child(3){animation-delay:.45s}
+    .mini-eq.playing i:nth-child(4){animation-delay:.1s}
+    .hidex{width:28px;height:28px;font-size:18px;line-height:1;color:#8a8073;background:none;border:none;cursor:pointer;flex:none;padding:0}
+    .hidex:hover{color:#f9f4ea}
+    .jukebox-fab{position:fixed;right:18px;bottom:max(18px,env(safe-area-inset-bottom));z-index:99;width:54px;height:54px;border-radius:50%;background:rgba(10,10,9,.88);border:1px solid rgba(223,182,92,.45);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+    .jukebox-fab.show{display:flex}
+    .jukebox-fab .vinyl{width:36px;height:36px}
+    .jukebox-mini.hidden{display:none}
     .jukebox-mini{position:fixed;left:50%;transform:translateX(-50%) translateY(12px);bottom:max(18px,env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;gap:10px;padding:8px;border-radius:999px;background:rgba(10,9,8,.86);border:1px solid rgba(223,182,92,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease}
     .jukebox-mini.show{opacity:1;pointer-events:auto;transform:translateX(-50%)}
     .jukebox-mini button{border:0;background:none;cursor:pointer;color:#f9f4ea;display:grid;place-items:center;font-family:"DM Sans",sans-serif}
@@ -199,10 +215,13 @@
     <p class="jukebox-credits" id="jukeboxCredits"></p>
   </div>
   <div class="jukebox-mini" id="jukeboxMini">
-    <button class="pp" id="jukeboxToggle" aria-label="Pause playback">| |</button>
+    <button class="vinyl-btn" id="jukeboxToggle" aria-label="Pause playback"><span class="vinyl spinning" id="jukeboxVinyl" aria-hidden="true"></span></button>
     <span class="nm" id="jukeboxNow"></span>
+    <span class="eq mini-eq playing" id="jukeboxEq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <button class="hidex" id="jukeboxHide" aria-label="Minimize player">&times;</button>
     <button class="openj" id="jukeboxMiniOpen" aria-label="Open the jukebox">&#9673;</button>
   </div>
+  <button class="jukebox-fab" id="jukeboxFab" aria-label="Show music player"><span class="vinyl spinning" id="jukeboxFabVinyl" aria-hidden="true"></span></button>
 
   <script>
 (function(){
@@ -483,18 +502,37 @@
       var pr=audio.play();
       if(pr&&pr.catch){ pr.catch(function(){}); }
       showMini();
-      toggle.textContent='| |'; toggle.setAttribute('aria-label','Pause playback');
+      jukeboxSetPlaying(true);
     }
     audio.addEventListener('ended',function(){ play((current+1)%TRACKS.length); });
+    function jukeboxSetPlaying(playing){
+      var vinyl=document.getElementById('jukeboxVinyl'), fabVinyl=document.getElementById('jukeboxFabVinyl'), eq=document.getElementById('jukeboxEq');
+      if(vinyl) vinyl.classList.toggle('spinning', playing);
+      if(fabVinyl) fabVinyl.classList.toggle('spinning', playing);
+      if(eq) eq.classList.toggle('playing', playing);
+      toggle.setAttribute('aria-label', playing ? 'Pause playback' : 'Resume playback');
+    }
     toggle.addEventListener('click',function(){
       if(audio.paused){
         var pr=audio.play(); if(pr&&pr.catch){ pr.catch(function(){}); }
-        toggle.textContent='| |'; toggle.setAttribute('aria-label','Pause playback');
+        jukeboxSetPlaying(true);
       }else{
         audio.pause();
-        toggle.textContent='\u25B6'; toggle.setAttribute('aria-label','Resume playback');
+        jukeboxSetPlaying(false);
       }
     });
+    var jukeboxHide=document.getElementById('jukeboxHide'), jukeboxFab=document.getElementById('jukeboxFab');
+    if(jukeboxHide&&jukeboxFab){
+      jukeboxHide.addEventListener('click',function(e){
+        e.stopPropagation();
+        mini.classList.add('hidden'); mini.classList.remove('show');
+        jukeboxFab.classList.add('show');
+      });
+      jukeboxFab.addEventListener('click',function(){
+        jukeboxFab.classList.remove('show');
+        mini.classList.remove('hidden'); mini.classList.add('show');
+      });
+    }
     function openView(){ view.classList.add('open'); document.body.style.overflow='hidden'; }
     function closeView(){ view.classList.remove('open'); document.body.style.overflow=''; }
     teaser.addEventListener('click',openView);
