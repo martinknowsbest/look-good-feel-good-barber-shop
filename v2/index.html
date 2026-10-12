@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -21,8 +21,23 @@
     @media(prefers-color-scheme:dark){:root{--ink:#090908;--ink-soft:#11110f;--paper:#eee7da;--paper-2:#e4dacb;--white:#fff9ed;--muted:#c1b8aa}}
     *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--ink)}body{margin:0;background:var(--ink);color:var(--white);font-family:"DM Sans",sans-serif;overflow-x:hidden}a{color:inherit}img{display:block;max-width:100%}
     .grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.038;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-    .rail{position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:60;width:58px;background:rgba(11,11,10,.72);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:10px 0;transition:width .35s cubic-bezier(.4,0,.2,1);overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.45)}
-.rail.open{width:224px}
+    .menu-pill{position:fixed;left:14px;top:max(14px,env(safe-area-inset-top));z-index:70;width:48px;height:48px;border-radius:50%;background:rgba(11,11,10,.78);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);color:#f9f4ea;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.45);transition:transform .2s,opacity .2s}
+.menu-pill:hover{transform:scale(1.06)}
+.menu-pill svg{width:20px;height:20px}
+.menu-pill.hidden{opacity:0;pointer-events:none;transform:scale(.8)}
+.rail-backdrop{position:fixed;inset:0;z-index:68;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s}
+.rail-backdrop.show{opacity:1;pointer-events:auto}
+.rail{position:fixed;left:14px;top:max(14px,env(safe-area-inset-top));z-index:69;width:248px;max-height:calc(100vh - 100px);background:rgba(11,11,10,.88);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:14px 10px;box-shadow:0 24px 70px rgba(0,0,0,.55);transform:translateX(-120%);opacity:0;transition:transform .38s cubic-bezier(.32,.72,.28,1),opacity .3s;overflow-y:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail.open{transform:translateX(0);opacity:1}
+.rail-head{display:flex;align-items:center;justify-content:space-between;padding:2px 10px 12px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px}
+.rail-head span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.rail-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.07);border:none;color:#f9f4ea;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.rail-theme{margin-top:10px;padding:12px 10px 4px;border-top:1px solid rgba(255,255,255,.08)}
+.rail-theme label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8a8073;display:block;margin-bottom:8px;padding:0 2px}
+.theme-seg{display:flex;background:rgba(255,255,255,.06);border-radius:12px;padding:3px;gap:2px}
+.theme-seg button{flex:1;padding:8px 4px;border-radius:9px;background:none;border:none;color:#8a8073;font-size:11px;letter-spacing:.04em;cursor:pointer;font-family:inherit;transition:background .2s,color .2s}
+.theme-seg button.on{background:rgba(223,182,92,.18);color:var(--gold)}
 .rail-toggle{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin:0 auto 6px;border-radius:12px;background:rgba(223,182,92,.12);border:1px solid rgba(223,182,92,.25);color:var(--gold);cursor:pointer;transition:transform .35s}
 .rail.open .rail-toggle svg{transform:rotate(180deg)}
 .rail-toggle svg{width:18px;height:18px;transition:transform .35s}
@@ -153,30 +168,46 @@
     @media(max-width:760px){.jukebox-teaser span:last-child{display:none}.jukebox-teaser{padding:9px}.jukebox-list{max-height:34vh}}
     /* Light theme (follows system). Photographic/cinematic sections stay dark by design;
        solid sections go light with dark text. */
+        /* Manual light theme */
+    :root[data-theme="light"] .products{background:radial-gradient(circle at 32% 55%,#f6f1e6 0,#e7ddc9 58%)}
+    :root[data-theme="light"] .product-copy h3{color:#141310}
+    :root[data-theme="light"] .product-copy p{color:#4d4943}
+    :root[data-theme="light"] .product-copy .tags{color:#6e695f}
+    :root[data-theme="light"] .product-copy .service-no{color:#c1b8aa}
+    :root[data-theme="light"] .contact{background:#f3ede1;color:#141310}
+    :root[data-theme="light"] .contact-details{border-top:1px solid rgba(11,11,10,.18)}
+    :root[data-theme="light"] .contact-details p,:root[data-theme="light"] .contact-details .hours{color:#4d4943}
+    :root[data-theme="light"] .contact-details h3{color:#8f6a1f}
+    :root[data-theme="light"] .contact .phone{color:#8f6a1f;border-bottom-color:#8f6a1f}
+    :root[data-theme="light"] .socials{border-top:1px solid rgba(11,11,10,.18)}
+    :root[data-theme="light"] .sources{color:#999184}
+    :root[data-theme="light"] .footer-mark{color:#999184}
+    /* System theme follows OS */
     @media (prefers-color-scheme: light){
-      .products{background:radial-gradient(circle at 32% 55%,#f6f1e6 0,#e7ddc9 58%)}
-      .product-copy h3{color:#141310}
-      .product-copy p{color:#4d4943}
-      .product-copy .tags{color:#6e695f}
-      .product-copy .service-no{color:#c1b8aa}
-      .contact{background:#f3ede1;color:#141310}
-      .contact-details{border-top:1px solid rgba(11,11,10,.18)}
-      .contact-details p,.contact-details .hours{color:#4d4943}
-      .contact-details h3{color:#8f6a1f}
-      .contact .phone{color:#8f6a1f;border-bottom-color:#8f6a1f}
-      .socials{border-top:1px solid rgba(11,11,10,.18)}
-      .sources{color:#999184}
-      .footer-mark{color:#999184}
-      .side-nav a{border-color:rgba(11,11,10,.45)}
-      .side-nav a.active{background:#141310}
+      :root[data-theme="system"] .products{background:radial-gradient(circle at 32% 55%,#f6f1e6 0,#e7ddc9 58%)}
+      :root[data-theme="system"] .product-copy h3{color:#141310}
+      :root[data-theme="system"] .product-copy p{color:#4d4943}
+      :root[data-theme="system"] .product-copy .tags{color:#6e695f}
+      :root[data-theme="system"] .product-copy .service-no{color:#c1b8aa}
+      :root[data-theme="system"] .contact{background:#f3ede1;color:#141310}
+      :root[data-theme="system"] .contact-details{border-top:1px solid rgba(11,11,10,.18)}
+      :root[data-theme="system"] .contact-details p,:root[data-theme="system"] .contact-details .hours{color:#4d4943}
+      :root[data-theme="system"] .contact-details h3{color:#8f6a1f}
+      :root[data-theme="system"] .contact .phone{color:#8f6a1f;border-bottom-color:#8f6a1f}
+      :root[data-theme="system"] .socials{border-top:1px solid rgba(11,11,10,.18)}
+      :root[data-theme="system"] .sources{color:#999184}
+      :root[data-theme="system"] .footer-mark{color:#999184}
     }
 
   </style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
+<button class="menu-pill" id="menuPill" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<div class="rail-backdrop" id="railBackdrop"></div>
 <aside class="rail" id="rail" aria-label="Site menu">
-  <button class="rail-toggle" id="railToggle" aria-label="Expand menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  <div class="rail-head"><span>Menu</span><button class="rail-close" id="railClose" aria-label="Close menu">&times;</button></div>
+  
   <nav class="rail-nav">
     <a href="#top" data-sec="top" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Home</span></a>
     <a href="#craft" data-sec="craft" aria-label="The chair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11V6a2 2 0 012-2h8a2 2 0 012 2v5"/><path d="M4 11h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3z"/><path d="M7 18v2M17 18v2"/></svg><span>The chair</span></a>
@@ -190,16 +221,39 @@
     <a href="#visit" data-sec="visit" aria-label="Visit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Visit</span></a>
     <button class="rail-jukebox" id="railJukebox" aria-label="Open the jukebox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v11"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="15" r="2.5"/></svg><span>Jukebox</span></button>
   </nav>
+  <div class="rail-theme"><label>Theme</label><div class="theme-seg" id="themeSeg"><button data-t="system" class="on">System</button><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
 </aside>
 <script>
 (function(){
-  var rail=document.getElementById('rail'), toggle=document.getElementById('railToggle');
-  if(!rail||!toggle) return;
-  toggle.addEventListener('click',function(){
-    var open=rail.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open?'true':'false');
-    toggle.setAttribute('aria-label', open?'Collapse menu':'Expand menu');
-  });
+  var rail=document.getElementById('rail'), pill=document.getElementById('menuPill'),
+      closeBtn=document.getElementById('railClose'), backdrop=document.getElementById('railBackdrop');
+  if(!rail||!pill) return;
+  function openRail(){ rail.classList.add('open'); backdrop.classList.add('show'); pill.classList.add('hidden'); }
+  function closeRail(){ rail.classList.remove('open'); backdrop.classList.remove('show'); pill.classList.remove('hidden'); }
+  pill.addEventListener('click',openRail);
+  if(closeBtn) closeBtn.addEventListener('click',closeRail);
+  if(backdrop) backdrop.addEventListener('click',closeRail);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeRail(); });
+  /* Theme switcher */
+  var seg=document.getElementById('themeSeg');
+  function applyTheme(mode){
+    document.documentElement.setAttribute('data-theme',mode);
+    try{ localStorage.setItem('lgfg-theme',mode); }catch(e){}
+    if(seg){
+      var btns=seg.querySelectorAll('button');
+      for(var i=0;i<btns.length;i++){ btns[i].classList.toggle('on',btns[i].getAttribute('data-t')===mode); }
+    }
+  }
+  var saved='system';
+  try{ saved=localStorage.getItem('lgfg-theme')||'system'; }catch(e){}
+  if(['system','light','dark'].indexOf(saved)<0) saved='system';
+  applyTheme(saved);
+  if(seg){
+    seg.addEventListener('click',function(e){
+      var b=e.target.closest('button[data-t]');
+      if(b) applyTheme(b.getAttribute('data-t'));
+    });
+  }
   // Jukebox button opens the jukebox view
   var jb=document.getElementById('railJukebox');
   if(jb){
@@ -226,7 +280,7 @@
   // Collapse rail after tapping a link on small screens
   links.forEach(function(a){
     a.addEventListener('click',function(){
-      if(window.innerWidth<760) rail.classList.remove('open');
+      closeRail();
     });
   });
 })();
