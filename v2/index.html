@@ -706,7 +706,10 @@
     ticking=false;
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+  if(v.readyState>=1){ duration=v.duration||0; }
   v.addEventListener('loadedmetadata',function(){ duration=v.duration||0; v.pause(); update(); });
+  /* In case metadata was already loaded, run once now */
+  if(duration) update();
   /* Continuously enforce paused state (some browsers resume playback) */
   setInterval(function(){ if(!v.paused) v.pause(); },500);
   window.addEventListener('scroll',onScroll,{passive:true});
