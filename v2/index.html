@@ -680,6 +680,8 @@
   setSrc();
   try{ window.matchMedia('(orientation: portrait)').addEventListener('change',setSrc); }catch(e){}
   v.pause();
+  /* Block any playback: this video is scroll-driven only */
+  v.addEventListener('play',function(){ v.pause(); });
   var duration=0, ticking=false;
   function update(){
     if(!duration||!section) { ticking=false; return; }
@@ -690,7 +692,7 @@
     ticking=false;
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
-  v.addEventListener('loadedmetadata',function(){ duration=v.duration||0; update(); });
+  v.addEventListener('loadedmetadata',function(){ duration=v.duration||0; v.pause(); update(); });
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll);
   update();
