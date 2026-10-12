@@ -698,6 +698,8 @@
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
   v.addEventListener('loadedmetadata',function(){ duration=v.duration||0; v.pause(); update(); });
+  /* Continuously enforce paused state (some browsers resume playback) */
+  setInterval(function(){ if(!v.paused) v.pause(); },500);
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll);
   update();
