@@ -186,9 +186,7 @@
     <span class="jukebox-disc" aria-hidden="true"></span><span>Take a seat, pick a tune</span>
   </button>
   <div class="jukebox-view" id="jukeboxView" role="dialog" aria-modal="true" aria-label="Shop jukebox">
-    <div class="jukebox-bg">
-      <img src="assets/jukebox/jukebox-poster.jpg" alt="Vintage jukebox glowing inside the barber shop">
-    </div>
+    <div class="jukebox-bg">       <video id="jukeboxBgVideo" autoplay muted loop playsinline preload="metadata" poster="assets/jukebox/jukebox-poster.jpg" aria-hidden="true">         <source media="(orientation: portrait)" src="assets/jukebox/jukebox-bg-916.mp4" type="video/mp4">         <source src="assets/jukebox/jukebox-bg-169.mp4" type="video/mp4">       </video>     </div>
     <div class="jukebox-top">
       <span class="jukebox-kicker">The shop jukebox</span>
       <button class="jukebox-back" id="jukeboxBack">Back to the shop</button>
@@ -429,6 +427,19 @@
       {file:'assets/jukebox/track-10.mp3',title:'Rhythmics',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'}
     ];
     var audio=new Audio(); audio.preload='none';
+    var jukeboxBgVideo=document.getElementById('jukeboxBgVideo');
+    function jukeboxBgSrc(){ return window.matchMedia("(orientation: portrait)").matches ? 'assets/jukebox/jukebox-bg-916.mp4' : 'assets/jukebox/jukebox-bg-169.mp4'; }
+    if(jukeboxBgVideo){
+      try{
+        window.matchMedia("(orientation: portrait)").addEventListener('change', function(){
+          var s=jukeboxBgSrc();
+          if(jukeboxBgVideo.currentSrc && jukeboxBgVideo.currentSrc.indexOf(s)===-1){
+            jukeboxBgVideo.src=s; jukeboxBgVideo.load();
+            var pr=jukeboxBgVideo.play(); if(pr&&pr.catch){pr.catch(function(){});}
+          }
+        });
+      }catch(e){}
+    }
     var teaser=document.getElementById('jukeboxTeaser'),
         view=document.getElementById('jukeboxView'),
         list=document.getElementById('jukeboxList'),
