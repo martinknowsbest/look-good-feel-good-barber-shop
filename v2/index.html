@@ -229,6 +229,25 @@
     .bk-note{min-height:22px;font-size:14px;color:#e8a95c;margin:4px 0 12px;line-height:1.5}
     .bk-actions{display:flex;gap:12px;flex-wrap:wrap}
     .bk-actions .btn{flex:1 1 200px;text-align:center;cursor:pointer}
+    /* Booking form: light theme (v6.1) */
+    [data-theme="light"] .booking{background:rgba(255,255,255,.55);border-color:rgba(11,11,10,.16)}
+    [data-theme="light"] .booking h3{color:#141310}
+    [data-theme="light"] .booking-sub{color:#4d4943}
+    [data-theme="light"] #book-form label{color:#6e695f}
+    [data-theme="light"] #book-form input,[data-theme="light"] #book-form select{color:#141310;background:#fffdf8;border-color:rgba(11,11,10,.28)}
+    [data-theme="light"] #book-form input::placeholder{color:#a09a8d}
+    [data-theme="light"] #book-form input:focus,[data-theme="light"] #book-form select:focus{border-color:#8f6a1f;box-shadow:0 0 0 2px rgba(143,106,31,.15)}
+    [data-theme="light"] .bk-note{color:#a85b12}
+    @media (prefers-color-scheme: light){
+      :root[data-theme="system"] .booking{background:rgba(255,255,255,.55);border-color:rgba(11,11,10,.16)}
+      :root[data-theme="system"] .booking h3{color:#141310}
+      :root[data-theme="system"] .booking-sub{color:#4d4943}
+      :root[data-theme="system"] #book-form label{color:#6e695f}
+      :root[data-theme="system"] #book-form input,:root[data-theme="system"] #book-form select{color:#141310;background:#fffdf8;border-color:rgba(11,11,10,.28)}
+      :root[data-theme="system"] #book-form input::placeholder{color:#a09a8d}
+      :root[data-theme="system"] #book-form input:focus,:root[data-theme="system"] #book-form select:focus{border-color:#8f6a1f;box-shadow:0 0 0 2px rgba(143,106,31,.15)}
+      :root[data-theme="system"] .bk-note{color:#a85b12}
+    }
   </style>
 </head>
 <body>
