@@ -215,6 +215,21 @@
       .product-art img{width:74% !important;height:auto !important;left:13% !important;right:auto !important;top:7% !important;bottom:auto !important}
     }
     </style>
+  <style>
+    /* Booking form (v6) */
+    .booking{margin-top:34px;padding:26px;border:1px solid rgba(212,175,55,.28);border-radius:16px;background:rgba(0,0,0,.28)}
+    .booking h3{font:400 clamp(24px,3vw,32px)/1 "Libre Caslon Display",serif;color:#f5efe4;margin:0 0 8px;letter-spacing:-.01em}
+    .booking-sub{color:#b9ac93;font-size:14px;line-height:1.65;margin:0 0 18px}
+    #book-form label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9a8f76;margin:0 0 14px}
+    #book-form input,#book-form select{display:block;width:100%;box-sizing:border-box;margin-top:7px;padding:12px 14px;font-size:16px;color:#f5efe4;background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.32);border-radius:10px;font-family:inherit}
+    #book-form select option{color:#111}
+    #book-form input:focus,#book-form select:focus{outline:none;border-color:#d4af37;box-shadow:0 0 0 2px rgba(212,175,55,.18)}
+    .bk-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:600px){.bk-row{grid-template-columns:1fr}}
+    .bk-note{min-height:22px;font-size:14px;color:#e8a95c;margin:4px 0 12px;line-height:1.5}
+    .bk-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .bk-actions .btn{flex:1 1 200px;text-align:center;cursor:pointer}
+  </style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -332,7 +347,29 @@
 
   <section class="reviews" aria-labelledby="reviews-title"><div class="reviews-inner"><div class="reviews-head"><div><div class="number-label">07 / From the chair</div><h2 id="reviews-title">Good word travels.</h2></div><div class="review-rating"><strong>4.8</strong><span>★★★★★<br>Google rating · 40 reviews</span></div></div><div class="review-grid"><article class="review featured reveal"><blockquote>“I always get compliments on my hair after getting it cut here, and Rich is nothing less than an artist when dealing with beards.”</blockquote><cite>Douglas Montgomery · customer review</cite></article><article class="review reveal"><blockquote>“Rich is a hair wizard! Best haircut I’ve ever had. Very personable and real.”</blockquote><cite>Evan Richard · customer review</cite></article><article class="review reveal"><blockquote>“Got a haircut and beard trim, looks great. Rich is a great guy and an awesome barber.”</blockquote><cite>J Collings · customer review</cite></article></div></div></section>
 
-  <section class="contact" id="visit"><div class="contact-inner"><div class="reveal"><div class="number-label">08 / Your turn</div><h2>Take the<br>chair.</h2><p class="contact-lead">Appointments are personal.<br>Call Rich to reserve yours.</p><a class="phone" href="tel:+13174800062">(317) 480-0062 →</a></div><div class="reveal"><div class="contact-details"><div><h3>Find the shop</h3><p>8451 Wabash Ave<br>Terre Haute, IN 47803</p><a class="directions" href="https://maps.google.com/?q=8451%20Wabash%20Ave%2C%20Terre%20Haute%2C%20IN%2047803" target="_blank" rel="noopener">Get directions ↗</a></div><div><h3>Shop hours</h3><div class="hours"><span>Monday</span><span>9:30 AM–6 PM</span><span>Tuesday</span><span>9:30 AM–6 PM</span><span>Wednesday</span><span>9 AM–5 PM</span><span>Thursday</span><span>9:30 AM–6 PM</span><span>Friday</span><span>9:30 AM–6 PM</span><span>Saturday–Sunday</span><span>Closed</span></div></div></div><div class="socials"><a href="https://www.instagram.com/lookgoodfeelgoodbarbershop" target="_blank" rel="noopener">Shop Instagram</a><a href="https://www.instagram.com/lookgoodfeelgoodrich" target="_blank" rel="noopener">Rich</a><a href="https://www.facebook.com/share/19BJCER9m6/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a><a href="https://yelp.to/aMOi0-0AoM" target="_blank" rel="noopener">Yelp</a></div><p class="sources">Business details and review excerpts: <a href="https://salondiscover.com/look-good-feel-good-the-gentlemens-barber-shop-47803/" target="_blank" rel="noopener">SalonDiscover</a> · <a href="https://wdc2015.wixsite.com/cutterjoes/about-us" target="_blank" rel="noopener">Cutter Joe’s</a></p></div></div><div class="footer-mark">Look Good Feel Good · The Gentlemen’s Barber Shop · Terre Haute</div></section>
+  <section class="contact" id="visit"><div class="contact-inner"><div class="reveal"><div class="number-label">08 / Your turn</div><h2>Take the<br>chair.</h2><p class="contact-lead">Appointments are personal.<br>Call Rich to reserve yours.</p><a class="phone" href="tel:+13174800062">(317) 480-0062 →</a>
+<div class="booking reveal">
+  <h3>Request an appointment</h3>
+  <p class="booking-sub">Pick a service, day and time. We will open WhatsApp or your text messages with everything already written, you just hit send.</p>
+  <form id="book-form" novalidate>
+    <div class="bk-row">
+      <label>Your name<input type="text" id="bk-name" autocomplete="name" placeholder="Jane Doe"></label>
+      <label>Your cell number<input type="tel" id="bk-phone" autocomplete="tel" placeholder="(812) 555-0123"></label>
+    </div>
+    <div class="bk-row">
+      <label>Service<select id="bk-service"><option>Precision haircut</option><option>Freehand beard sculpting</option><option>Hot towel shave</option></select></label>
+      <label>Day<input type="date" id="bk-date"></label>
+    </div>
+    <div class="bk-row">
+      <label>Time<select id="bk-time"><option value="">Pick a day first</option></select></label>
+    </div>
+    <p class="bk-note" id="bk-note" role="status"></p>
+    <div class="bk-actions">
+      <button type="button" class="btn primary" id="bk-whatsapp">Send via WhatsApp</button>
+      <button type="button" class="btn" id="bk-sms">Send via text message</button>
+    </div>
+  </form>
+</div></div><div class="reveal"><div class="contact-details"><div><h3>Find the shop</h3><p>8451 Wabash Ave<br>Terre Haute, IN 47803</p><a class="directions" href="https://maps.google.com/?q=8451%20Wabash%20Ave%2C%20Terre%20Haute%2C%20IN%2047803" target="_blank" rel="noopener">Get directions ↗</a></div><div><h3>Shop hours</h3><div class="hours"><span>Monday</span><span>9:30 AM–6 PM</span><span>Tuesday</span><span>9:30 AM–6 PM</span><span>Wednesday</span><span>9 AM–5 PM</span><span>Thursday</span><span>9:30 AM–6 PM</span><span>Friday</span><span>9:30 AM–6 PM</span><span>Saturday–Sunday</span><span>Closed</span></div></div></div><div class="socials"><a href="https://www.instagram.com/lookgoodfeelgoodbarbershop" target="_blank" rel="noopener">Shop Instagram</a><a href="https://www.instagram.com/lookgoodfeelgoodrich" target="_blank" rel="noopener">Rich</a><a href="https://www.facebook.com/share/19BJCER9m6/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a><a href="https://yelp.to/aMOi0-0AoM" target="_blank" rel="noopener">Yelp</a></div><p class="sources">Business details and review excerpts: <a href="https://salondiscover.com/look-good-feel-good-the-gentlemens-barber-shop-47803/" target="_blank" rel="noopener">SalonDiscover</a> · <a href="https://wdc2015.wixsite.com/cutterjoes/about-us" target="_blank" rel="noopener">Cutter Joe’s</a></p></div></div><div class="footer-mark">Look Good Feel Good · The Gentlemen’s Barber Shop · Terre Haute</div></section>
 </main>
 
   <button class="jukebox-teaser" id="jukeboxTeaser" aria-label="Open the jukebox">
@@ -732,5 +769,72 @@
   update();
 })();
 </script>
+<script>
+/* Booking form: builds a WhatsApp / SMS appointment request for Rich (v6) */
+(function(){
+  var RICH = '13174800062'; /* Rich's number, also used by tel: links */
+  /* Shop hours from Google (24h decimal). Index: 0=Sun..6=Sat */
+  var HOURS = {1:[9.5,18], 2:[9.5,18], 3:[9,17], 4:[9.5,16], 5:[9.5,18]};
+  var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var form = document.getElementById('book-form');
+  if(!form) return;
+  var nameEl = document.getElementById('bk-name'),
+      phoneEl = document.getElementById('bk-phone'),
+      serviceEl = document.getElementById('bk-service'),
+      dateEl = document.getElementById('bk-date'),
+      timeEl = document.getElementById('bk-time'),
+      noteEl = document.getElementById('bk-note');
+  /* No past dates */
+  var t = new Date();
+  dateEl.min = t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0');
+  function fmtTime(h){
+    var hh = Math.floor(h), ap = hh >= 12 ? 'PM' : 'AM', h12 = hh % 12 || 12;
+    return h12 + ':' + (h % 1 ? '30' : '00') + ' ' + ap;
+  }
+  dateEl.addEventListener('change', function(){
+    timeEl.innerHTML = ''; noteEl.textContent = '';
+    if(!dateEl.value) return;
+    var d = new Date(dateEl.value + 'T12:00:00'), dow = d.getDay();
+    if(!HOURS[dow]){
+      noteEl.textContent = 'The shop is closed on ' + DAYS[dow] + 's. Please pick a weekday.';
+      var o = document.createElement('option'); o.textContent = 'Closed that day'; timeEl.appendChild(o);
+      return;
+    }
+    var open = HOURS[dow][0], close = HOURS[dow][1];
+    for(var s = open; s <= close - 0.5; s += 0.5){
+      var opt = document.createElement('option');
+      opt.value = opt.textContent = fmtTime(s);
+      timeEl.appendChild(opt);
+    }
+  });
+  function buildMessage(){
+    var name = nameEl.value.trim(), phone = phoneEl.value.trim(),
+        service = serviceEl.value, dateVal = dateEl.value, timeVal = timeEl.value;
+    if(!name || !phone){
+      noteEl.textContent = 'Please add your name and cell number so Rich can confirm.';
+      return null;
+    }
+    if(!dateVal || !timeVal || timeVal.indexOf('Closed') === 0 || timeVal.indexOf('Pick') === 0){
+      noteEl.textContent = 'Please pick a day and time first.';
+      return null;
+    }
+    var d = new Date(dateVal + 'T12:00:00');
+    var dateStr = DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate();
+    noteEl.textContent = '';
+    return 'Hi Rich, I would like to book a ' + service + ' on ' + dateStr + ' at ' + timeVal +
+           '. My name is ' + name + ' and my number is ' + phone + '. Thanks!';
+  }
+  document.getElementById('bk-whatsapp').addEventListener('click', function(){
+    var msg = buildMessage();
+    if(msg) window.open('https://wa.me/' + RICH + '?text=' + encodeURIComponent(msg), '_blank');
+  });
+  document.getElementById('bk-sms').addEventListener('click', function(){
+    var msg = buildMessage();
+    if(msg) window.location.href = 'sms:+1' + RICH + '?&body=' + encodeURIComponent(msg);
+  });
+})();
+</script>
+
 </body>
 </html>
