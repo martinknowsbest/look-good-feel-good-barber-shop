@@ -175,7 +175,7 @@ button{font:inherit;color:inherit}
 .tape{position:absolute;top:-12px;left:50%;width:90px;height:24px;margin-left:-45px;background:color-mix(in srgb,var(--accent) 35%,#e9dcc4);opacity:.85;transform:rotate(-3deg)}
 
 /* ---------- walkthrough (pinned film) ---------- */
-.walk{position:relative;height:720vh;height:720svh;background:var(--film);color:var(--film-ink)}
+.walk{position:relative;height:1000vh;height:1000svh;background:var(--film);color:var(--film-ink)}
 .walk-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .walk-stage>img,.walk-stage>canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .walk-stage>canvas{opacity:0;transition:opacity .4s}
@@ -807,7 +807,7 @@ button{font:inherit;color:inherit}
     if(sy+vh>wTop&&sy<wTop+wH){
       if(!walkWanted){walkWanted=true;walkSeqs.forEach(enqueue)}
       var p=clamp((sy-wTop)/Math.max(1,wH-vh)),S=SCENES.length,x=p*S,sc=Math.min(S-1,Math.floor(x)),t=x-sc;
-      var T0=.84,frameT=clamp(t/T0),scene=sc,capeX=-130;
+      var T0=.62,frameT=clamp(t/T0),scene=sc,capeX=-130;
       if(sc<S-1&&t>T0){var ct=(t-T0)/(1-T0);capeX=-130+ease(ct)*260;if(ct>.5){scene=sc+1;frameT=0}}
       if(sc===S-1)frameT=clamp(t/.9);
       cape.style.transform='translate3d('+capeX.toFixed(2)+'%,0,0) skewX(-14deg)';
