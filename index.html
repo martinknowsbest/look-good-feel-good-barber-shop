@@ -1,859 +1,934 @@
 <!doctype html>
-<html lang="en" data-theme="system">
+<html lang="en" class="no-js t-dark" data-theme="system" data-mood="red">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="color-scheme" content="light dark">
-  <title>Look Good Feel Good | The Gentlemen's Barber Shop</title>
-  <meta name="description" content="A one-chair barber shop in Terre Haute, Indiana. Precision haircuts, freehand beard sculpting, and traditional hot towel shaves by Rich Beasley.">
-  <meta property="og:image" content="https://martinknowsbest.github.io/look-good-feel-good-barber-shop/assets/chair-hero-169.jpg">
-  <link rel="preload" as="image" href="assets/shop-photo-2.jpg" fetchpriority="high">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      color-scheme:light dark;
-      --ink:#0b0b0a;--ink-soft:#121210;--paper:#f3ede1;--paper-2:#e9dfd0;
-      --red:#bd3025;--red-deep:#8f211a;--gold:#dfb65c;--white:#f9f4ea;
-      --muted:#b8b0a4;--line:rgba(247,240,226,.22);--paper-line:rgba(11,11,10,.18)
-    }
-    @media(prefers-color-scheme:dark){:root{--ink:#090908;--ink-soft:#11110f;--paper:#eee7da;--paper-2:#e4dacb;--white:#fff9ed;--muted:#c1b8aa}}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--ink)}body{margin:0;background:var(--ink);color:var(--white);font-family:"DM Sans",sans-serif;overflow-x:hidden}a{color:inherit}img{display:block;max-width:100%}
-    .grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.038;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-    .menu-pill{position:fixed;left:14px;top:max(14px,env(safe-area-inset-top));z-index:70;width:48px;height:48px;border-radius:50%;background:rgba(11,11,10,.78);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);color:#f9f4ea;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.45);transition:transform .2s,opacity .2s}
-.menu-pill:hover{transform:scale(1.06)}
-.menu-pill svg{width:20px;height:20px}
-.menu-pill.hidden{opacity:0;pointer-events:none;transform:scale(.8)}
-.rail-backdrop{position:fixed;inset:0;z-index:68;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s}
-.rail-backdrop.show{opacity:1;pointer-events:auto}
-.rail{position:fixed;left:14px;top:max(14px,env(safe-area-inset-top));z-index:69;width:248px;max-height:calc(100vh - 100px);background:rgba(11,11,10,.88);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:14px 10px;box-shadow:0 24px 70px rgba(0,0,0,.55);transform:translateX(-120%);opacity:0;transition:transform .38s cubic-bezier(.32,.72,.28,1),opacity .3s;overflow-y:auto;scrollbar-width:none}
-.rail::-webkit-scrollbar{display:none}
-.rail.open{transform:translateX(0);opacity:1}
-.rail-head{display:flex;align-items:center;justify-content:space-between;padding:2px 10px 12px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px}
-.rail-head span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
-.rail-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.07);border:none;color:#f9f4ea;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.rail-theme{margin-top:10px;padding:12px 10px 4px;border-top:1px solid rgba(255,255,255,.08)}
-.rail-theme label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8a8073;display:block;margin-bottom:8px;padding:0 2px}
-.theme-seg{display:flex;background:rgba(255,255,255,.06);border-radius:12px;padding:3px;gap:2px}
-.theme-seg button{flex:1;padding:8px 4px;border-radius:9px;background:none;border:none;color:#8a8073;font-size:11px;letter-spacing:.04em;cursor:pointer;font-family:inherit;transition:background .2s,color .2s}
-.theme-seg button.on{background:rgba(223,182,92,.18);color:var(--gold)}
-.rail-toggle{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin:0 auto 6px;border-radius:12px;background:rgba(223,182,92,.12);border:1px solid rgba(223,182,92,.25);color:var(--gold);cursor:pointer;transition:transform .35s}
-.rail.open .rail-toggle svg{transform:rotate(180deg)}
-.rail-toggle svg{width:18px;height:18px;transition:transform .35s}
-.rail-nav{display:flex;flex-direction:column;gap:2px;padding:0 10px;max-height:62vh;overflow-y:auto;scrollbar-width:none}
-.rail-nav::-webkit-scrollbar{display:none}
-.rail-nav a,.rail-nav button.rail-jukebox{display:flex;align-items:center;gap:14px;height:44px;padding:0 12px;border-radius:12px;color:#b9b0a1;text-decoration:none;font-size:12px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;background:none;border:none;cursor:pointer;position:relative;transition:background .2s,color .2s;width:100%;text-align:left;font-family:inherit}
-.rail-nav a svg,.rail-nav button.rail-jukebox svg{width:20px;height:20px;flex:none}
-.rail-nav a span,.rail-nav button.rail-jukebox span{opacity:0;transition:opacity .25s;overflow:hidden}
-.rail.open .rail-nav a span,.rail.open .rail-nav button.rail-jukebox span{opacity:1}
-.rail-nav a:hover,.rail-nav button.rail-jukebox:hover{background:rgba(255,255,255,.06);color:#f9f4ea}
-.rail-nav a.active{color:var(--gold);background:rgba(223,182,92,.1)}
-.rail-nav a.active::before{content:"";position:absolute;left:-10px;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--gold);box-shadow:0 0 12px var(--gold)}
-.rail-jukebox{margin-top:6px;border-top:1px solid rgba(255,255,255,.08)!important;border-radius:0 0 12px 12px!important;padding-top:8px!important}
-@media(max-width:760px){.rail{left:10px;width:52px}.rail.open{width:200px}.rail-nav{max-height:56vh}}
-    .call-float{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;gap:10px;padding:10px 17px 10px 10px;border-radius:999px;background:var(--red);text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 12px 32px rgba(0,0,0,.28)}.call-float i{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.16);font-style:normal;font-size:17px}
-    .hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;isolation:isolate;background:#080807}.hero-bg{position:absolute;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:saturate(.95) contrast(1.05) brightness(.85);transform:scale(1.015)}.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(5,5,4,.45) 0%,rgba(5,5,4,.22) 52%,rgba(5,5,4,.08) 76%),linear-gradient(0deg,rgba(4,4,3,.55),transparent 60%)}.hero-inner{width:min(1180px,calc(100% - 96px));margin:0 auto;padding:80px 0}.eyebrow{display:flex;align-items:center;gap:14px;text-transform:uppercase;letter-spacing:.25em;font:500 11px/1.4 "DM Sans"}.eyebrow::before{content:"";width:38px;height:1px;background:currentColor}.hero h1{margin:12px 0 23px;font:400 clamp(74px,9vw,136px)/.72 "DM Sans",sans-serif;letter-spacing:-.065em}.hero h1 span{display:block}.hero h1 em{font:400 italic .57em/1 "Libre Caslon Display",serif;color:var(--gold);letter-spacing:-.02em}.hero-copy{max-width:570px;font-size:17px;line-height:1.62;color:#eee7dd}.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}.btn{min-height:48px;display:inline-flex;align-items:center;padding:0 20px;border:1px solid rgba(255,255,255,.55);text-decoration:none;text-transform:uppercase;letter-spacing:.1em;font-size:10px;font-weight:600}.btn.primary{background:var(--paper);color:var(--ink);border-color:var(--paper)}.rating{position:absolute;right:10.5%;top:52%;width:124px;height:124px;border:1px solid rgba(255,255,255,.5);border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;transform:rotate(7deg);text-transform:uppercase;letter-spacing:.13em;font:600 8px/1.55 "Libre Caslon Display",serif}.rating strong{font:400 23px/1 "Libre Caslon Display",serif;color:var(--gold);letter-spacing:0}.ticker{height:48px;display:flex;align-items:center;overflow:hidden;background:var(--red);color:#fff}.ticker-track{display:flex;align-items:center;gap:38px;width:max-content;white-space:nowrap;animation:ticker 28s linear infinite;text-transform:uppercase;letter-spacing:.13em;font-size:9px}.ticker i{font-style:normal;color:var(--gold)}@keyframes ticker{to{transform:translateX(-50%)}}
-    .intro{background:var(--paper);color:var(--ink);padding:clamp(85px,10vw,145px) max(24px,8vw)}.intro-inner{width:min(1100px,100%);margin:auto;display:grid;grid-template-columns:.7fr 1.3fr;gap:8vw}.number-label{color:var(--red);font:600 9px "DM Sans";letter-spacing:.16em;text-transform:uppercase;padding-top:12px}.intro h2,.reviews h2,.contact h2{font:400 clamp(48px,6.1vw,90px)/.86 "Libre Caslon Display",serif;letter-spacing:-.04em;margin:0}.intro h2 em{display:block;color:var(--red);font-style:normal}.intro-copy p{max-width:650px;line-height:1.75;color:#4d4943}.stats{display:flex;gap:58px;margin-top:34px}.stats strong{display:block;font:400 23px "Libre Caslon Display",serif}.stats span{display:block;margin-top:5px;text-transform:uppercase;letter-spacing:.12em;font-size:8px;color:#777067}
-    .service{position:relative;min-height:960px;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:110px max(24px,8vw);overflow:hidden;background:radial-gradient(circle at 52% 35%,#161614 0,var(--ink) 54%)}.service-copy{max-width:560px;position:relative;z-index:2}.service.right .service-copy{grid-column:2}.service-no{font:400 clamp(42px,4vw,63px)/1 "Libre Caslon Display",serif;color:#333330}.service h3{font:400 clamp(59px,6vw,88px)/.94 "Libre Caslon Display",serif;margin:-6px 0 18px;letter-spacing:-.04em}.service p{max-width:520px;color:#d1c9bc;line-height:1.7;font-size:15px}.tags{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;padding-top:15px;border-top:1px solid var(--line);text-transform:uppercase;letter-spacing:.11em;font-size:8px}.photo-card{position:absolute;width:300px;max-width:30vw;padding:8px;background:var(--paper);color:var(--ink);box-shadow:0 22px 60px rgba(0,0,0,.36);transform:rotate(2deg)}.photo-card img{width:100%;height:410px;object-fit:cover}.photo-card figcaption{display:flex;justify-content:space-between;gap:15px;padding:9px 2px 1px;text-transform:uppercase;letter-spacing:.12em;font-size:7px}.service.left .photo-card{right:9vw;bottom:80px}.service.right .photo-card{left:10vw;top:120px;transform:rotate(-2deg)}.service.shave .photo-card{right:10vw;top:160px;bottom:auto;transform:rotate(1deg)}
-    .finish{position:relative;min-height:240svh;background:#090908;isolation:isolate}.finish-stage{position:absolute;top:0;left:0;width:100%;height:100svh;overflow:hidden;isolation:isolate;background:#090908}.finish-stage.is-pinned{position:fixed;top:0;bottom:auto}.finish-stage.is-ended{top:auto;bottom:0}.finish-photo,.finish-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 43%;filter:saturate(.78) brightness(.77) contrast(1.05)}.finish-canvas{z-index:0;opacity:0;transition:opacity .16s linear}.finish-canvas.ready{opacity:1}.finish-stage::after{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,rgba(7,7,6,.78),transparent 64%),linear-gradient(0deg,#090908 3%,transparent 45%)}.finish-copy{position:absolute;z-index:2;left:max(24px,7vw);top:190px;max-width:510px}.finish .section-kicker{font:600 10px "DM Sans";letter-spacing:.17em;text-transform:uppercase}.finish h2{font:400 clamp(68px,8.5vw,124px)/.7 "DM Sans",sans-serif;letter-spacing:-.075em;margin:18px 0 25px}.finish h2 span{display:block}.finish h2 em{display:block;color:var(--gold);font:400 italic .63em/1 "Libre Caslon Display",serif;letter-spacing:-.03em}.finish p{max-width:400px;color:#eee5d6;font-size:16px}
-    .products{min-height:900px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;padding:110px max(24px,8vw);background:radial-gradient(circle at 32% 55%,#181714 0,#090908 58%);overflow:hidden}.product-art{position:relative;height:630px}.product-art img{position:absolute;top:7%;left:6%;height:80%;width:auto;filter:saturate(.7) contrast(1.05);border-radius:44px}
-    .products{position:relative;overflow:hidden}
-    .joe-holo-bg{position:absolute;inset:0;width:100%;height:100%;opacity:.65;filter:saturate(1.2);pointer-events:none;z-index:0}
-    .product-art,.product-copy{position:relative;z-index:1}
-    .product-art img{opacity:.92;border-radius:44px}
-    .product-copy{background:rgba(9,9,8,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:16px;padding:28px}.product-copy{max-width:520px}.product-copy .service-no{color:#373733}.product-copy h3{font:400 clamp(59px,6vw,88px)/.82 "Libre Caslon Display",serif;margin:-8px 0 23px;letter-spacing:-.045em}.product-copy p{color:#cbc2b5;line-height:1.7}.product-copy .tags{color:#efe6d8}
-    .reviews{background:var(--paper);color:var(--ink);padding:110px max(24px,7vw)}.reviews-inner{width:min(1240px,100%);margin:auto}.reviews-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:54px}.review-rating{text-align:right}.review-rating strong{display:block;font:400 29px "Libre Caslon Display",serif}.review-rating span{font-size:9px;text-transform:uppercase;letter-spacing:.1em}.review-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:40px}.review{border-top:1px solid var(--paper-line);padding-top:22px}.review.featured{background:var(--ink-soft);color:var(--white);border:0;padding:28px}.review blockquote{margin:0;font:400 18px/1.45 "Libre Caslon Display",serif}.review cite{display:block;margin-top:27px;text-transform:uppercase;letter-spacing:.12em;font:500 8px "DM Sans";font-style:normal;color:#756e65}.review.featured cite{color:#bdb4a7}
-    .contact{background:var(--ink-soft);padding:110px max(24px,7vw) 72px}.contact-inner{width:min(1240px,100%);margin:auto;display:grid;grid-template-columns:1fr 1.2fr;gap:10vw}.contact h2{font-size:clamp(58px,7vw,102px)}.contact-lead{font:400 clamp(24px,2.2vw,35px)/1.18 "Libre Caslon Display",serif;max-width:360px;margin:28px 0}.phone{display:inline-block;color:var(--gold);font:400 clamp(22px,2.3vw,34px) "Libre Caslon Display",serif;text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:6px}.contact-details{display:grid;grid-template-columns:1fr 1fr;gap:54px;border-top:1px solid var(--line);padding-top:28px}.contact-details h3{font:500 10px "DM Sans";text-transform:uppercase;letter-spacing:.17em;color:var(--gold)}.contact-details p,.hours{color:#d5cdbf;font-size:13px;line-height:1.8}.directions{display:inline-block;margin-top:12px;font-size:9px;text-transform:uppercase;letter-spacing:.12em}.hours{display:grid;grid-template-columns:1fr auto;gap:3px 30px}.socials{display:flex;flex-wrap:wrap;gap:18px;margin-top:60px;padding-top:24px;border-top:1px solid var(--line)}.socials a{font-size:9px;text-decoration:none;text-transform:uppercase;letter-spacing:.12em}.sources{margin-top:26px;color:#6e695f;font-size:8px}.sources a{color:#999184}.footer-mark{margin-top:70px;color:#5f5a53;text-transform:uppercase;letter-spacing:.17em;font-size:8px}
-    .service-v2{background:radial-gradient(circle at 50% 25%,#151412 0,var(--ink) 62%)}
-    .service-v2{position:relative;height:220vh;background:#080807;margin:0}
-    .seq-hero{position:sticky;top:0;width:100%;height:100svh;overflow:hidden}
-    .seq-hero canvas{position:absolute;inset:0;width:100%;height:100%}
-    .service-copy-v2{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:0 max(24px,8vw) 90px;background:linear-gradient(transparent 30%,rgba(5,5,4,.82));pointer-events:none}
-    .service-copy-v2 .service-no{font:400 clamp(42px,4vw,63px)/1 "Libre Caslon Display",serif;color:var(--gold)}
-    .service-copy-v2 h3{font:400 clamp(48px,6vw,84px)/.9 "Libre Caslon Display",serif;letter-spacing:-.03em;margin:12px 0 16px;color:var(--paper)}
-    .service-copy-v2 h3 em{color:var(--gold);font-style:italic}
-    .service-copy-v2 p{max-width:520px;color:#d8cfc0;line-height:1.7;font-size:15px}
-    .service-copy-v2 .tags{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px;text-transform:uppercase;letter-spacing:.11em;font-size:8px;color:#efe6d8}
-    /* full screen, no aspect-ratio constraint */
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Look Good Feel Good | The Gentlemen's Barber Shop | Terre Haute, IN</title>
+<meta name="description" content="Take a seat in Rich Beasley's one-chair gentlemen's barber shop at 8451 Wabash Ave, Terre Haute, Indiana. Precision haircuts, freehand beard sculpting and hot towel shaves, by appointment.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0e0b09">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Look Good Feel Good | Take a seat.">
+<meta property="og:description" content="A one-chair gentlemen's barber shop in Terre Haute, Indiana. Precision haircuts, freehand beard sculpting and hot towel shaves by Rich Beasley.">
+<meta property="og:image" content="https://martinknowsbest.github.io/look-good-feel-good-barber-shop/media/img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@1&display=swap">
+<link rel="preload" as="image" href="media/hero/d/01.webp" media="(min-aspect-ratio: 1/1) and (min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" href="media/hero/m/01.webp" media="(max-aspect-ratio: 1/1), (max-width: 767px)" fetchpriority="high">
+<script>
+(function(){var d=document.documentElement;d.classList.remove('no-js');d.classList.add('js');
+var t='system',m='red';try{t=localStorage.getItem('lgfg-theme')||'system';m=localStorage.getItem('lgfg-mood')||'red'}catch(e){}
+if(['system','light','dark'].indexOf(t)<0)t='system';
+if(['red','brass','blue','sunday','green','linen'].indexOf(m)<0)m='red';
+var eff=t==='system'?((window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark'):t;
+d.setAttribute('data-theme',t);d.setAttribute('data-mood',m);d.classList.remove('t-dark','t-light');d.classList.add('t-'+eff);
+var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var sd=navigator.connection&&navigator.connection.saveData;
+if(rm||sd)d.classList.add('still');})();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BarberShop","name":"Look Good Feel Good The Gentlemen's Barber Shop","telephone":"+1-317-480-0062","address":{"@type":"PostalAddress","streetAddress":"8451 Wabash Ave","addressLocality":"Terre Haute","addressRegion":"IN","postalCode":"47803","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":39.489603,"longitude":-87.286932},"founder":{"@type":"Person","name":"Rich Beasley"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Friday"],"opens":"09:30","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Wednesday","opens":"09:00","closes":"17:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Thursday","opens":"09:30","closes":"16:00"}],"sameAs":["https://www.instagram.com/lookgoodfeelgoodbarbershop","https://www.facebook.com/share/19BJCER9m6/?mibextid=wwXIfr"]}
+</script>
+<style>
+@property --accent{syntax:'<color>';inherits:true;initial-value:#e05a4c}
+/* ---------- tokens ---------- */
+:root{
+  --serif:"Libre Caslon Display",Georgia,"Times New Roman",serif;
+  --ital:"Libre Caslon Text",Georgia,serif;
+  --sans:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --pad:clamp(20px,5.2vw,72px);
+  --maxw:1220px;
+  --hdr:68px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --acc-d:#e05a4c;--acc-l:#a3291f;
+  --film:#0b0907;--film-ink:#f6eee2;
+}
+[data-mood="red"]{--acc-d:#e05a4c;--acc-l:#a3291f}
+[data-mood="brass"]{--acc-d:#dcae55;--acc-l:#87600f}
+[data-mood="blue"]{--acc-d:#7aa6ea;--acc-l:#2a4d8c}
+[data-mood="sunday"]{--acc-d:#79b8d6;--acc-l:#2b6582}
+[data-mood="green"]{--acc-d:#74c495;--acc-l:#2c6844}
+[data-mood="linen"]{--acc-d:#df9a5e;--acc-l:#94501b}
+:root,.t-dark{
+  --bg:#0e0b09;--bg-2:#161210;--surface:#1d1814;--surface-2:#262019;
+  --ink:#f3eadb;--ink-2:#d2c6b4;--muted:#a39684;--line:rgba(243,234,219,.14);--line-2:rgba(243,234,219,.26);
+  --brass:#cfa860;--accent:var(--acc-d);--on-accent:#140c09;--shadow:0 30px 80px rgba(0,0,0,.55);
+  --paper-tex:.05;
+}
+.t-light{
+  --bg:#f4ede1;--bg-2:#ebe2d2;--surface:#fffaf1;--surface-2:#f7efe2;
+  --ink:#1b1511;--ink-2:#4a4037;--muted:#6c6052;--line:rgba(27,21,17,.13);--line-2:rgba(27,21,17,.26);
+  --brass:#87600f;--accent:var(--acc-l);--on-accent:#fff;--shadow:0 26px 60px rgba(60,40,20,.18);
+  --paper-tex:.07;
+}
+@media (prefers-color-scheme:light){html.no-js{
+  --bg:#f4ede1;--bg-2:#ebe2d2;--surface:#fffaf1;--surface-2:#f7efe2;
+  --ink:#1b1511;--ink-2:#4a4037;--muted:#6c6052;--line:rgba(27,21,17,.13);--line-2:rgba(27,21,17,.26);
+  --brass:#87600f;--accent:var(--acc-l);--on-accent:#fff;--shadow:0 26px 60px rgba(60,40,20,.18)}}
+html{transition:--accent .9s var(--ease)}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg);scroll-padding-top:var(--hdr)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .7s var(--ease),color .7s var(--ease)}
+img,canvas{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-64px;z-index:300;background:var(--accent);color:var(--on-accent);padding:10px 16px;border-radius:999px;font-weight:700;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+.wrap{width:min(var(--maxw),100%);margin:0 auto;padding:0 var(--pad)}
+.kick{display:inline-flex;align-items:center;gap:12px;font:600 .72rem/1.3 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.kick::before{content:"";width:28px;height:1px;background:currentColor}
+.h2{font:400 clamp(2.6rem,6.4vw,5.6rem)/.92 var(--serif);letter-spacing:-.03em;margin:.35em 0 .4em}
+.h2 em{font-family:var(--ital);font-style:italic;color:var(--accent);letter-spacing:-.02em}
+.lead{font-size:clamp(1.02rem,1.3vw,1.18rem);color:var(--ink-2);max-width:36em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;border:1px solid var(--line-2);background:transparent;text-decoration:none;font:700 .78rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:transform .25s var(--ease),background-color .3s,border-color .3s,color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn--acc{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn svg{width:18px;height:18px}
+.grain{position:fixed;inset:0;z-index:250;pointer-events:none;opacity:var(--paper-tex);mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.mood-flash{position:fixed;inset:0;z-index:240;pointer-events:none;opacity:0;background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--accent) 55%,transparent),transparent 70%)}
+.mood-flash.go{animation:flash 1.1s var(--ease)}
+@keyframes flash{0%{opacity:0}25%{opacity:.55}100%{opacity:0}}
 
-    @media (orientation: portrait){
-      .seq-hero .seq-img{aspect-ratio:9/16;max-height:85vh;object-fit:cover}
-      /* seq-hero full width on mobile */
-    }
-    .service-copy-v2{max-width:620px;margin:0 auto;text-align:center}
-    .service-copy-v2 .service-no{font:400 44px "Libre Caslon Display",serif;color:#3a3835}
-    .service-copy-v2 h3{font:400 clamp(44px,6vw,68px)/.95 "Libre Caslon Display",serif;margin:0 0 16px;letter-spacing:-.03em}
-    .service-copy-v2 h3 em{color:var(--gold);font-style:normal}
-    .service-copy-v2 p{color:#d1c9bc;line-height:1.7;font-size:15px}
-    .service-copy-v2 .tags{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:14px;border-top:1px solid var(--line);text-transform:uppercase;letter-spacing:.11em;font-size:8px;justify-content:center}
-    .eye-v2{background:#0a0908}
-    .reveal{opacity:1;transform:translateY(24px);transition:transform .75s ease}.reveal.in{transform:none}
-    .walkthrough{position:relative;height:180vh;background:#080807;margin:0;padding:0}
-    .walkthrough-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:flex-end}
-    .walkthrough-stage canvas{position:absolute;inset:0;width:100%;height:100%}
-    .seq-hero canvas.seq-v2canvas{opacity:0;transition:opacity .18s linear}
-    .seq-hero canvas.seq-v2canvas.ready{opacity:1}
-    .walkthrough-stage img.walkthrough-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-    .walkthrough-stage canvas.seq-canvas{opacity:0;transition:opacity .18s linear}
-    .walkthrough-stage canvas.seq-canvas.ready{opacity:1}
-    .walkthrough-copy{position:relative;z-index:2;padding:4rem max(24px,8vw);background:linear-gradient(transparent,rgba(5,5,4,.72) 55%)}
-    .walkthrough-copy h2{font:400 clamp(48px,6vw,84px)/.9 "Libre Caslon Display",serif;letter-spacing:-.03em;margin:12px 0 16px}
-    .walkthrough-copy h2 em{color:var(--gold);font-style:normal}
-    .walkthrough-copy p{max-width:520px;color:#d8cfc0;line-height:1.7;font-size:15px}
-    
-    .photo-card .seq-canvas{height:410px;aspect-ratio:auto}
-    .eye{background:#0b0a08;padding:110px max(24px,8vw)}
-    .eye-inner{width:min(1100px,100%);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
-    .eye .seq-canvas{border-radius:4px}
-    .eye-copy .service-no{color:#373733}
-    .eye-copy h3{font:400 clamp(48px,5vw,76px)/.9 "Libre Caslon Display",serif;margin:0 0 18px;letter-spacing:-.03em}
-    .eye-copy h3 em{color:var(--gold);font-style:normal}
-    .eye-copy p{color:#cbc2b5;line-height:1.75;max-width:460px}
-    @media(max-width:760px){.eye-inner{grid-template-columns:1fr}.photo-card .seq-canvas{height:220px}}
-    @media(max-width:760px){.side-nav-unused{display:none}.call-float{width:58px;height:58px;padding:0;justify-content:center}.call-float i{width:42px;height:42px}.call-float span{display:none}.hero{min-height:1000px;align-items:flex-start}.hero-bg{object-position:49% center;filter:saturate(.78) contrast(1.08) brightness(.63)}.hero::before{background:linear-gradient(0deg,rgba(5,5,4,.89),rgba(5,5,4,.08) 72%),linear-gradient(90deg,rgba(5,5,4,.25),transparent)}.hero-inner{width:calc(100% - 44px);padding:190px 0 90px}.eyebrow{font-size:9px;line-height:1.6;align-items:flex-start}.hero h1{font-size:clamp(77px,24vw,102px);line-height:.69;margin-top:24px}.hero h1 em{font-size:.59em}.hero-copy{font-size:16px;line-height:1.62;margin-top:34px}.actions{display:grid}.btn{width:max-content;min-height:54px;padding:0 22px;font-size:10px}.rating{display:flex;width:82px;height:82px;right:22px;top:auto;bottom:80px;font-size:6px}.rating strong{font-size:16px}.ticker{height:42px}.intro{padding:78px 23px}.intro-inner{grid-template-columns:1fr}.intro h2{font-size:52px}.stats{gap:24px;justify-content:space-between}.service{min-height:820px;display:block;padding:85px 23px}.service.right .service-copy{margin-left:0}.service h3{font-size:60px}.service p{font-size:14px}.photo-card{position:absolute;width:174px;max-width:none;padding:6px}.photo-card img{height:220px}.service.left .photo-card{right:22px;bottom:45px}.service.right .photo-card{left:23px;top:auto;bottom:48px}.service.shave .photo-card{right:22px;left:auto;top:auto;bottom:48px}.finish{min-height:220svh}.finish-photo{height:100%;object-position:58% center}.finish-copy{top:auto;bottom:88px;left:23px;right:23px}.finish h2{font-size:71px}.products{grid-template-columns:1fr;min-height:auto;padding:80px 23px}.product-art{height:390px;order:2}.product-art img{width:100%;height:auto;inset:0 0 auto 0}.product-copy{order:1}.product-copy h3{font-size:61px}.reviews{padding:80px 23px}.reviews-head{grid-template-columns:1fr}.review-rating{text-align:left}.review-grid{grid-template-columns:1fr}.contact{padding:82px 23px 50px}.contact-inner{grid-template-columns:1fr}.contact-details{grid-template-columns:1fr}.socials{gap:15px}.sources{line-height:1.7}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation:none}.reveal{opacity:1;transform:none;transition:none}.finish{min-height:100svh}.finish-stage{position:relative}}
+/* ---------- header ---------- */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:200;height:calc(var(--hdr) + env(safe-area-inset-top));padding:env(safe-area-inset-top) var(--pad) 0;display:flex;align-items:center;gap:16px;color:var(--film-ink);transition:background-color .4s,color .4s,box-shadow .4s,border-color .4s;border-bottom:1px solid transparent}
+.hdr.solid{background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);color:var(--ink);border-bottom-color:var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none;min-width:0}
+.logo-pole{width:14px;height:34px;border-radius:8px;flex:none;background:repeating-linear-gradient(-35deg,var(--accent) 0 6px,#f6eee2 6px 12px,#2a4d8c 12px 15px,#f6eee2 15px 21px);box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.25),0 0 14px color-mix(in srgb,var(--accent) 45%,transparent);background-size:100% 42px;animation:pole 3.5s linear infinite}
+@keyframes pole{to{background-position:0 42px}}
+.logo-txt{display:flex;flex-direction:column;line-height:1}
+.logo-txt b{font:700 .66rem/1 var(--sans);letter-spacing:.3em;text-transform:uppercase}
+.logo-txt i{font:italic 1.18rem/1.05 var(--ital);letter-spacing:-.01em;margin-top:3px;white-space:nowrap}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{padding:10px 12px;border-radius:999px;text-decoration:none;font:600 .72rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.86;transition:opacity .2s,background-color .2s}
+.nav a:hover,.nav a.on{opacity:1;background:color-mix(in srgb,currentColor 10%,transparent)}
+.seg{display:inline-flex;padding:3px;border-radius:999px;border:1px solid color-mix(in srgb,currentColor 22%,transparent);gap:2px}
+.seg button{width:34px;height:34px;border-radius:999px;border:0;background:none;cursor:pointer;display:grid;place-items:center;opacity:.7;transition:background-color .2s,opacity .2s}
+.seg button svg{width:16px;height:16px}
+.seg button[aria-pressed="true"]{opacity:1;background:color-mix(in srgb,var(--accent) 26%,transparent)}
+.hdr-book{min-height:42px;padding:0 18px}
+.hdr-call,.hdr-menu{display:none;width:44px;height:44px;border-radius:999px;border:1px solid color-mix(in srgb,currentColor 24%,transparent);background:none;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;flex:none}
+.hdr-call svg,.hdr-menu svg{width:19px;height:19px}
+.sheet{position:fixed;inset:0;z-index:210;visibility:hidden;pointer-events:none}
+.sheet.open{visibility:visible;pointer-events:auto}
+.sheet-bg{position:absolute;inset:0;background:rgba(5,4,3,.55);opacity:0;transition:opacity .35s}
+.sheet.open .sheet-bg{opacity:1}
+.sheet-panel{position:absolute;left:10px;right:10px;top:calc(10px + env(safe-area-inset-top));max-height:calc(100svh - 20px - env(safe-area-inset-top));overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:24px;padding:16px 18px 20px;box-shadow:var(--shadow);transform:translateY(-16px) scale(.98);opacity:0;transition:transform .4s var(--ease),opacity .3s}
+.sheet.open .sheet-panel{transform:none;opacity:1}
+.sheet-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.sheet-x{width:44px;height:44px;border-radius:999px;border:1px solid var(--line-2);background:none;font-size:22px;line-height:1;cursor:pointer}
+.sheet nav a{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;border-bottom:1px solid var(--line);text-decoration:none;font:400 1.6rem/1 var(--serif)}
+.sheet nav a span{font:600 .68rem/1 var(--sans);letter-spacing:.2em;color:var(--muted)}
+.sheet-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 16px;font:600 .72rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.sheet-row .seg{color:var(--ink)}
+.sheet-ctas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:1180px){.nav{display:none}.hdr-seg{display:none}.hdr-menu{display:inline-flex}.hdr-call{display:inline-flex}.hdr-book{margin-left:auto}}
+@media (max-width:420px){.logo-txt b{font-size:.6rem;letter-spacing:.24em}.logo-txt i{font-size:1.05rem}.hdr{gap:8px}.hdr-book{padding:0 14px;min-height:40px;font-size:.7rem;letter-spacing:.1em}.hdr-call,.hdr-menu{width:40px;height:40px}}
+@media (max-width:340px){.logo-pole{display:none}}
 
-    /* ---- Jukebox (v3) ---- */
-    .jukebox-teaser{position:fixed;left:max(18px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;gap:10px;padding:9px 16px 9px 9px;border-radius:999px;background:rgba(10,9,8,.82);border:1px solid rgba(223,182,92,.35);color:#f9f4ea;font:500 10px/1.4 "DM Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
-    .jukebox-teaser.show{opacity:1;transform:none}
-    .jukebox-disc{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,#dfb65c 0 18%,#141310 19% 38%,#2a2723 39% 40%,#141310 41%);border:1px solid rgba(223,182,92,.5);flex:none}
-    .jukebox-teaser.playing .jukebox-disc{animation:jukespin 2.4s linear infinite}
-    @keyframes jukespin{to{transform:rotate(360deg)}}
-    .jukebox-view{position:fixed;inset:0;z-index:100;background:#080807;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .45s ease;overflow:hidden}
-    .jukebox-view.open{opacity:1;pointer-events:auto}
-    .jukebox-bg{position:absolute;inset:0;overflow:hidden}
-    .jukebox-bg img,.jukebox-bg video{width:100%;height:100%;object-fit:cover;filter:saturate(.9) brightness(.62)}
-    .jukebox-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,5,4,.93) 6%,rgba(5,5,4,.42) 55%,rgba(5,5,4,.74))}
-    .jukebox-top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:max(20px,env(safe-area-inset-top)) max(24px,7vw) 0}
-    .jukebox-kicker{font:600 9px "DM Sans",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-    .jukebox-back{background:none;border:1px solid rgba(255,255,255,.4);color:#f9f4ea;border-radius:999px;padding:10px 18px;font:600 10px "DM Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
-    .jukebox-title{position:relative;z-index:2;text-align:center;margin:auto 0 6px;padding:0 24px}
-    .jukebox-title h2{font:400 clamp(44px,7vw,84px)/.95 "Libre Caslon Display",serif;color:#f9f4ea;margin:10px 0 8px;letter-spacing:-.02em}
-    .jukebox-title h2 em{color:var(--gold);font-style:italic}
-    .jukebox-title p{color:#d8cfc0;font-size:13px;letter-spacing:.05em;margin:0}
-    .jukebox-list{position:relative;z-index:2;list-style:none;margin:16px auto 0;padding:0 24px;width:min(560px,100%);max-height:36vh;overflow-y:auto;display:grid;gap:8px}
-    .jukebox-track{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 16px;color:#f9f4ea;cursor:pointer;transition:background .2s,border-color .2s;font-family:"DM Sans",sans-serif}
-    .jukebox-track:hover{background:rgba(255,255,255,.1)}
-    .jukebox-track.active{border-color:var(--gold);background:rgba(223,182,92,.12)}
-    .jukebox-track .n{font:400 20px "Libre Caslon Display",serif;color:var(--gold);width:28px;flex:none}
-    .jukebox-track .t{flex:1;min-width:0}
-    .jukebox-track .t strong{display:block;font-size:13px;font-weight:600;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .jukebox-track .t span{font-size:10px;color:#b8b0a4;letter-spacing:.08em;text-transform:uppercase}
-    .jukebox-track .d{font-size:11px;color:#b8b0a4;font-variant-numeric:tabular-nums;flex:none}
-    .jukebox-track .eq{display:none;align-items:flex-end;gap:2px;height:16px;flex:none}
-    .jukebox-track.active .eq{display:flex}
-    .jukebox-track .eq i{width:3px;background:var(--gold);animation:juke-eq 1s ease-in-out infinite}
-    .jukebox-track .eq i:nth-child(2){animation-delay:.2s}
-    .jukebox-track .eq i:nth-child(3){animation-delay:.35s}
-    @keyframes juke-eq{0%,100%{height:5px}50%{height:16px}}
-    .jukebox-credits{position:relative;z-index:2;text-align:center;padding:14px 24px max(20px,env(safe-area-inset-bottom));color:#777067;font-size:9px;letter-spacing:.1em;text-transform:uppercase;line-height:1.9;margin:0}
-    
-    .vinyl{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,#dfb65c 0 18%,#141310 19% 38%,#2a2723 39% 40%,#141310 41%);border:1px solid rgba(223,182,92,.5);flex:none;display:block}
-    .vinyl.spinning{animation:jukespin 2.4s linear infinite}
-    .vinyl-btn{background:none;border:none;padding:0;cursor:pointer;flex:none;display:flex;align-items:center}
-    .mini-eq{display:flex;align-items:flex-end;gap:2px;height:16px;flex:none}
-    .mini-eq i{width:3px;background:var(--gold);height:5px}
-    .mini-eq.playing i{animation:juke-eq 1s ease-in-out infinite}
-    .mini-eq.playing i:nth-child(2){animation-delay:.2s}
-    .mini-eq.playing i:nth-child(3){animation-delay:.45s}
-    .mini-eq.playing i:nth-child(4){animation-delay:.1s}
-    .hidex{width:28px;height:28px;font-size:18px;line-height:1;color:#8a8073;background:none;border:none;cursor:pointer;flex:none;padding:0}
-    .hidex:hover{color:#f9f4ea}
-    .jukebox-fab{position:fixed;right:18px;bottom:calc(max(18px,env(safe-area-inset-bottom)) + 72px);z-index:99;width:54px;height:54px;border-radius:50%;background:rgba(10,10,9,.88);border:1px solid rgba(223,182,92,.45);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)}
-    .jukebox-fab.show{display:flex}
-    .jukebox-fab .vinyl{width:36px;height:36px}
-    .jukebox-mini.hidden{display:none}
-    .jukebox-mini{position:fixed;left:50%;transform:translateX(-50%) translateY(12px);bottom:max(18px,env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;gap:10px;padding:8px;border-radius:999px;background:rgba(10,9,8,.86);border:1px solid rgba(223,182,92,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease}
-    .jukebox-mini.show{opacity:1;pointer-events:auto;transform:translateX(-50%)}
-    .jukebox-mini button{border:0;background:none;cursor:pointer;color:#f9f4ea;display:grid;place-items:center;font-family:"DM Sans",sans-serif}
-    .jukebox-mini .pp{width:34px;height:34px;border-radius:50%;background:var(--gold);color:#141310;font-size:12px;font-weight:700}
-    .jukebox-mini .nm{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#f9f4ea;max-width:38vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .jukebox-mini .openj{width:30px;height:30px;font-size:15px;color:var(--gold)}
-    @media(max-width:760px){.jukebox-teaser span:last-child{display:none}.jukebox-teaser{padding:9px}.jukebox-list{max-height:34vh}}
-    /* Light theme (follows system). Photographic/cinematic sections stay dark by design;
-       solid sections go light with dark text. */
-        /* Manual light theme */
-    :root[data-theme="light"] .products{background:radial-gradient(circle at 32% 55%,#f6f1e6 0,#e7ddc9 58%)}
-    :root[data-theme="light"] .product-copy h3{color:#141310}
-    :root[data-theme="light"] .product-copy p{color:#4d4943}
-    :root[data-theme="light"] .product-copy .tags{color:#6e695f}
-    :root[data-theme="light"] .product-copy .service-no{color:#c1b8aa}
-    :root[data-theme="light"] .contact{background:#f3ede1;color:#141310}
-    :root[data-theme="light"] .contact-details{border-top:1px solid rgba(11,11,10,.18)}
-    :root[data-theme="light"] .contact-details p,:root[data-theme="light"] .contact-details .hours{color:#4d4943}
-    :root[data-theme="light"] .contact-details h3{color:#8f6a1f}
-    :root[data-theme="light"] .contact .phone{color:#8f6a1f;border-bottom-color:#8f6a1f}
-    :root[data-theme="light"] .socials{border-top:1px solid rgba(11,11,10,.18)}
-    :root[data-theme="light"] .sources{color:#999184}
-    :root[data-theme="light"] .footer-mark{color:#999184}
-    /* System theme follows OS */
-    @media (prefers-color-scheme: light){
-      :root[data-theme="system"] .products{background:radial-gradient(circle at 32% 55%,#f6f1e6 0,#e7ddc9 58%)}
-      :root[data-theme="system"] .product-copy h3{color:#141310}
-      :root[data-theme="system"] .product-copy p{color:#4d4943}
-      :root[data-theme="system"] .product-copy .tags{color:#6e695f}
-      :root[data-theme="system"] .product-copy .service-no{color:#c1b8aa}
-      :root[data-theme="system"] .contact{background:#f3ede1;color:#141310}
-      :root[data-theme="system"] .contact-details{border-top:1px solid rgba(11,11,10,.18)}
-      :root[data-theme="system"] .contact-details p,:root[data-theme="system"] .contact-details .hours{color:#4d4943}
-      :root[data-theme="system"] .contact-details h3{color:#8f6a1f}
-      :root[data-theme="system"] .contact .phone{color:#8f6a1f;border-bottom-color:#8f6a1f}
-      :root[data-theme="system"] .socials{border-top:1px solid rgba(11,11,10,.18)}
-      :root[data-theme="system"] .sources{color:#999184}
-      :root[data-theme="system"] .footer-mark{color:#999184}
-    }
+/* ---------- hero: take a seat ---------- */
+.hero{position:relative;height:250vh;height:250svh;background:var(--film)}
+.hero-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;color:var(--film-ink);perspective:1200px}
+.hero-media{position:absolute;inset:-2%;transform-origin:50% 60%;will-change:transform}
+.hero-media img,.hero-media canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-media canvas{opacity:0;transition:opacity .6s}
+.hero.live .hero-media canvas{opacity:1}
+.hero-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,transparent 35%,rgba(8,6,4,.55) 100%),linear-gradient(180deg,rgba(8,6,4,.55) 0%,transparent 26%,transparent 58%,rgba(8,6,4,.86) 100%)}
+.hero-tint{position:absolute;inset:0;mix-blend-mode:soft-light;background:radial-gradient(70% 60% at 50% 30%,color-mix(in srgb,var(--accent) 60%,transparent),transparent 70%);opacity:.55;transition:background .9s}
+.hero-copy{position:absolute;left:0;right:0;bottom:clamp(64px,12vh,128px);padding:0 var(--pad);text-align:center;will-change:transform,opacity}
+.hero-eyebrow{font:600 .74rem/1.4 var(--sans);letter-spacing:.3em;text-transform:uppercase;opacity:.9;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.hero h1{margin:.18em 0 .28em;font:400 clamp(3.6rem,12vw,10.5rem)/.9 var(--serif);letter-spacing:-.04em;text-shadow:0 6px 40px rgba(0,0,0,.55)}
+.hero h1 .dot{color:var(--acc-d)}
+.hero-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.hero-cta .btn{border-color:rgba(246,238,226,.5);color:var(--film-ink)}
+.hero-cta .btn--acc{background:var(--acc-d);border-color:var(--acc-d);color:#140c09}
+.cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font:600 .62rem/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;opacity:.75}
+.cue i{width:1px;height:34px;background:linear-gradient(var(--film-ink),transparent);animation:cue 2s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.letterbox{position:absolute;left:0;right:0;height:0;background:#060504;z-index:2}
+.letterbox.t{top:0}.letterbox.b{bottom:0}
 
-  @media (orientation:landscape) and (max-height:600px){
-      .finish-copy{top:100px !important;bottom:auto !important}
-      .finish h2{font-size:clamp(44px,10vh,68px) !important}
-      .finish p{font-size:14px;max-width:340px}
-    }
-    
-    @media (orientation:portrait){
-      .product-art{min-height:480px}
-      .product-art img{width:74% !important;height:auto !important;left:13% !important;right:auto !important;top:7% !important;bottom:auto !important}
-    }
-    </style>
-  <style>
-    /* Booking form (v6) */
-    .booking{margin-top:34px;padding:26px;border:1px solid rgba(212,175,55,.28);border-radius:16px;background:rgba(0,0,0,.28)}
-    .booking h3{font:400 clamp(24px,3vw,32px)/1 "Libre Caslon Display",serif;color:#f5efe4;margin:0 0 8px;letter-spacing:-.01em}
-    .booking-sub{color:#b9ac93;font-size:14px;line-height:1.65;margin:0 0 18px}
-    #book-form label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9a8f76;margin:0 0 14px}
-    #book-form input,#book-form select{display:block;width:100%;box-sizing:border-box;margin-top:7px;padding:12px 14px;font-size:16px;color:#f5efe4;background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.32);border-radius:10px;font-family:inherit}
-    #book-form select option{color:#111}
-    #book-form input:focus,#book-form select:focus{outline:none;border-color:#d4af37;box-shadow:0 0 0 2px rgba(212,175,55,.18)}
-    .bk-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    @media(max-width:600px){.bk-row{grid-template-columns:1fr}}
-    .bk-note{min-height:22px;font-size:14px;color:#e8a95c;margin:4px 0 12px;line-height:1.5}
-    .bk-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .bk-actions .btn{flex:1 1 200px;text-align:center;cursor:pointer}
-    /* Booking form: light theme (v6.1) */
-    [data-theme="light"] .booking{background:rgba(255,255,255,.55);border-color:rgba(11,11,10,.16)}
-    [data-theme="light"] .booking h3{color:#141310}
-    [data-theme="light"] .booking-sub{color:#4d4943}
-    [data-theme="light"] #book-form label{color:#6e695f}
-    [data-theme="light"] #book-form input,[data-theme="light"] #book-form select{color:#141310;background:#fffdf8;border-color:rgba(11,11,10,.28)}
-    [data-theme="light"] #book-form input::placeholder{color:#a09a8d}
-    [data-theme="light"] #book-form input:focus,[data-theme="light"] #book-form select:focus{border-color:#8f6a1f;box-shadow:0 0 0 2px rgba(143,106,31,.15)}
-    [data-theme="light"] .bk-note{color:#a85b12}
-    @media (prefers-color-scheme: light){
-      :root[data-theme="system"] .booking{background:rgba(255,255,255,.55);border-color:rgba(11,11,10,.16)}
-      :root[data-theme="system"] .booking h3{color:#141310}
-      :root[data-theme="system"] .booking-sub{color:#4d4943}
-      :root[data-theme="system"] #book-form label{color:#6e695f}
-      :root[data-theme="system"] #book-form input,:root[data-theme="system"] #book-form select{color:#141310;background:#fffdf8;border-color:rgba(11,11,10,.28)}
-      :root[data-theme="system"] #book-form input::placeholder{color:#a09a8d}
-      :root[data-theme="system"] #book-form input:focus,:root[data-theme="system"] #book-form select:focus{border-color:#8f6a1f;box-shadow:0 0 0 2px rgba(143,106,31,.15)}
-      :root[data-theme="system"] .bk-note{color:#a85b12}
-    }
-  </style>
+.ticker{position:relative;z-index:3;height:46px;display:flex;align-items:center;overflow:hidden;background:var(--accent);color:var(--on-accent)}
+.ticker-track{display:flex;gap:34px;width:max-content;white-space:nowrap;animation:tick 32s linear infinite;font:700 .7rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+.ticker-track i{font-style:normal;opacity:.6}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- the chair (intro) ---------- */
+.sec{position:relative;padding:clamp(88px,12vw,168px) 0}
+.chair{background:var(--bg)}
+.chair-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,7vw,110px);align-items:center}
+.stats{display:grid;grid-template-columns:repeat(3,auto);gap:clamp(18px,4vw,52px);margin-top:36px;padding-top:24px;border-top:1px solid var(--line);justify-content:start}
+.stats strong{display:block;font:400 clamp(1.5rem,2.4vw,2rem)/1 var(--serif)}
+.stats span{display:block;margin-top:8px;font:600 .66rem/1.35 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.stack{position:relative;height:clamp(420px,46vw,600px);perspective:1100px}
+.print{position:absolute;margin:0;padding:10px 10px 0;background:#fbf6ec;color:#2a2018;box-shadow:var(--shadow);border-radius:3px}
+.print img{width:100%;height:100%;object-fit:cover}
+.print figcaption{font:italic .92rem/1 var(--ital);padding:10px 2px 12px;display:flex;justify-content:space-between;gap:10px}
+.print figcaption span{font:600 .58rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#7a6b5a;align-self:center}
+.print.p1{width:min(78%,380px);right:4%;top:0;transform:rotate(3deg)}
+.print.p1 .ph{height:clamp(320px,36vw,470px)}
+.print.p2{width:min(48%,230px);left:0;bottom:2%;transform:rotate(-5deg)}
+.print.p2 .ph{height:clamp(170px,20vw,260px)}
+.ph{overflow:hidden}
+.tape{position:absolute;top:-12px;left:50%;width:90px;height:24px;margin-left:-45px;background:color-mix(in srgb,var(--accent) 35%,#e9dcc4);opacity:.85;transform:rotate(-3deg)}
+
+/* ---------- walkthrough (pinned film) ---------- */
+.walk{position:relative;height:720vh;height:720svh;background:var(--film);color:var(--film-ink)}
+.walk-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.walk-stage>img,.walk-stage>canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.walk-stage>canvas{opacity:0;transition:opacity .4s}
+.walk.live .walk-stage>canvas{opacity:1}
+.walk-scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,6,4,.78) 0%,rgba(8,6,4,.25) 46%,transparent 70%),linear-gradient(0deg,rgba(8,6,4,.8) 0%,transparent 42%)}
+.cape{position:absolute;top:-10%;bottom:-10%;left:0;width:150%;z-index:3;transform:translateX(-110%) skewX(-14deg);pointer-events:none;will-change:transform;
+  background:linear-gradient(90deg,transparent 0,rgba(0,0,0,.45) 3%,transparent 9%),repeating-linear-gradient(90deg,#1a1613 0 26px,#e9e1d3 26px 33px,#1a1613 33px 46px,#5a4636 46px 48px);
+  box-shadow:-40px 0 80px rgba(0,0,0,.6),40px 0 80px rgba(0,0,0,.6)}
+.cape::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 30%,transparent 70%,rgba(0,0,0,.45))}
+.caps{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:clamp(84px,12vh,130px);max-width:600px}
+.cap{position:absolute;left:0;right:0;bottom:0;opacity:0;transform:translateY(26px);transition:opacity .6s var(--ease),transform .8s var(--ease);pointer-events:none}
+.cap.on{opacity:1;transform:none}
+.cap .no{font:400 clamp(2.4rem,4vw,3.6rem)/1 var(--serif);color:var(--acc-d)}
+.cap h2,.cap h3{font:400 clamp(2.7rem,6.4vw,5.6rem)/.92 var(--serif);letter-spacing:-.03em;margin:.12em 0 .3em;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.cap h2 em,.cap h3 em{font-family:var(--ital);font-style:italic;color:var(--acc-d)}
+.cap p{margin:0;max-width:30em;color:#e6dccc;font-size:1rem;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+.cap .tags{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;padding-top:14px;border-top:1px solid rgba(246,238,226,.22);font:700 .64rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#efe5d5}
+.reel{position:absolute;z-index:2;right:var(--pad);bottom:clamp(30px,5vh,48px);display:flex;align-items:center;gap:14px;font:700 .7rem/1 var(--sans);letter-spacing:.2em}
+.reel-bar{width:clamp(80px,14vw,180px);height:2px;background:rgba(246,238,226,.2);position:relative;overflow:hidden}
+.reel-bar i{position:absolute;inset:0;background:var(--acc-d);transform-origin:left;transform:scaleX(0)}
+.walk-kick{position:absolute;z-index:2;left:var(--pad);top:calc(var(--hdr) + 22px);color:var(--film-ink)}
+.walk-kick .kick{color:var(--acc-d)}
+.walk-static{display:none}
+
+/* ---------- legacy: Joe to Rich ---------- */
+.legacy{position:relative;height:230vh;height:230svh;background:var(--bg-2)}
+.legacy-stage{position:sticky;top:0;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:calc(var(--hdr) + 16px) 0 32px}
+.legacy-grid{display:grid;grid-template-columns:1fr minmax(260px,440px);gap:clamp(36px,7vw,110px);align-items:center}
+.legacy p{color:var(--ink-2);max-width:32em}
+.legacy .sign{font:italic 1.35rem/1.2 var(--ital);color:var(--ink);margin-top:22px}
+.holo-col{width:min(100%,calc((100vh - 210px) * .75));min-width:240px;margin-left:auto}
+.holo{position:relative;aspect-ratio:3/4;width:100%;border-radius:18px;overflow:hidden;background:#07090a;box-shadow:var(--shadow),0 0 0 1px var(--line);isolation:isolate}
+.holo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.holo-rich{z-index:1}
+.holo-joe{z-index:2;will-change:clip-path,opacity}
+.holo-joe img{filter:grayscale(1) contrast(1.35) brightness(.88);mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse 72% 78% at 50% 44%,#000 52%,transparent 100%);mask-image:radial-gradient(ellipse 72% 78% at 50% 44%,#000 52%,transparent 100%);animation:flicker 5s steps(1) infinite}
+.holo-tint{position:absolute;inset:0;z-index:2;background:color-mix(in srgb,var(--acc-d) 80%,#fff);mix-blend-mode:multiply;pointer-events:none}
+.holo-joe{position:absolute;inset:0;isolation:isolate;background:radial-gradient(80% 60% at 50% 100%,color-mix(in srgb,var(--acc-d) 40%,transparent),transparent 70%),#06080a}
+.holo-joe::before{content:"";position:absolute;inset:0;z-index:3;background:repeating-linear-gradient(0deg,rgba(0,0,0,.34) 0 1px,transparent 1px 3px);pointer-events:none}
+.holo-joe::after{content:"";position:absolute;inset:-20%;z-index:3;background:linear-gradient(180deg,transparent 45%,color-mix(in srgb,var(--acc-d) 30%,transparent) 50%,transparent 55%);animation:sweep 4.5s linear infinite;pointer-events:none}
+@keyframes sweep{from{transform:translateY(-40%)}to{transform:translateY(40%)}}
+@keyframes flicker{0%,100%{opacity:.95}7%{opacity:.7}8%{opacity:.95}43%{opacity:.88}44%{opacity:.98}71%{opacity:.8}72%{opacity:.96}}
+.scanline{position:absolute;left:0;right:0;height:2px;z-index:4;top:0;background:var(--acc-d);box-shadow:0 0 18px 4px color-mix(in srgb,var(--acc-d) 70%,transparent);opacity:0}
+.holo-tag{position:absolute;z-index:5;left:14px;top:14px;padding:7px 12px;border-radius:999px;background:rgba(6,5,4,.62);color:#f6eee2;font:700 .62rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.holo-tag b{color:var(--acc-d);font-weight:700}
+.holo-cap{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font:600 .66rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- jukebox ---------- */
+.jbox{background:var(--bg);overflow:hidden}
+.jb-grid{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:clamp(36px,6vw,96px);align-items:center;margin-top:40px}
+.cab{position:relative;aspect-ratio:4/5.4;border-radius:200px 200px 28px 28px;padding:16px;background:linear-gradient(160deg,#5b3a22,#2a1a10 60%,#4a2e1a);box-shadow:var(--shadow),inset 0 0 0 2px rgba(255,220,170,.18)}
+.cab::before,.cab::after{content:"";position:absolute;top:22%;bottom:20%;width:14px;border-radius:10px;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 40%,#ffd9a0));box-shadow:0 0 22px color-mix(in srgb,var(--accent) 70%,transparent);opacity:.9}
+.cab::before{left:7px}.cab::after{right:7px}
+.cab-in{position:relative;height:100%;border-radius:184px 184px 18px 18px;background:radial-gradient(90% 60% at 50% 18%,color-mix(in srgb,var(--accent) 55%,#1b120c),#120c08 70%);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16% 12% 8%;box-shadow:inset 0 0 40px rgba(0,0,0,.7)}
+.bubbles{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,240,220,.5) 0 2px,transparent 3px),radial-gradient(circle,rgba(255,240,220,.35) 0 1.5px,transparent 2.5px);background-size:46px 70px,30px 52px;background-position:0 0,14px 20px;opacity:.35;animation:bub 9s linear infinite}
+@keyframes bub{to{background-position:0 -700px,14px -500px}}
+.platter{position:relative;width:78%;aspect-ratio:1;border-radius:50%;background:#0b0806;box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 4px #2b1f15}
+.vinyl{position:absolute;inset:6%;border-radius:50%;background:repeating-radial-gradient(circle,#141110 0 2px,#1d1917 2px 4px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.vinyl::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 20deg,transparent 0 15%,rgba(255,255,255,.12) 18%,transparent 24% 60%,rgba(255,255,255,.08) 64%,transparent 70%)}
+.vinyl .lbl{position:absolute;inset:34%;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:inset 0 0 0 3px rgba(0,0,0,.18)}
+.vinyl .lbl::after{content:"";width:12%;aspect-ratio:1;border-radius:50%;background:#0b0806}
+.vinyl.spin{animation:spin 1.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.arm{position:absolute;right:-2%;top:2%;width:46%;height:8px;transform-origin:92% 50%;transform:rotate(30deg);transition:transform .9s var(--ease)}
+.arm::before{content:"";position:absolute;right:0;top:-10px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle,#d8c3a0,#8a7350)}
+.arm i{position:absolute;inset:0 10px 0 0;border-radius:4px;background:linear-gradient(#e9dcc4,#a8916c)}
+.arm b{position:absolute;left:-6px;top:-5px;width:20px;height:18px;border-radius:4px;background:#2b2118}
+.arm.down{transform:rotate(-20deg)}
+.now{position:relative;margin-top:auto;text-align:center;color:#f6eee2}
+.now small{display:block;font:700 .6rem/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;opacity:.7}
+.now strong{display:block;font:400 clamp(1.4rem,2.6vw,1.9rem)/1.1 var(--serif);margin-top:8px}
+.now span{display:block;font:italic .95rem/1.3 var(--ital);opacity:.85;margin-top:4px}
+.records{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rec{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:16px;border-radius:18px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;transition:transform .3s var(--ease),border-color .3s,background-color .5s}
+.rec:hover{transform:translateY(-3px)}
+.rec[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 14px 40px color-mix(in srgb,var(--accent) 22%,transparent)}
+.rec .disc{width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,var(--c) 0 26%,#0b0806 27% 29%,#1b1715 30%,#0f0c0b 31% 60%,#1d1917 61% 63%,#100d0c 64%);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.rec[aria-pressed="true"] .disc{animation:spin 2.2s linear infinite}
+.rec strong{font:400 1.2rem/1.1 var(--serif)}
+.rec span{font:600 .62rem/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.jb-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:22px;color:var(--muted);font-size:.92rem}
+.switch{display:inline-flex;align-items:center;gap:12px;cursor:pointer;font:700 .7rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.switch i{width:46px;height:26px;border-radius:999px;background:var(--line-2);position:relative;transition:background-color .3s}
+.switch i::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.3);transition:transform .3s var(--ease)}
+.switch input:checked+i{background:var(--accent)}
+.switch input:checked+i::after{transform:translateX(20px)}
+.switch input:focus-visible+i{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---------- reviews ---------- */
+.reviews{background:var(--bg-2)}
+.rev-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 40px;margin-bottom:44px}
+.score{display:flex;align-items:center;gap:18px;text-decoration:none;padding:16px 22px;border-radius:18px;border:1px solid var(--line);background:var(--surface)}
+.score strong{font:400 3.2rem/1 var(--serif)}
+.stars{position:relative;display:inline-block;font-size:1.05rem;letter-spacing:.12em;color:var(--line-2);line-height:1}
+.stars i{position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:var(--brass);font-style:normal}
+.score small{display:block;margin-top:6px;font:700 .62rem/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.rev-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:18px}
+.rev{margin:0;padding:26px;border-radius:20px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.rev.big{grid-row:span 2;background:var(--accent);color:var(--on-accent);border-color:transparent}
+.rev blockquote{margin:0;font:400 1.18rem/1.45 var(--serif)}
+.rev.big blockquote{font-size:clamp(1.5rem,2.4vw,2.05rem);line-height:1.3}
+.rev figcaption{font:700 .64rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.rev.big figcaption{color:inherit;opacity:.78}
+.rev-src{margin-top:20px;font-size:.85rem;color:var(--muted)}
+
+/* ---------- visit / book ---------- */
+.visit{background:var(--bg)}
+.visit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,7vw,100px)}
+.phone{display:inline-flex;align-items:center;gap:12px;font:400 clamp(1.8rem,3.4vw,2.7rem)/1 var(--serif);text-decoration:none;color:var(--accent);border-bottom:1px solid currentColor;padding-bottom:6px;margin:6px 0 30px}
+.booking{padding:clamp(20px,3vw,32px);border-radius:24px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.booking h3{font:400 clamp(1.6rem,2.6vw,2.1rem)/1.05 var(--serif);margin:0 0 8px}
+.booking-sub{margin:0 0 20px;color:var(--ink-2);font-size:.98rem}
+#book-form label{display:block;margin:0 0 14px;font:700 .66rem/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+#book-form input,#book-form select{display:block;width:100%;margin-top:8px;min-height:50px;padding:12px 14px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);font:400 16px/1.2 var(--sans);letter-spacing:0;text-transform:none;-webkit-appearance:none;appearance:none}
+#book-form select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:36px}
+#book-form input:focus,#book-form select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+#book-form select option{color:#111;background:#fff}
+.bk-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bk-note{min-height:22px;margin:2px 0 12px;font-size:.92rem;color:var(--accent)}
+.bk-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.details{display:grid;gap:30px;align-content:start}
+.details h3{margin:0 0 10px;font:700 .7rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.details p{margin:0;color:var(--ink-2)}
+.hours{display:grid;grid-template-columns:1fr auto;gap:6px 28px;color:var(--ink-2);font-size:.98rem}
+.hours .today{color:var(--ink);font-weight:700}
+.link{display:inline-block;margin-top:10px;font:700 .7rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:4px}
+.socials{display:flex;flex-wrap:wrap;gap:10px}
+.socials a{padding:10px 14px;border-radius:999px;border:1px solid var(--line-2);text-decoration:none;font:700 .66rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.foot{padding:40px 0 calc(40px + env(safe-area-inset-bottom));border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;background:var(--bg)}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* ---------- motion helpers ---------- */
+.js .rv{opacity:0;transform:translate3d(0,34px,0);transition:opacity .9s var(--ease),transform 1.1s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+[data-depth]{will-change:transform}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .chair-grid,.legacy-grid,.jb-grid,.visit-grid{grid-template-columns:1fr}
+  .stack{height:auto;min-height:0;display:grid;grid-template-columns:1fr;justify-items:center;padding:10px 0 30px}
+  .stack{display:block;padding:0 0 64px;max-width:460px;margin:0 auto;width:100%}
+  .print.p1{position:relative;width:min(80%,340px);right:auto;top:auto;margin:0 0 0 auto}
+  .print.p1 .ph{height:auto;aspect-ratio:4/5}
+  .print.p2{width:min(44%,180px);left:0;bottom:0}
+  .print.p2 .ph{height:auto;aspect-ratio:4/5}
+  .rev-grid{grid-template-columns:1fr 1fr}
+  .rev.big{grid-column:1/-1;grid-row:auto}
+  .legacy{height:auto}
+  .legacy-stage{position:relative;min-height:0;padding:clamp(88px,12vw,140px) 0}
+  .legacy-grid{gap:34px}
+  .holo-col{width:min(100%,320px);margin:0 auto}
+  .legacy .lead{font-size:1rem}
+  .records{grid-template-columns:repeat(2,1fr)}
+  .cab{width:min(100%,330px);margin:0 auto}
+}
+@media (max-width:600px){
+  .stats{grid-template-columns:repeat(3,1fr);gap:14px}
+  .stats strong{font-size:1.35rem}
+  .stats span{font-size:.58rem;letter-spacing:.12em}
+  .rev-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 calc(var(--pad) * -1);padding:0 var(--pad) 8px;scrollbar-width:none}
+  .rev-grid::-webkit-scrollbar{display:none}
+  .rev{flex:0 0 84%;scroll-snap-align:center}
+  .bk-row,.bk-actions{grid-template-columns:1fr}
+  .caps{bottom:92px}
+  .cap p{font-size:.95rem}
+  .walk-scrim{background:linear-gradient(0deg,rgba(8,6,4,.9) 0%,rgba(8,6,4,.5) 40%,transparent 66%)}
+  .reel{left:var(--pad);right:var(--pad);justify-content:space-between}
+  .reel-bar{flex:1}
+  .hero-copy{bottom:84px}
+  .legacy .h2{font-size:2.5rem}
+  .holo-col{width:min(80%,290px)}
+  .rec{padding:14px;gap:10px}
+  .rec .disc{width:44px;height:44px}
+  .rec strong{font-size:1.06rem}
+}
+
+/* ---------- still mode (reduced motion / save-data / no-js) ---------- */
+.still .hero,.no-js .hero{height:100vh;height:100svh}
+.still .walk,.no-js .walk{height:auto}
+.still .walk-stage,.no-js .walk-stage{display:none}
+.still .walk-static,.no-js .walk-static{display:grid;gap:0}
+.walk-static figure{position:relative;margin:0;min-height:88svh;display:flex;align-items:flex-end;overflow:hidden}
+.walk-static picture,.walk-static img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.walk-static figcaption{position:relative;z-index:1;padding:120px var(--pad) 64px;width:100%;background:linear-gradient(0deg,rgba(8,6,4,.9),transparent)}
+.walk-static .cap{position:relative;opacity:1;transform:none}
+.still .legacy,.no-js .legacy{height:auto}
+.still .legacy-stage,.no-js .legacy-stage{position:relative}
+.still .holo-joe,.no-js .holo-joe{clip-path:inset(0 50% 0 0)}
+.still .scanline,.no-js .scanline{opacity:1;top:0;left:50%;width:2px;height:100%}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
+<a class="skip" href="#visit">Skip to booking</a>
 <div class="grain" aria-hidden="true"></div>
-<button class="menu-pill" id="menuPill" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-<div class="rail-backdrop" id="railBackdrop"></div>
-<aside class="rail" id="rail" aria-label="Site menu">
-  <div class="rail-head"><span>Menu</span><button class="rail-close" id="railClose" aria-label="Close menu">&times;</button></div>
-  
-  <nav class="rail-nav">
-    <a href="#top" data-sec="top" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Home</span></a>
-    <a href="#craft" data-sec="craft" aria-label="The chair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11V6a2 2 0 012-2h8a2 2 0 012 2v5"/><path d="M4 11h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3z"/><path d="M7 18v2M17 18v2"/></svg><span>The chair</span></a>
-    <a href="#walkthrough" data-sec="walkthrough" aria-label="Walk through"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h13"/><path d="M13 6l6 6-6 6"/></svg><span>Walk through</span></a>
-    <a href="#cut" data-sec="cut" aria-label="The cut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5L20 19M8 16.5L20 5"/></svg><span>The cut</span></a>
-    <a href="#beard" data-sec="beard" aria-label="The beard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M8 13c0 4 2 7 4 7s4-3 4-7"/></svg><span>The beard</span></a>
-    <a href="#shave" data-sec="shave" aria-label="The shave"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l7-7"/><rect x="12" y="4" width="8" height="5" rx="1" transform="rotate(45 12 4)"/></svg><span>The shave</span></a>
-    <a href="#eye" data-sec="eye" aria-label="Behind the chair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M9 7l1.5-2.5h3L15 7"/></svg><span>Behind the chair</span></a>
-    <a href="#finish" data-sec="finish" aria-label="The finish"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg><span>The finish</span></a>
-    <a href="#products" data-sec="products" aria-label="Products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3h4v3l2 4v9a2 2 0 01-2 2h-4a2 2 0 01-2-2v-9l2-4z"/><path d="M10 6h4"/></svg><span>Products</span></a>
-    <a href="#visit" data-sec="visit" aria-label="Visit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Visit</span></a>
-    <button class="rail-jukebox" id="railJukebox" aria-label="Open the jukebox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v11"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="15" r="2.5"/></svg><span>Jukebox</span></button>
+<div class="mood-flash" id="moodFlash" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-sys" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M8.5 20h7M12 16.5V20"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 3.5h3.2l1.6 4.2-2.1 1.4a11.5 11.5 0 0 0 7.2 7.2l1.4-2.1 4.2 1.6V19a1.6 1.6 0 0 1-1.6 1.6C10.6 20.6 3.4 13.4 3.4 5.1A1.6 1.6 0 0 1 5 3.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7.5h16M4 12h16M4 16.5h16"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+</svg>
+
+<header class="hdr" id="hdr">
+  <a class="logo" href="#top" aria-label="Look Good Feel Good, back to top">
+    <span class="logo-pole" aria-hidden="true"></span>
+    <span class="logo-txt"><b>Look Good</b><i>Feel Good</i></span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#chair" data-spy="chair">The chair</a>
+    <a href="#walk" data-spy="walk">Walk through</a>
+    <a href="#legacy" data-spy="legacy">Legacy</a>
+    <a href="#jukebox" data-spy="jukebox">Jukebox</a>
+    <a href="#reviews" data-spy="reviews">Reviews</a>
+    <a href="#visit" data-spy="visit">Visit</a>
   </nav>
-  <div class="rail-theme"><label>Theme</label><div class="theme-seg" id="themeSeg"><button data-t="system" class="on">System</button><button data-t="light">Light</button><button data-t="dark">Dark</button></div></div>
-</aside>
-<script>
-(function(){
-  var rail=document.getElementById('rail'), pill=document.getElementById('menuPill'),
-      closeBtn=document.getElementById('railClose'), backdrop=document.getElementById('railBackdrop');
-  if(!rail||!pill) return;
-  function openRail(){ rail.classList.add('open'); backdrop.classList.add('show'); pill.classList.add('hidden'); }
-  function closeRail(){ rail.classList.remove('open'); backdrop.classList.remove('show'); pill.classList.remove('hidden'); }
-  pill.addEventListener('click',openRail);
-  if(closeBtn) closeBtn.addEventListener('click',closeRail);
-  if(backdrop) backdrop.addEventListener('click',closeRail);
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeRail(); });
-  /* Theme switcher */
-  var seg=document.getElementById('themeSeg');
-  function applyTheme(mode){
-    document.documentElement.setAttribute('data-theme',mode);
-    try{ localStorage.setItem('lgfg-theme',mode); }catch(e){}
-    if(seg){
-      var btns=seg.querySelectorAll('button');
-      for(var i=0;i<btns.length;i++){ btns[i].classList.toggle('on',btns[i].getAttribute('data-t')===mode); }
-    }
-  }
-  var saved='system';
-  try{ saved=localStorage.getItem('lgfg-theme')||'system'; }catch(e){}
-  if(['system','light','dark'].indexOf(saved)<0) saved='system';
-  applyTheme(saved);
-  if(seg){
-    seg.addEventListener('click',function(e){
-      var b=e.target.closest('button[data-t]');
-      if(b) applyTheme(b.getAttribute('data-t'));
-    });
-  }
-  // Jukebox button opens the jukebox view
-  var jb=document.getElementById('railJukebox');
-  if(jb){
-    jb.addEventListener('click',function(){
-      var view=document.getElementById('jukeboxView');
-      if(view){ view.classList.add('open'); document.body.style.overflow='hidden'; }
-      rail.classList.remove('open');
-    });
-  }
-  // Scroll-spy: highlight current section
-  var links=Array.prototype.slice.call(rail.querySelectorAll('.rail-nav a[data-sec]'));
-  var secs=links.map(function(a){ return document.getElementById(a.getAttribute('data-sec')); }).filter(Boolean);
-  function setActive(id){
-    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-sec')===id); });
-  }
-  if('IntersectionObserver' in window && secs.length){
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting) setActive(e.target.id);
-      });
-    },{rootMargin:'-40% 0px -55% 0px'});
-    secs.forEach(function(s){ obs.observe(s); });
-  }
-  // Collapse rail after tapping a link on small screens
-  links.forEach(function(a){
-    a.addEventListener('click',function(){
-      closeRail();
-    });
-  });
-})();
-</script>
-<a class="call-float" href="tel:+13174800062" aria-label="Call to book an appointment"><i aria-hidden="true">☎</i><span>Book by phone</span></a>
-<main>
-  <section class="hero" id="top">
-    <picture><source media="(orientation: portrait)" srcset="assets/chair-hero-916.jpg"><img class="hero-bg" src="assets/chair-hero-169.jpg" alt="The vintage barber chair inside Look Good Feel Good"></picture>
-    <div class="hero-inner reveal">
-      <div class="eyebrow">Terre Haute, Indiana · By appointment</div>
-      <h1><span>Look Good</span><em>Feel Good</em></h1>
-      <p class="hero-copy">A gentleman’s cut is more than maintenance. It is a practiced ritual, shaped by Rich Beasley with over two decades behind the chair.</p>
-      <div class="actions"><a class="btn primary" href="tel:+13174800062">Call (317) 480-0062</a><a class="btn" href="#craft">Explore the craft ↓</a></div>
+  <div class="seg hdr-seg" role="group" aria-label="Color theme">
+    <button type="button" data-theme-set="light" aria-pressed="false" title="Light theme"><svg><use href="#i-sun"/></svg><span class="sr">Light</span></button>
+    <button type="button" data-theme-set="dark" aria-pressed="false" title="Dark theme"><svg><use href="#i-moon"/></svg><span class="sr">Dark</span></button>
+    <button type="button" data-theme-set="system" aria-pressed="false" title="Match my device"><svg><use href="#i-sys"/></svg><span class="sr">System</span></button>
+  </div>
+  <a class="btn btn--acc hdr-book" href="#visit">Book</a>
+  <a class="hdr-call" href="tel:+13174800062" aria-label="Call Rich at (317) 480-0062"><svg><use href="#i-phone"/></svg></a>
+  <button class="hdr-menu" type="button" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg><use href="#i-menu"/></svg></button>
+</header>
+
+<div class="sheet" id="sheet" aria-hidden="true">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="sheet-top">
+      <span class="logo"><span class="logo-pole" aria-hidden="true"></span><span class="logo-txt"><b>Look Good</b><i>Feel Good</i></span></span>
+      <button class="sheet-x" type="button" data-close aria-label="Close menu">&times;</button>
     </div>
-    <div class="rating" aria-label="4.8 star Google rating"><strong>4.8 ★</strong><span>Google<br>rating<br>Terre Haute</span></div>
+    <nav aria-label="Mobile">
+      <a href="#chair">The chair <span>00</span></a>
+      <a href="#walk">Walk through <span>01</span></a>
+      <a href="#legacy">Legacy <span>05</span></a>
+      <a href="#jukebox">Jukebox <span>06</span></a>
+      <a href="#reviews">Reviews <span>07</span></a>
+      <a href="#visit">Visit &amp; book <span>08</span></a>
+    </nav>
+    <div class="sheet-row"><span>Theme</span>
+      <div class="seg" role="group" aria-label="Color theme">
+        <button type="button" data-theme-set="light" aria-pressed="false" title="Light theme"><svg><use href="#i-sun"/></svg><span class="sr">Light</span></button>
+        <button type="button" data-theme-set="dark" aria-pressed="false" title="Dark theme"><svg><use href="#i-moon"/></svg><span class="sr">Dark</span></button>
+        <button type="button" data-theme-set="system" aria-pressed="false" title="Match my device"><svg><use href="#i-sys"/></svg><span class="sr">System</span></button>
+      </div>
+    </div>
+    <div class="sheet-ctas">
+      <a class="btn" href="tel:+13174800062"><svg><use href="#i-phone"/></svg>Call</a>
+      <a class="btn btn--acc" href="#visit" data-close>Book</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+  <!-- 1. Opener: Rich's red chair, scroll-scrubbed canvas frames (never <video>) -->
+  <section class="hero" id="top" aria-label="Take a seat">
+    <div class="hero-stage">
+      <div class="hero-media" id="heroMedia">
+        <picture>
+          <source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/hero/m/01.webp" width="540" height="960">
+          <img src="media/hero/d/01.webp" width="1280" height="720" alt="Rich's red studded barber chair under warm shop lights" fetchpriority="high">
+        </picture>
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
+      </div>
+      <div class="hero-tint" aria-hidden="true"></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="letterbox t" id="lbT" aria-hidden="true"></div>
+      <div class="letterbox b" id="lbB" aria-hidden="true"></div>
+      <div class="hero-copy" id="heroCopy">
+        <div class="hero-eyebrow">Look Good Feel Good · Terre Haute, Indiana</div>
+        <h1>Take a seat<span class="dot">.</span><span class="sr"> Look Good Feel Good, the gentlemen's barber shop in Terre Haute.</span></h1>
+        <div class="hero-cta">
+          <a class="btn btn--acc" href="#visit">Book the chair</a>
+          <a class="btn" href="tel:+13174800062"><svg><use href="#i-phone"/></svg>(317) 480-0062</a>
+        </div>
+      </div>
+      <div class="cue" id="cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </div>
   </section>
-  <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>Precision haircuts</span><i>◆</i><span>Freehand beard sculpting</span><i>◆</i><span>Hot towel shaves</span><i>◆</i><span>Cutter Joe's</span><i>◆</i><span>Precision haircuts</span><i>◆</i><span>Freehand beard sculpting</span><i>◆</i><span>Hot towel shaves</span><i>◆</i><span>Cutter Joe's</span><i>◆</i></div></div>
 
-  <section class="intro" id="craft"><div class="intro-inner"><div class="number-label">00 / The chair</div><div class="intro-copy reveal"><h2>Old-school care.<em>Modern precision.</em></h2><p>Rich runs a one-chair experience built around attention. No assembly line and no rushed finish. Every appointment gets the judgment, conversation and handwork that turn a haircut into a signature.</p><div class="stats"><div><strong>20+ years</strong><span>behind the chair</span></div><div><strong>4.8 stars</strong><span>Google rating</span></div><div><strong>1 chair</strong><span>personal service</span></div></div></div></div></section>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track">
+    <span>Precision haircuts</span><i>✦</i><span>Freehand beard sculpting</span><i>✦</i><span>Hot towel shaves</span><i>✦</i><span>One chair</span><i>✦</i><span>By appointment</span><i>✦</i>
+    <span>Precision haircuts</span><i>✦</i><span>Freehand beard sculpting</span><i>✦</i><span>Hot towel shaves</span><i>✦</i><span>One chair</span><i>✦</i><span>By appointment</span><i>✦</i>
+  </div></div>
 
-  <section class="walkthrough" id="walkthrough" aria-label="Walk through the barber shop"><div class="walkthrough-stage"><img class="walkthrough-poster" src="assets/seq/chair/frame-01.jpg" alt="" aria-hidden="true"><canvas class="seq-canvas" data-seq="chair" aria-label="Slow walkthrough around the vintage barber chair"></canvas><div class="walkthrough-copy"><div class="number-label" style="color:var(--gold)">Step inside</div><h2>The shop,<br><em>every corner.</em></h2><p>Scroll to walk through. Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div></div></section>
-
-  <section class="service-v2" id="cut"><div class="seq-hero"><img class="seq-img" data-seq="cut" src="assets/seq/cut/frame-01.jpg" alt="Precision fade haircut"></div><div class="service-copy-v2 reveal"><div class="service-no">01</div><h3>The Cut</h3><p>Classic, modern, clean or lived-in. Rich reads the way your hair grows, then shapes the cut to your head, your style and the way you actually live.</p><div class="tags"><span>Men's haircuts</span><span>Modern styling</span><span>Personal consultation</span></div></div></section>
-
-  <section class="service-v2" id="beard"><div class="seq-hero"><img class="seq-img" data-seq="beard" src="assets/seq/beard/frame-01.jpg" alt="Beard sculpting"></div><div class="service-copy-v2 reveal"><div class="service-no">02</div><h3>The Beard</h3><p>Freehand sculpting is Rich's signature. Lines are set to strengthen your face, bulk is balanced, and the beard leaves looking intentional without looking overworked.</p><div class="tags"><span>Freehand sculpting</span><span>Beard trim</span><span>Line & shape</span></div></div></section>
-
-  <section class="service-v2" id="shave"><div class="seq-hero"><img class="seq-img" data-seq="shave" src="assets/seq/shave/frame-01.jpg" alt="Hot towel shave"></div><div class="service-copy-v2 reveal"><div class="service-no">03</div><h3>The Shave</h3><p>Warm towel. Rich lather. A measured razor pass. The traditional hot towel shave slows the world down for a while and leaves a finish no cartridge can match.</p><div class="tags"><span>Hot towel</span><span>Traditional razor care</span><span>Clean finish</span></div></div></section>
-
-  <section class="service-v2 eye-v2" id="eye"><div class="seq-hero"><img class="seq-img" data-seq="rich" src="assets/seq/rich/frame-01.jpg" alt="Rich the barber"></div><div class="service-copy-v2 reveal"><div class="service-no">04</div><h3>Behind the chair.<br><em>Behind the camera.</em></h3><p>Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</p></div></div></section>
-
-  <section class="finish" id="finish" aria-labelledby="finish-title"><div class="finish-stage"><img class="finish-photo" src="assets/dapper-360-00.jpg" alt="Dapper gentleman with a crisp skin fade and precisely shaped beard rotating through a full 360-degree view in a warm barber shop"><canvas class="finish-canvas" aria-hidden="true"></canvas><div class="finish-copy reveal"><div class="section-kicker">05 / The finish</div><h2 id="finish-title"><span>Every angle.</span><em>Every line.</em></h2><p>Precision that holds its shape from every point of view.</p></div></div></section>
-
-  <section class="products" id="products"><canvas class="joe-holo-bg" aria-hidden="true"></canvas><div class="product-art reveal"><img src="assets/cutter-joes-portrait.jpg" alt="Vintage portrait for Cutter Joe's The Beard Company with the words All Natural Beard Care, Nothing Synthetic" loading="lazy"></div><div class="product-copy reveal"><div class="service-no">06</div><h3>Cutter<br>Joe’s</h3><p>Rich developed his own beard oils and balms from natural butters and oils after years of seeing what beards need in the chair: moisture, shape and a healthier feel.</p><div class="tags"><span>Beard oil</span><span>Beard balm</span><span>Made by a barber</span></div></div></section>
-
-  <section class="reviews" aria-labelledby="reviews-title"><div class="reviews-inner"><div class="reviews-head"><div><div class="number-label">07 / From the chair</div><h2 id="reviews-title">Good word travels.</h2></div><div class="review-rating"><strong>4.8</strong><span>★★★★★<br>Google rating · 40 reviews</span></div></div><div class="review-grid"><article class="review featured reveal"><blockquote>“I always get compliments on my hair after getting it cut here, and Rich is nothing less than an artist when dealing with beards.”</blockquote><cite>Douglas Montgomery · customer review</cite></article><article class="review reveal"><blockquote>“Rich is a hair wizard! Best haircut I’ve ever had. Very personable and real.”</blockquote><cite>Evan Richard · customer review</cite></article><article class="review reveal"><blockquote>“Got a haircut and beard trim, looks great. Rich is a great guy and an awesome barber.”</blockquote><cite>J Collings · customer review</cite></article></div></div></section>
-
-  <section class="contact" id="visit"><div class="contact-inner"><div class="reveal"><div class="number-label">08 / Your turn</div><h2>Take the<br>chair.</h2><p class="contact-lead">Appointments are personal.<br>Call Rich to reserve yours.</p><a class="phone" href="tel:+13174800062">(317) 480-0062 →</a>
-<div class="booking reveal">
-  <h3>Request an appointment</h3>
-  <p class="booking-sub">Pick a service, day and time. We will open WhatsApp or your text messages with everything already written, you just hit send.</p>
-  <form id="book-form" novalidate>
-    <div class="bk-row">
-      <label>Your name<input type="text" id="bk-name" autocomplete="name" placeholder="Jane Doe"></label>
-      <label>Your cell number<input type="tel" id="bk-phone" autocomplete="tel" placeholder="(812) 555-0123"></label>
+  <!-- 00 The chair -->
+  <section class="sec chair" id="chair" aria-labelledby="chairH">
+    <div class="wrap chair-grid">
+      <div class="rv">
+        <span class="kick">00 / The chair</span>
+        <h2 class="h2" id="chairH">Old-school care.<br><em>Modern precision.</em></h2>
+        <p class="lead">Rich runs a one-chair experience built around attention. No assembly line and no rushed finish. Every appointment gets the judgment, conversation and handwork that turn a haircut into a signature.</p>
+        <div class="stats">
+          <div><strong>20+ yrs</strong><span>behind the chair</span></div>
+          <div><strong>4.6 ★</strong><span>34 Google reviews</span></div>
+          <div><strong>1 chair</strong><span>personal service</span></div>
+        </div>
+      </div>
+      <div class="stack" aria-label="Photos from the shop">
+        <figure class="print p1" data-depth="-0.08">
+          <span class="tape" aria-hidden="true"></span>
+          <div class="ph"><img src="media/img/shop-chair.webp" width="480" height="600" loading="lazy" decoding="async" alt="Rich's red barber chair inside the shop, with chrome hood dryers behind it"></div>
+          <figcaption>The real one. <span>Wabash Ave</span></figcaption>
+        </figure>
+        <figure class="print p2" data-depth="0.12">
+          <div class="ph"><img src="media/img/haircut-detail.webp" width="498" height="640" loading="lazy" decoding="async" alt="A client's freshly finished classic side-part haircut"></div>
+          <figcaption>Fresh off the chair.</figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="bk-row">
-      <label>Service<select id="bk-service"><option>Precision haircut</option><option>Freehand beard sculpting</option><option>Hot towel shave</option></select></label>
-      <label>Day<input type="date" id="bk-date"></label>
+  </section>
+
+  <!-- 2. Walkthrough: pinned film, client photo sequence, cape-sweep transitions, ends on Rich -->
+  <section class="walk" id="walk" aria-label="Walk through the shop: the cut, the beard, the shave, and Rich">
+    <div class="walk-stage" id="walkStage">
+      <picture>
+        <source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/chair/01.webp">
+        <img id="walkPoster" src="media/walk/d/chair/01.webp" width="1280" height="720" loading="lazy" decoding="async" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      </picture>
+      <canvas id="walkCanvas" aria-hidden="true"></canvas>
+      <div class="walk-scrim" aria-hidden="true"></div>
+      <div class="cape" id="cape" aria-hidden="true"></div>
+      <div class="walk-kick"><span class="kick">Walk through</span></div>
+      <div class="caps" id="caps">
+        <div class="cap on" data-scene="0"><div class="no">Step inside</div><h3>The shop,<br><em>every corner.</em></h3><p>Scroll to walk through. Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div>
+        <div class="cap" data-scene="1"><div class="no">01</div><h3>The <em>Cut</em></h3><p>Classic, modern, clean or lived-in. Rich reads the way your hair grows, then shapes the cut to your head, your style and the way you actually live.</p><div class="tags"><span>Men's haircuts</span><span>Modern styling</span><span>Personal consultation</span></div></div>
+        <div class="cap" data-scene="2"><div class="no">02</div><h3>The <em>Beard</em></h3><p>Freehand sculpting is Rich's signature. Lines are set to strengthen your face, bulk is balanced, and the beard leaves looking intentional without looking overworked.</p><div class="tags"><span>Freehand sculpting</span><span>Beard trim</span><span>Line &amp; shape</span></div></div>
+        <div class="cap" data-scene="3"><div class="no">03</div><h3>The <em>Shave</em></h3><p>Warm towel. Rich lather. A measured razor pass. The traditional hot towel shave slows the world down for a while and leaves a finish no cartridge can match.</p><div class="tags"><span>Hot towel</span><span>Traditional razor care</span><span>Clean finish</span></div></div>
+        <div class="cap" data-scene="4"><div class="no">04</div><h3>Behind the chair.<br><em>Behind the camera.</em></h3><p>Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</p></div>
+      </div>
+      <div class="reel" aria-hidden="true"><span id="reelNo">01 / 05</span><span class="reel-bar"><i id="reelBar"></i></span></div>
     </div>
-    <div class="bk-row">
-      <label>Time<select id="bk-time"><option value="">Pick a day first</option></select></label>
+    <!-- static fallback (reduced motion, Save-Data, no JS) -->
+    <div class="walk-static">
+      <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/chair/48.webp"><img src="media/walk/d/chair/48.webp" loading="lazy" decoding="async" alt="The barber shop interior with vintage chairs and a barber pole"></picture><figcaption><div class="cap"><div class="no">Step inside</div><h3>The shop,<br><em>every corner.</em></h3><p>Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div></figcaption></figure>
+      <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/cut/48.webp"><img src="media/walk/d/cut/48.webp" loading="lazy" decoding="async" alt="A client with a fresh precision fade and beard"></picture><figcaption><div class="cap"><div class="no">01</div><h3>The <em>Cut</em></h3><p>Classic, modern, clean or lived-in. Rich reads the way your hair grows, then shapes the cut to your head, your style and the way you actually live.</p></div></figcaption></figure>
+      <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/beard/48.webp"><img src="media/walk/d/beard/48.webp" loading="lazy" decoding="async" alt="A client with a full sculpted beard in the chair"></picture><figcaption><div class="cap"><div class="no">02</div><h3>The <em>Beard</em></h3><p>Freehand sculpting is Rich's signature. Lines are set to strengthen your face, bulk is balanced, and the beard leaves looking intentional without looking overworked.</p></div></figcaption></figure>
+      <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/shave/48.webp"><img src="media/walk/d/shave/48.webp" loading="lazy" decoding="async" alt="A client relaxing under a hot towel"></picture><figcaption><div class="cap"><div class="no">03</div><h3>The <em>Shave</em></h3><p>Warm towel. Rich lather. A measured razor pass. The traditional hot towel shave slows the world down for a while and leaves a finish no cartridge can match.</p></div></figcaption></figure>
+      <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/rich/48.webp"><img src="media/walk/d/rich/48.webp" loading="lazy" decoding="async" alt="Rich Beasley smiling behind the chair"></picture><figcaption><div class="cap"><div class="no">04</div><h3>Behind the chair.<br><em>Behind the camera.</em></h3><p>Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</p></div></figcaption></figure>
     </div>
-    <p class="bk-note" id="bk-note" role="status"></p>
-    <div class="bk-actions">
-      <button type="button" class="btn primary" id="bk-whatsapp">Send via WhatsApp</button>
-      <button type="button" class="btn" id="bk-sms">Send via text message</button>
+  </section>
+
+  <!-- TODO(every-angle): the v6 "Every angle. Every line." 360 section was removed in v8 because its dapper-360 frames were 100% AI and implied Rich's work and identity. Rebuild it only from a real photo or turntable shoot of a real client, with permission. -->
+
+  <!-- 5. Before/after slider intentionally omitted: no true before/after pair of real client photos exists yet. Never fake one with AI. -->
+
+  <!-- 3. Legacy: Joe (illustrated hologram) dissolves into Rich (real photo) -->
+  <section class="legacy" id="legacy" aria-labelledby="legacyH">
+    <div class="legacy-stage">
+      <div class="wrap legacy-grid">
+        <div class="rv">
+          <span class="kick">05 / Legacy</span>
+          <h2 class="h2" id="legacyH">From Joe<br><em>to Rich.</em></h2>
+          <p class="lead">Some names you carry with you. Cutter Joe's is named for Rich's father, Joe, and the portrait is his.</p>
+          <p class="lead second">Rich came up through Indiana Barber College in Indianapolis, class of 1994. Today it is one chair on Wabash Avenue, one client at a time, every cut done the way a son would want his father to see it.</p>
+          <p class="sign">Father to son. Chair to chair.</p>
+        </div>
+        <div class="holo-col">
+          <div class="holo" id="holo">
+            <div class="holo-rich"><img src="media/img/rich.webp" width="600" height="800" loading="lazy" decoding="async" alt="Rich Beasley, owner and barber, smiling in the shop"></div>
+            <div class="holo-joe" id="holoJoe"><span class="holo-tint" aria-hidden="true"></span><img src="media/img/joe-ink.webp" width="600" height="800" loading="lazy" decoding="async" alt="Illustrated portrait of Joe, Rich's father, the namesake of Cutter Joe's"></div>
+            <div class="scanline" id="scanline" aria-hidden="true"></div>
+            <span class="holo-tag" id="holoTag" aria-hidden="true"><b>Joe</b> · the name</span>
+          </div>
+          <div class="holo-cap"><span>Joe · Cutter Joe's</span><span>Rich · the chair</span></div>
+        </div>
+      </div>
     </div>
-  </form>
-</div></div><div class="reveal"><div class="contact-details"><div><h3>Find the shop</h3><p>8451 Wabash Ave<br>Terre Haute, IN 47803</p><a class="directions" href="https://maps.google.com/?q=8451%20Wabash%20Ave%2C%20Terre%20Haute%2C%20IN%2047803" target="_blank" rel="noopener">Get directions ↗</a></div><div><h3>Shop hours</h3><div class="hours"><span>Monday</span><span>9:30 AM–6 PM</span><span>Tuesday</span><span>9:30 AM–6 PM</span><span>Wednesday</span><span>9 AM–5 PM</span><span>Thursday</span><span>9:30 AM–4 PM</span><span>Friday</span><span>9:30 AM–6 PM</span><span>Saturday–Sunday</span><span>Closed</span></div></div></div><div class="socials"><a href="https://www.instagram.com/lookgoodfeelgoodbarbershop" target="_blank" rel="noopener">Shop Instagram</a><a href="https://www.instagram.com/lookgoodfeelgoodrich" target="_blank" rel="noopener">Rich</a><a href="https://www.facebook.com/share/19BJCER9m6/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a><a href="https://yelp.to/aMOi0-0AoM" target="_blank" rel="noopener">Yelp</a></div><p class="sources">Business details and review excerpts: <a href="https://salondiscover.com/look-good-feel-good-the-gentlemens-barber-shop-47803/" target="_blank" rel="noopener">SalonDiscover</a> · <a href="https://wdc2015.wixsite.com/cutterjoes/about-us" target="_blank" rel="noopener">Cutter Joe’s</a></p></div></div><div class="footer-mark">Look Good Feel Good · The Gentlemen’s Barber Shop · Terre Haute</div></section>
+  </section>
+
+  <!-- 4. Signature: jukebox changes the mood. Audio off by default; no licensed music shipped. -->
+  <section class="sec jbox" id="jukebox" aria-labelledby="jbH">
+    <div class="wrap">
+      <div class="rv">
+        <span class="kick">06 / The jukebox</span>
+        <h2 class="h2" id="jbH">Pick a record.<br><em>Set the mood.</em></h2>
+        <p class="lead">Every record changes the lights in here. Some keep it low and late, some open the blinds. Go ahead, drop the needle.</p>
+      </div>
+      <div class="jb-grid">
+        <div class="cab rv" aria-hidden="true">
+          <div class="cab-in">
+            <div class="bubbles"></div>
+            <div class="platter"><div class="vinyl" id="vinyl"><span class="lbl"></span></div><div class="arm" id="arm"><i></i><b></b></div></div>
+            <div class="now"><small>Now spinning</small><strong id="nowT">House Red</strong><span id="nowS">Lights down, pole lit.</span></div>
+          </div>
+        </div>
+        <div class="rv">
+          <div class="records" role="group" aria-label="Records. Each one changes the site's colors and lighting." id="records">
+            <button type="button" class="rec" data-mood="red" data-theme="dark" data-note="Lights down, pole lit." style="--c:#c8382b" aria-pressed="false"><span class="disc" aria-hidden="true"></span><strong>House Red</strong><span>Lights down</span></button>
+            <button type="button" class="rec" data-mood="brass" data-theme="dark" data-note="Low lamps and polished brass." style="--c:#c9982f" aria-pressed="false"><span class="disc" aria-hidden="true"></span><strong>Bourbon &amp; Brass</strong><span>Lights down</span></button>
+            <button type="button" class="rec" data-mood="blue" data-theme="dark" data-note="After hours, cool and quiet." style="--c:#3f6fc0" aria-pressed="false"><span class="disc" aria-hidden="true"></span><strong>Midnight Blue</strong><span>Lights down</span></button>
+            <button type="button" class="rec" data-mood="sunday" data-theme="light" data-note="Blinds open, coffee on." style="--c:#4b98bd" aria-pressed="false"><span class="disc" aria-hidden="true"></span><strong>Sunday Morning</strong><span>Lights up</span></button>
+            <button type="button" class="rec" data-mood="green" data-theme="light" data-note="Fresh towels, clean lines." style="--c:#3f8a5c" aria-pressed="false"><span class="disc" aria-hidden="true"></span><strong>Pomade Green</strong><span>Lights up</span></button>
+            <button type="button" class="rec" data-mood="linen" data-theme="light" data-note="Warm linen and leather." style="--c:#c06f2c" aria-pressed="false"><span class="disc" aria-hidden="true"></span><strong>Tobacco &amp; Linen</strong><span>Lights up</span></button>
+          </div>
+          <div class="jb-foot">
+            <label class="switch"><input type="checkbox" id="crackle"><i aria-hidden="true"></i><span>Needle crackle <span id="crackleState">off</span></span></label>
+            <span>Sound stays off unless you turn it on.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Reviews (Google rating verified Oct 2026: 4.6 from 34 reviews) -->
+  <section class="sec reviews" id="reviews" aria-labelledby="revH">
+    <div class="wrap">
+      <div class="rev-head">
+        <div class="rv"><span class="kick">07 / From the chair</span><h2 class="h2" id="revH">Good word<br><em>travels.</em></h2></div>
+        <a class="score rv" href="https://search.google.com/local/reviews?placeid=ChIJ1Qqe1O96bYgRWpbOX1b-SPE" target="_blank" rel="noopener">
+          <strong>4.6</strong>
+          <span><span class="stars" aria-hidden="true">★★★★★<i style="width:92%">★★★★★</i></span><small>34 Google reviews ↗</small></span>
+          <span class="sr">Rated 4.6 out of 5 from 34 Google reviews. Opens Google reviews.</span>
+        </a>
+      </div>
+      <div class="rev-grid">
+        <figure class="rev big rv"><blockquote>“I always get compliments on my hair after getting it cut here, and Rich is nothing less than an artist when dealing with beards.”</blockquote><figcaption>Douglas Montgomery · Google review</figcaption></figure>
+        <figure class="rev rv"><blockquote>“Rich is a hair wizard! Best haircut I’ve ever had. Very personable and real.”</blockquote><figcaption>Evan Richard · customer review</figcaption></figure>
+        <figure class="rev rv"><blockquote>“Got a haircut and beard trim, looks great. Rich is a great guy and an awesome barber.”</blockquote><figcaption>J Collings · customer review</figcaption></figure>
+        <figure class="rev rv"><blockquote>“Rich is a great barber with great customer service and the conversation is top notch!”</blockquote><figcaption>Google review · Feb 2026</figcaption></figure>
+        <figure class="rev rv"><blockquote>“I have been going to Rich for over 3 years now, and I highly recommend him! Great service, excellent hair &amp; beard cuts!”</blockquote><figcaption>Google review · Mar 2024</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit + booking (WhatsApp / SMS) -->
+  <section class="sec visit" id="visit" aria-labelledby="visitH">
+    <div class="wrap visit-grid">
+      <div class="rv">
+        <span class="kick">08 / Your turn</span>
+        <h2 class="h2" id="visitH">Take the<br><em>chair.</em></h2>
+        <p class="lead">Appointments are personal. Call Rich, or send a request below and he will confirm.</p>
+        <a class="phone" href="tel:+13174800062"><svg width="26" height="26"><use href="#i-phone"/></svg>(317) 480-0062</a>
+        <div class="booking">
+          <h3>Request an appointment</h3>
+          <p class="booking-sub">Pick a service, day and time. We will open WhatsApp or your text messages with everything already written, you just hit send.</p>
+          <form id="book-form" novalidate>
+            <div class="bk-row">
+              <label>Your name<input type="text" id="bk-name" autocomplete="name" placeholder="Jane Doe"></label>
+              <label>Your cell number<input type="tel" id="bk-phone" autocomplete="tel" placeholder="(812) 555-0123"></label>
+            </div>
+            <div class="bk-row">
+              <label>Service<select id="bk-service"><option>Precision haircut</option><option>Freehand beard sculpting</option><option>Hot towel shave</option></select></label>
+              <label>Day<input type="date" id="bk-date"></label>
+            </div>
+            <label>Time<select id="bk-time"><option value="">Pick a day first</option></select></label>
+            <p class="bk-note" id="bk-note" role="status"></p>
+            <div class="bk-actions">
+              <button type="button" class="btn btn--acc" id="bk-whatsapp">Send via WhatsApp</button>
+              <button type="button" class="btn" id="bk-sms">Send via text</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="details rv">
+        <div>
+          <h3>Find the shop</h3>
+          <p>8451 Wabash Ave<br>Terre Haute, IN 47803</p>
+          <a class="link" href="https://maps.google.com/?q=8451%20Wabash%20Ave%2C%20Terre%20Haute%2C%20IN%2047803" target="_blank" rel="noopener">Get directions ↗</a>
+        </div>
+        <div>
+          <h3>Shop hours</h3>
+          <div class="hours" id="hours">
+            <span data-d="1">Monday</span><span data-d="1">9:30 AM to 6 PM</span>
+            <span data-d="2">Tuesday</span><span data-d="2">9:30 AM to 6 PM</span>
+            <span data-d="3">Wednesday</span><span data-d="3">9 AM to 5 PM</span>
+            <span data-d="4">Thursday</span><span data-d="4">9:30 AM to 4 PM</span>
+            <span data-d="5">Friday</span><span data-d="5">9:30 AM to 6 PM</span>
+            <span data-d="6">Saturday</span><span data-d="6">Closed</span>
+            <span data-d="0">Sunday</span><span data-d="0">Closed</span>
+          </div>
+        </div>
+        <div>
+          <h3>Follow along</h3>
+          <div class="socials">
+            <a href="https://www.instagram.com/lookgoodfeelgoodbarbershop" target="_blank" rel="noopener">Shop Instagram</a>
+            <a href="https://www.instagram.com/lookgoodfeelgoodrich" target="_blank" rel="noopener">Rich</a>
+            <a href="https://www.facebook.com/share/19BJCER9m6/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://yelp.to/aMOi0-0AoM" target="_blank" rel="noopener">Yelp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
+<footer class="foot">
+  <div class="wrap"><span>Look Good Feel Good · The Gentlemen's Barber Shop · Terre Haute, Indiana</span><span>By appointment · (317) 480-0062</span></div>
+</footer>
 
-  <button class="jukebox-teaser" id="jukeboxTeaser" aria-label="Open the jukebox">
-    <span class="jukebox-disc" aria-hidden="true"></span><span>Take a seat, pick a tune</span>
-  </button>
-  <div class="jukebox-view" id="jukeboxView" role="dialog" aria-modal="true" aria-label="Shop jukebox">
-    <div class="jukebox-bg">       <video id="jukeboxBgVideo" autoplay muted loop playsinline preload="metadata" poster="assets/jukebox/jukebox-poster.jpg" aria-hidden="true">         <source media="(orientation: portrait)" src="assets/jukebox/jukebox-bg-916.mp4" type="video/mp4">         <source src="assets/jukebox/jukebox-bg-169.mp4" type="video/mp4">       </video>     </div>
-    <div class="jukebox-top">
-      <span class="jukebox-kicker">The shop jukebox</span>
-      <button class="jukebox-back" id="jukeboxBack">Back to the shop</button>
-    </div>
-    <div class="jukebox-title">
-      <h2>Take a seat,<br><em>pick a tune.</em></h2>
-      <p>Ten 60-second cuts. Pick one and keep browsing, the music stays with you.</p>
-    </div>
-    <ol class="jukebox-list" id="jukeboxList"></ol>
-    <p class="jukebox-credits" id="jukeboxCredits"></p>
-  </div>
-  <div class="jukebox-mini" id="jukeboxMini">
-    <button class="vinyl-btn" id="jukeboxToggle" aria-label="Pause playback"><span class="vinyl spinning" id="jukeboxVinyl" aria-hidden="true"></span></button>
-    <span class="nm" id="jukeboxNow"></span>
-    <span class="eq mini-eq playing" id="jukeboxEq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-    <button class="hidex" id="jukeboxHide" aria-label="Minimize player">&times;</button>
-    <button class="openj" id="jukeboxMiniOpen" aria-label="Open the jukebox">&#9673;</button>
-  </div>
-  <button class="jukebox-fab" id="jukeboxFab" aria-label="Show music player"><span class="vinyl spinning" id="jukeboxFabVinyl" aria-hidden="true"></span></button>
-
-  <script>
-(function(){
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Scroll-driven sequences v2 - preloaded canvas like dapper orbit */
-  function v2IsPortrait(){ return window.matchMedia("(orientation: portrait)").matches; }
-  var v2SeqDefs=[
-    {name:'cut', sel:'#cut .seq-hero'},
-    {name:'beard', sel:'#beard .seq-hero'},
-    {name:'shave', sel:'#shave .seq-hero'},
-    {name:'rich', sel:'#eye .seq-hero'}
-  ];
-  var v2Players=[];
-  v2SeqDefs.forEach(function(def){
-    var container=document.querySelector(def.sel);
-    if(!container) return;
-    /* sticky from CSS - do not override; keep poster img, append canvas over it */
-    var canvas=document.createElement('canvas');
-    canvas.className='seq-v2canvas';
-    canvas.setAttribute('aria-hidden','true');
-    canvas.style.cssText='display:block;width:100%;height:100%;position:absolute;inset:0;';
-    container.appendChild(canvas);
-    var ctx=canvas.getContext('2d');
-    var frames=[], loaded=[], curBase='', lastDrawn=-1;
-    for(var i=0;i<48;i++){ frames.push(new Image()); loaded.push(false); }
-    function base(){ return (v2IsPortrait()?'assets/seq-portrait/':'assets/seq/')+def.name+'/'; }
-    function loadAll(){
-      curBase=base(); lastDrawn=-1;
-      frames.forEach(function(img,idx){
-        loaded[idx]=false;
-        img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
-        img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg';
-      });
-    }
-    function closest(idx){
-      if(loaded[idx])return idx;
-      for(var d=1;d<48;d++){
-        if(idx-d>=0&&loaded[idx-d])return idx-d;
-        if(idx+d<48&&loaded[idx+d])return idx+d;
-      }
-      return -1;
-    }
-    function draw(idx){
-      var r=closest(idx);
-      if(r<0||r===lastDrawn) return;
-      var img=frames[r];
-      var cr=canvas.getBoundingClientRect(), ratio=Math.min(2,window.devicePixelRatio||1);
-      var cw=Math.max(1,Math.round(cr.width*ratio)), ch=Math.max(1,Math.round(cr.height*ratio));
-      if(canvas.width!==cw||canvas.height!==ch){ canvas.width=cw; canvas.height=ch; }
-      var scale=Math.max(cw/img.naturalWidth, ch/img.naturalHeight);
-      var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
-      ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
-      lastDrawn=r;
-      canvas.classList.add('ready');
-    }
-    function update(){
-      if(curBase!==base()){ loadAll(); return; }
-      var sec=container.closest('section');
-      if(!sec) return;
-      var r=sec.getBoundingClientRect(), vh=window.innerHeight;
-      var total=Math.max(1,r.height-vh);
-      var p=Math.min(1,Math.max(0,-r.top/total));
-      draw(Math.min(47,Math.floor(p*48)));
-    }
-    loadAll();
-    v2Players.push({update:update, reload:loadAll});
-  });
-  /* Walkthrough canvas - same preloaded approach */
-  (function(){
-    var stage=document.querySelector('#walkthrough .walkthrough-stage');
-    if(!stage) return;
-    var canvas=stage.querySelector('canvas.seq-canvas');
-    if(!canvas){
-      canvas=document.createElement('canvas');
-      canvas.className='seq-canvas';
-      canvas.style.cssText='position:absolute;inset:0;width:100%;height:100%';
-      stage.insertBefore(canvas, stage.firstChild);
-    }
-    var ctx=canvas.getContext('2d');
-    var frames=[], loaded=[], curBase='', lastDrawn=-1;
-    for(var i=0;i<48;i++){ frames.push(new Image()); loaded.push(false); }
-    function base(){ return (v2IsPortrait()?'assets/seq-portrait/':'assets/seq/')+'chair/'; }
-    function loadAll(){
-      curBase=base(); lastDrawn=-1;
-      frames.forEach(function(img,idx){
-        loaded[idx]=false;
-        img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
-        img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg';
-      });
-    }
-    function closest(idx){
-      if(loaded[idx])return idx;
-      for(var d=1;d<48;d++){
-        if(idx-d>=0&&loaded[idx-d])return idx-d;
-        if(idx+d<48&&loaded[idx+d])return idx+d;
-      }
-      return -1;
-    }
-    function update(){
-      if(curBase!==base()){ loadAll(); return; }
-      var sec=document.getElementById('walkthrough');
-      if(!sec) return;
-      var r=sec.getBoundingClientRect(), vh=window.innerHeight;
-      var total=Math.max(1,r.height-vh);
-      var p=Math.min(1,Math.max(0,-r.top/total));
-      var idx=Math.min(47,Math.floor(p*48));
-      var c=closest(idx);
-      if(c<0||c===lastDrawn) return;
-      var img=frames[c];
-      var cr=canvas.getBoundingClientRect(), ratio=Math.min(2,window.devicePixelRatio||1);
-      var cw=Math.max(1,Math.round(cr.width*ratio)), ch=Math.max(1,Math.round(cr.height*ratio));
-      if(canvas.width!==cw||canvas.height!==ch){ canvas.width=cw; canvas.height=ch; }
-      var scale=Math.max(cw/img.naturalWidth, ch/img.naturalHeight);
-      var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
-      ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
-      lastDrawn=c;
-      canvas.classList.add('ready');
-    }
-    loadAll();
-    v2Players.push({update:update, reload:loadAll});
-  })();
-  window.__v2Players=v2Players;
-  if(!reduce&&window.__v2Players.length){
-    var v2Tick=false;
-    function v2Update(){ window.__v2Players.forEach(function(p){ try{p.update()}catch(e){} }); }
-    window.addEventListener('scroll',function(){
-      if(!v2Tick){ v2Tick=true; requestAnimationFrame(function(){ v2Update(); v2Tick=false; }); }
-    },{passive:true});
-    window.addEventListener('resize',function(){ window.__v2Players.forEach(function(p){ try{p.reload()}catch(e){} }); setTimeout(v2Update,200); });
-    try{ window.matchMedia("(orientation: portrait)").addEventListener('change',function(){ window.__v2Players.forEach(function(p){ try{p.reload()}catch(e){} }); setTimeout(v2Update,400); }); }catch(e){}
-    setTimeout(v2Update,600);
-    setInterval(v2Update,3000);
-  }
-
-  var spinSection=document.querySelector('.finish');
-  var spinStage=document.querySelector('.finish-stage');
-  var spinCanvas=document.querySelector('.finish-canvas');
-  if(spinSection&&spinStage&&spinCanvas&&!reduce){
-    var frameCount=48;
-    var frames=[];
-    var loaded=[];
-    var targetFrame=0;
-    var drawnFrame=-1;
-    var scrollQueued=false;
-    var sizeChanged=true;
-    var spinContext=spinCanvas.getContext('2d',{alpha:false});
-    function frameUrl(index){return 'assets/dapper-360-'+String(index).padStart(2,'0')+'.jpg'}
-    function closestLoaded(index){
-      if(loaded[index])return index;
-      for(var distance=1;distance<frameCount;distance++){
-        if(index-distance>=0&&loaded[index-distance])return index-distance;
-        if(index+distance<frameCount&&loaded[index+distance])return index+distance;
-      }
-      return -1;
-    }
-    function sizeCanvas(){
-      var rect=spinStage.getBoundingClientRect();
-      var ratio=Math.min(2,window.devicePixelRatio||1);
-      var width=Math.max(1,Math.round(rect.width*ratio));
-      var height=Math.max(1,Math.round(rect.height*ratio));
-      if(spinCanvas.width!==width||spinCanvas.height!==height){spinCanvas.width=width;spinCanvas.height=height}
-      sizeChanged=false;
-    }
-    function drawFrame(index){
-      var resolved=closestLoaded(index);
-      if(resolved<0||(!sizeChanged&&resolved===drawnFrame))return;
-      sizeCanvas();
-      var frame=frames[resolved];
-      var cw=spinCanvas.width;
-      var ch=spinCanvas.height;
-      var scale=Math.max(cw/frame.naturalWidth,ch/frame.naturalHeight);
-      var width=frame.naturalWidth*scale;
-      var height=frame.naturalHeight*scale;
-      var mobile=window.matchMedia('(max-width:760px)').matches;
-      var x=(cw-width)*(mobile ? .58 : .5);
-      var y=(ch-height)*(mobile ? .5 : .43);
-      spinContext.drawImage(frame,x,y,width,height);
-      drawnFrame=resolved;
-      spinCanvas.classList.add('ready');
-    }
-    for(var i=0;i<frameCount;i++){
-      (function(index){
-        var frame=new Image();
-        frame.decoding='async';
-        frame.onload=function(){loaded[index]=true;if(index===targetFrame||drawnFrame<0)drawFrame(targetFrame)};
-        frame.src=frameUrl(index);
-        frames[index]=frame;
-      })(i);
-    }
-    function updateSpin(){
-      scrollQueued=false;
-      var rect=spinSection.getBoundingClientRect();
-      var viewportHeight=window.innerHeight;
-      var withinOrbit=rect.top<=0&&rect.bottom>=viewportHeight;
-      spinStage.classList.toggle('is-pinned',withinOrbit);
-      spinStage.classList.toggle('is-ended',rect.bottom<viewportHeight);
-      var travel=Math.max(1,spinSection.offsetHeight-viewportHeight);
-      var progress=Math.max(0,Math.min(1,-rect.top/travel));
-      targetFrame=Math.round(progress*(frameCount-1));
-      drawFrame(targetFrame);
-    }
-    function queueSpin(){if(!scrollQueued){scrollQueued=true;requestAnimationFrame(updateSpin)}}
-    window.addEventListener('scroll',queueSpin,{passive:true});
-    window.addEventListener('resize',function(){sizeChanged=true;drawnFrame=-1;queueSpin()});
-    queueSpin();
-  }
-})();
-
-  /* ---- Jukebox (v3): single Audio element survives view changes, so music never stops while browsing ---- */
-  (function(){
-    var TRACKS=[
-      {file:'assets/jukebox/track-01.mp3',title:'Night Ride',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-02.mp3',title:'OutRun',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-03.mp3',title:'Retro Wave',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-04.mp3',title:'Synthwave Party',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-05.mp3',title:'UpBeat',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-06.mp3',title:'Turbo Rush',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-07.mp3',title:'Friday Night',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-08.mp3',title:'80s Party',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-09.mp3',title:'Night FM',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'},
-      {file:'assets/jukebox/track-10.mp3',title:'Rhythmics',artist:'Aries Beats',credit:'Music by Aries Beats (free-songs.de)'}
-    ];
-    var audio=new Audio(); audio.preload='none';
-    var jukeboxBgVideo=document.getElementById('jukeboxBgVideo');
-    function jukeboxBgSrc(){ return window.matchMedia("(orientation: portrait)").matches ? 'assets/jukebox/jukebox-bg-916.mp4' : 'assets/jukebox/jukebox-bg-169.mp4'; }
-    if(jukeboxBgVideo){
-      try{
-        window.matchMedia("(orientation: portrait)").addEventListener('change', function(){
-          var s=jukeboxBgSrc();
-          if(jukeboxBgVideo.currentSrc && jukeboxBgVideo.currentSrc.indexOf(s)===-1){
-            jukeboxBgVideo.src=s; jukeboxBgVideo.load();
-            var pr=jukeboxBgVideo.play(); if(pr&&pr.catch){pr.catch(function(){});}
-          }
-        });
-      }catch(e){}
-    }
-    var teaser=document.getElementById('jukeboxTeaser'),
-        view=document.getElementById('jukeboxView'),
-        list=document.getElementById('jukeboxList'),
-        mini=document.getElementById('jukeboxMini'),
-        toggle=document.getElementById('jukeboxToggle'),
-        nowEl=document.getElementById('jukeboxNow'),
-        creditsEl=document.getElementById('jukeboxCredits'),
-        current=-1;
-    TRACKS.forEach(function(t,i){
-      var li=document.createElement('li');
-      var b=document.createElement('button');
-      b.className='jukebox-track'; b.setAttribute('data-i',i);
-      var n=document.createElement('span'); n.className='n'; n.textContent=String(i+1).padStart(2,'0');
-      var tt=document.createElement('span'); tt.className='t';
-      var st=document.createElement('strong'); st.textContent=t.title;
-      var ar=document.createElement('span'); ar.textContent=t.artist;
-      tt.appendChild(st); tt.appendChild(ar);
-      var eq=document.createElement('span'); eq.className='eq'; eq.setAttribute('aria-hidden','true');
-      eq.innerHTML='<i></i><i></i><i></i>';
-      var d=document.createElement('span'); d.className='d'; d.textContent='1:00';
-      b.appendChild(n); b.appendChild(tt); b.appendChild(eq); b.appendChild(d);
-      b.addEventListener('click',function(){ play(i); });
-      li.appendChild(b); list.appendChild(li);
-    });
-    var seen={};
-    TRACKS.forEach(function(t){ if(t.credit) seen[t.credit]=1; });
-    creditsEl.textContent=Object.keys(seen).join('  ·  ');
-    function setActive(i){
-      current=i;
-      var btns=list.querySelectorAll('.jukebox-track');
-      for(var j=0;j<btns.length;j++){ btns[j].classList.toggle('active', j===i); }
-      nowEl.textContent=TRACKS[i].title+' \u2014 '+TRACKS[i].artist;
-    }
-    function showMini() {
-      teaser.classList.remove('show'); teaser.classList.add('playing');
-      mini.classList.add('show');
-    }
-    function play(i){
-      setActive(i);
-      audio.src=TRACKS[i].file;
-      var pr=audio.play();
-      if(pr&&pr.catch){ pr.catch(function(){}); }
-      showMini();
-      jukeboxSetPlaying(true);
-    }
-    audio.addEventListener('ended',function(){ play((current+1)%TRACKS.length); });
-    function jukeboxSetPlaying(playing){
-      var vinyl=document.getElementById('jukeboxVinyl'), fabVinyl=document.getElementById('jukeboxFabVinyl'), eq=document.getElementById('jukeboxEq');
-      if(vinyl) vinyl.classList.toggle('spinning', playing);
-      if(fabVinyl) fabVinyl.classList.toggle('spinning', playing);
-      if(eq) eq.classList.toggle('playing', playing);
-      toggle.setAttribute('aria-label', playing ? 'Pause playback' : 'Resume playback');
-    }
-    toggle.addEventListener('click',function(){
-      if(audio.paused){
-        var pr=audio.play(); if(pr&&pr.catch){ pr.catch(function(){}); }
-        jukeboxSetPlaying(true);
-      }else{
-        audio.pause();
-        jukeboxSetPlaying(false);
-      }
-    });
-    var jukeboxHide=document.getElementById('jukeboxHide'), jukeboxFab=document.getElementById('jukeboxFab');
-    if(jukeboxHide&&jukeboxFab){
-      jukeboxHide.addEventListener('click',function(e){
-        e.stopPropagation();
-        mini.classList.add('hidden'); mini.classList.remove('show');
-        jukeboxFab.classList.add('show');
-      });
-      jukeboxFab.addEventListener('click',function(){
-        jukeboxFab.classList.remove('show');
-        mini.classList.remove('hidden'); mini.classList.add('show');
-      });
-    }
-    function openView(){ view.classList.add('open'); document.body.style.overflow='hidden'; }
-    function closeView(){ view.classList.remove('open'); document.body.style.overflow=''; }
-    teaser.addEventListener('click',openView);
-    document.getElementById('jukeboxMiniOpen').addEventListener('click',openView);
-    document.getElementById('jukeboxBack').addEventListener('click',closeView);
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeView(); });
-    setTimeout(function(){ if(current<0) teaser.classList.add('show'); },4000);
-  })();
-
-  </script>
 <script>
-/* Cutter Joe hologram: scroll-driven canvas (12 preloaded frames) */
 (function(){
-  var canvas=document.querySelector('.joe-holo-bg');
-  if(!canvas) return;
-  var section=canvas.closest('.products');
-  var ctx=canvas.getContext('2d');
-  var N=12, frames=[], loaded=[], lastDrawn=-1;
-  for(var i=0;i<N;i++){ frames.push(new Image()); loaded.push(false); }
-  function loadAll(){
-    lastDrawn=-1;
-    frames.forEach(function(img,idx){
-      loaded[idx]=false;
-      img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
-      img.src='assets/joe/holo-frame-'+String(idx+1).padStart(2,'0')+'.jpg';
-    });
+  "use strict";
+  var M='media/';
+  var d=document.documentElement;
+  function $(s,r){return (r||document).querySelector(s)}
+  function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+  function mq(q){return window.matchMedia?window.matchMedia(q):{matches:false,addEventListener:function(){}}}
+  var STILL=d.classList.contains('still');
+  var saveData=!!(navigator.connection&&navigator.connection.saveData);
+
+  /* ---------- theme: light / dark / system ---------- */
+  var sysLight=mq('(prefers-color-scheme: light)');
+  function effTheme(t){return t==='system'?(sysLight.matches?'light':'dark'):t}
+  function setTheme(t,save){
+    d.setAttribute('data-theme',t);
+    var e=effTheme(t);
+    d.classList.toggle('t-light',e==='light');d.classList.toggle('t-dark',e==='dark');
+    $$('[data-theme-set]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-set')===t))});
+    var tc=$('meta[name="theme-color"]');if(tc)tc.setAttribute('content',e==='light'?'#f4ede1':'#0e0b09');
+    if(save!==false){try{localStorage.setItem('lgfg-theme',t)}catch(x){}}
   }
-  function closest(idx){
-    if(loaded[idx])return idx;
-    for(var d=1;d<N;d++){
-      if(idx-d>=0&&loaded[idx-d])return idx-d;
-      if(idx+d<N&&loaded[idx+d])return idx+d;
+  setTheme(d.getAttribute('data-theme')||'system',false);
+  $$('[data-theme-set]').forEach(function(b){b.addEventListener('click',function(){setTheme(b.getAttribute('data-theme-set'))})});
+  function onSys(){if(d.getAttribute('data-theme')==='system')setTheme('system',false)}
+  try{sysLight.addEventListener('change',onSys)}catch(x){try{sysLight.addListener(onSys)}catch(y){}}
+
+  /* ---------- header + mobile sheet ---------- */
+  var hdr=$('#hdr'),sheet=$('#sheet'),menuBtn=$('#menuBtn'),lastFocus=null;
+  function openSheet(){lastFocus=document.activeElement;sheet.classList.add('open');sheet.setAttribute('aria-hidden','false');menuBtn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';var f=$('.sheet-x',sheet);if(f)f.focus()}
+  function closeSheet(){if(!sheet.classList.contains('open'))return;sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');menuBtn.setAttribute('aria-expanded','false');document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+  menuBtn.addEventListener('click',openSheet);
+  $$('[data-close]',sheet).forEach(function(el){el.addEventListener('click',closeSheet)});
+  $$('nav a',sheet).forEach(function(a){a.addEventListener('click',closeSheet)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
+  sheet.addEventListener('keydown',function(e){
+    if(e.key!=='Tab')return;var f=$$('a,button',sheet).filter(function(x){return x.offsetParent!==null});if(!f.length)return;
+    var a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}
+  });
+
+  /* ---------- frame-sequence engine (canvas, iOS-safe, progressive) ---------- */
+  var PORTQ=mq('(max-aspect-ratio: 1/1), (max-width: 767px)');
+  function Seq(urlFn,n){this.urlFn=urlFn;this.n=n;this.imgs=new Array(n);this.ok=new Array(n);this.started=false}
+  Seq.prototype.order=function(){var o=[],s,i,seen={};for(s=8;s>=1;s=s>>1)for(i=0;i<this.n;i+=s)if(!seen[i]){seen[i]=1;o.push(i)}if(!seen[this.n-1])o.splice(1,0,this.n-1);return o};
+  Seq.prototype.nearest=function(t){if(this.ok[t])return t;for(var k=1;k<this.n;k++){if(t-k>=0&&this.ok[t-k])return t-k;if(t+k<this.n&&this.ok[t+k])return t+k}return -1};
+  var Q=[],inflight=0,MAXF=saveData?2:6;
+  function enqueue(seq){if(seq.started)return;seq.started=true;seq.order().forEach(function(i){Q.push([seq,i])});pump()}
+  function pump(){
+    while(inflight<MAXF&&Q.length){
+      var job=Q.shift(),s=job[0],i=job[1];if(s.imgs[i])continue;inflight++;
+      (function(s,i){var im=new Image();im.decoding='async';s.imgs[i]=im;
+        im.onload=function(){s.ok[i]=1;inflight--;pump();req()};
+        im.onerror=function(){inflight--;pump()};
+        im.src=s.urlFn(i)})(s,i);
     }
-    return -1;
   }
-  function draw(idx){
-    var r=closest(idx);
-    if(r<0||r===lastDrawn) return;
-    var img=frames[r];
-    var cr=canvas.getBoundingClientRect(), ratio=Math.min(2,window.devicePixelRatio||1);
-    var cw=Math.max(1,Math.round(cr.width*ratio)), ch=Math.max(1,Math.round(cr.height*ratio));
-    if(canvas.width!==cw||canvas.height!==ch){ canvas.width=cw; canvas.height=ch; }
-    var scale=Math.max(cw/img.naturalWidth, ch/img.naturalHeight);
-    var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
-    ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
-    lastDrawn=r;
+  function Painter(cv){this.cv=cv;this.ctx=cv.getContext('2d',{alpha:false});this.w=0;this.h=0;this.last=null}
+  Painter.prototype.paint=function(seq,t){
+    var cv=this.cv,dpr=Math.min(window.devicePixelRatio||1,PORTQ.matches?1.5:2),r=cv.getBoundingClientRect();
+    var nw=Math.max(1,Math.round(r.width*dpr)),nh=Math.max(1,Math.round(r.height*dpr));
+    if(nw!==this.w||nh!==this.h){this.w=cv.width=nw;this.h=cv.height=nh;this.last=null}
+    var f=seq.nearest(t);if(f<0)return false;
+    var key=seq.urlFn(f);if(key===this.last)return true;
+    var im=seq.imgs[f],iw=im.naturalWidth,ih=im.naturalHeight,s=Math.max(nw/iw,nh/ih),dw=iw*s,dh=ih*s;
+    this.ctx.drawImage(im,(nw-dw)/2,(nh-dh)/2,dw,dh);this.last=key;return true;
+  };
+
+  var mode=PORTQ.matches?'m':'d';
+  var heroSeq,walkSeqs,SCENES=['chair','cut','beard','shave','rich'];
+  function pad2(i){return (i<9?'0':'')+(i+1)}
+  function build(){
+    heroSeq=new Seq(function(i){return M+'hero/'+mode+'/'+pad2(i)+'.webp'},70);
+    walkSeqs=SCENES.map(function(sc){return new Seq(function(i){return M+'walk/'+mode+'/'+sc+'/'+pad2(i)+'.webp'},48)});
   }
-  var ticking=false;
-  function update(){
-    if(!section){ ticking=false; return; }
-    var r=section.getBoundingClientRect(), vh=window.innerHeight;
-    var progress=Math.max(0,Math.min(1,(vh-r.top)/(vh+r.height)));
-    draw(Math.min(N-1,Math.floor(progress*N)));
-    ticking=false;
+  build();
+
+  var hero=$('#top'),heroMedia=$('#heroMedia'),heroCopy=$('#heroCopy'),cue=$('#cue'),lbT=$('#lbT'),lbB=$('#lbB');
+  var walk=$('#walk'),cape=$('#cape'),caps=$$('#caps .cap'),reelNo=$('#reelNo'),reelBar=$('#reelBar');
+  var NARROW=mq('(max-width: 900px)'),lastWho='';
+  var legacy=$('#legacy'),holo=$('#holo'),holoJoe=$('#holoJoe'),scan=$('#scanline'),holoTag=$('#holoTag');
+  var HP=null,WP=null,walkWanted=false;
+  if(!STILL){
+    HP=new Painter($('#heroCanvas'));WP=new Painter($('#walkCanvas'));
+    enqueue(heroSeq);
+    /* walkthrough frames load only when the visitor gets close (keeps first load light) */
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){walkWanted=true;walkSeqs.forEach(enqueue);io.disconnect()}})},{rootMargin:'120% 0px 120% 0px'});
+      io.observe(walk);
+    }else{walkWanted=true;walkSeqs.forEach(enqueue)}
   }
-  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
-  window.addEventListener('scroll',onScroll,{passive:true});
-  window.addEventListener('resize',onScroll);
-  loadAll();
-  update();
+
+  /* ---------- parallax + reveal ---------- */
+  var depthEls=STILL?[]:$$('[data-depth]');
+  var revealEls=$$('.rv');
+  if(STILL||!('IntersectionObserver' in window)){revealEls.forEach(function(el){el.classList.add('in')})}
+  else{var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}})},{rootMargin:'0px 0px -12% 0px'});revealEls.forEach(function(el){rio.observe(el)})}
+
+  /* ---------- scroll spy ---------- */
+  var spy=$$('.nav a[data-spy]');
+  if('IntersectionObserver' in window){
+    var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id=e.target.id;spy.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-spy')===id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+    spy.forEach(function(a){var s=document.getElementById(a.getAttribute('data-spy'));if(s)sio.observe(s)});
+  }
+
+  /* ---------- main scroll loop ---------- */
+  var tick=0;
+  function req(){if(!tick){tick=1;requestAnimationFrame(frame)}}
+  function clamp(v){return v<0?0:v>1?1:v}
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  var lastScene=-1;
+  function frame(){
+    tick=0;
+    var sy=window.pageYOffset||document.documentElement.scrollTop,vh=window.innerHeight;
+    hdr.classList.toggle('solid',sy>hero.offsetTop+hero.offsetHeight-vh*1.05||STILL&&sy>40);
+    if(STILL)return;
+    /* hero */
+    var hTop=hero.offsetTop,hH=hero.offsetHeight;
+    if(sy<hTop+hH){
+      var hp=clamp((sy-hTop)/Math.max(1,hH-vh));
+      if(HP.paint(heroSeq,Math.round(hp*69)))hero.classList.add('live');
+      heroMedia.style.transform='scale('+(1.14-hp*.12).toFixed(4)+') translate3d(0,'+(hp*-2).toFixed(2)+'%,0)';
+      var cp=clamp(hp*1.7);
+      heroCopy.style.transform='translate3d(0,'+(-cp*22).toFixed(2)+'vh,0) scale('+(1-cp*.06).toFixed(4)+')';
+      heroCopy.style.opacity=(1-clamp((hp-.18)*2.2)).toFixed(3);
+      cue.style.opacity=(0.75-hp*3).toFixed(3);
+      var lb=(clamp((hp-.55)/.45)*9).toFixed(2)+'vh';lbT.style.height=lb;lbB.style.height=lb;
+    }
+    /* walkthrough */
+    var wTop=walk.offsetTop,wH=walk.offsetHeight;
+    if(sy+vh>wTop&&sy<wTop+wH){
+      if(!walkWanted){walkWanted=true;walkSeqs.forEach(enqueue)}
+      var p=clamp((sy-wTop)/Math.max(1,wH-vh)),S=SCENES.length,x=p*S,sc=Math.min(S-1,Math.floor(x)),t=x-sc;
+      var T0=.84,frameT=clamp(t/T0),scene=sc,capeX=-130;
+      if(sc<S-1&&t>T0){var ct=(t-T0)/(1-T0);capeX=-130+ease(ct)*260;if(ct>.5){scene=sc+1;frameT=0}}
+      if(sc===S-1)frameT=clamp(t/.9);
+      cape.style.transform='translate3d('+capeX.toFixed(2)+'%,0,0) skewX(-14deg)';
+      if(WP.paint(walkSeqs[scene],Math.round(frameT*47)))walk.classList.add('live');
+      if(scene!==lastScene){lastScene=scene;caps.forEach(function(c,i){c.classList.toggle('on',i===scene)});reelNo.textContent='0'+(scene+1)+' / 0'+S}
+      reelBar.style.transform='scaleX('+p.toFixed(4)+')';
+    }
+    /* legacy: Joe hologram -> Rich */
+    var lTop=legacy.offsetTop,lH=legacy.offsetHeight;
+    if(sy+vh>lTop&&sy<lTop+lH){
+      var k;
+      if(NARROW.matches){var hr=holo.getBoundingClientRect();k=clamp((vh*.78-hr.top)/Math.max(1,vh*.5))}
+      else{var lp=clamp((sy-lTop)/Math.max(1,lH-vh));k=clamp((lp-.2)/.6)}
+      holoJoe.style.clipPath='inset('+(k*100).toFixed(2)+'% 0 0 0)';
+      holoJoe.style.opacity=(1-clamp((k-.85)/.15)).toFixed(3);
+      scan.style.top=(k*100).toFixed(2)+'%';
+      scan.style.opacity=(k>0&&k<1)?'1':'0';
+      var who=k<.5?'joe':'rich';
+      if(who!==lastWho){lastWho=who;holoTag.innerHTML=who==='joe'?'<b>Joe</b> · the name':'<b>Rich</b> · the hands'}
+    }
+    /* layered parallax */
+    for(var i=0;i<depthEls.length;i++){
+      var el=depthEls[i],r=el.parentNode.getBoundingClientRect();
+      if(r.bottom<-200||r.top>vh+200)continue;
+      var off=(r.top+r.height/2-vh/2)*parseFloat(el.getAttribute('data-depth'));
+      var base=el.classList.contains('p1')?3:-5;
+      el.style.transform='translate3d(0,'+off.toFixed(1)+'px,0) rotate('+(base+off*.01).toFixed(2)+'deg)';
+    }
+  }
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',function(){
+    var m=PORTQ.matches?'m':'d';
+    if(!STILL&&m!==mode){mode=m;Q.length=0;build();enqueue(heroSeq);if(walkWanted)walkSeqs.forEach(enqueue);lastScene=-1}
+    if(HP)HP.last=null;if(WP)WP.last=null;req();
+  });
+  req();
+
+  /* ---------- jukebox: mood + lighting, optional procedural crackle (no music files) ---------- */
+  var recs=$$('#records .rec'),vinyl=$('#vinyl'),arm=$('#arm'),nowT=$('#nowT'),nowS=$('#nowS'),flash=$('#moodFlash');
+  function markRec(m){recs.forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-mood')===m))})}
+  function showNow(b){nowT.textContent=b.querySelector('strong').textContent;nowS.textContent=b.getAttribute('data-note')}
+  var curMood=d.getAttribute('data-mood')||'red';
+  markRec(curMood);recs.forEach(function(b){if(b.getAttribute('data-mood')===curMood)showNow(b)});
+  recs.forEach(function(b){b.addEventListener('click',function(){
+    var m=b.getAttribute('data-mood');
+    d.setAttribute('data-mood',m);try{localStorage.setItem('lgfg-mood',m)}catch(x){}
+    setTheme(b.getAttribute('data-theme'));
+    markRec(m);showNow(b);
+    arm.classList.add('down');vinyl.classList.add('spin');
+    if(!STILL){flash.classList.remove('go');void flash.offsetWidth;flash.classList.add('go')}
+    if(audio.on)needleDrop();
+  })});
+  var audio={ctx:null,src:null,gain:null,on:false};
+  function crackleBuffer(ctx){
+    var len=ctx.sampleRate*3,buf=ctx.createBuffer(1,len,ctx.sampleRate),ch=buf.getChannelData(0),i;
+    for(i=0;i<len;i++){ch[i]=(Math.random()*2-1)*0.012}
+    for(i=0;i<len;i++){if(Math.random()<0.0009){var a=(Math.random()*.6+.2)*(Math.random()<.5?-1:1);for(var k=0;k<60&&i+k<len;k++){ch[i+k]+=a*Math.exp(-k/9)}}}
+    return buf;
+  }
+  function needleDrop(){
+    if(!audio.ctx)return;var c=audio.ctx,o=c.createOscillator(),g=c.createGain();
+    o.type='sine';o.frequency.setValueAtTime(90,c.currentTime);o.frequency.exponentialRampToValueAtTime(40,c.currentTime+.25);
+    g.gain.setValueAtTime(.18,c.currentTime);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.3);
+    o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.32);
+  }
+  var crackle=$('#crackle'),crackleState=$('#crackleState');
+  crackle.addEventListener('change',function(){
+    if(crackle.checked){
+      var AC=window.AudioContext||window.webkitAudioContext;if(!AC){crackle.checked=false;return}
+      if(!audio.ctx){audio.ctx=new AC();audio.gain=audio.ctx.createGain();audio.gain.gain.value=.5;audio.gain.connect(audio.ctx.destination)}
+      if(audio.ctx.state==='suspended')audio.ctx.resume();
+      audio.src=audio.ctx.createBufferSource();audio.src.buffer=crackleBuffer(audio.ctx);audio.src.loop=true;
+      var lp=audio.ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=5200;
+      audio.src.connect(lp);lp.connect(audio.gain);audio.src.start();audio.on=true;crackleState.textContent='on';needleDrop();
+    }else{
+      if(audio.src){try{audio.src.stop()}catch(x){}audio.src=null}
+      audio.on=false;crackleState.textContent='off';
+    }
+  });
+  document.addEventListener('visibilitychange',function(){if(document.hidden&&audio.on){crackle.checked=false;crackle.dispatchEvent(new Event('change'))}});
+
+  /* ---------- today's hours highlight ---------- */
+  var today=new Date().getDay();$$('#hours [data-d="'+today+'"]').forEach(function(s){s.classList.add('today')});
 })();
 </script>
 <script>
-/* Booking form: builds a WhatsApp / SMS appointment request for Rich (v6) */
+/* Booking form: builds a WhatsApp / SMS appointment request for Rich (kept from v6, SMS number fixed) */
 (function(){
-  var RICH = '13174800062'; /* Rich's number, also used by tel: links */
-  /* Shop hours from Google (24h decimal). Index: 0=Sun..6=Sat */
-  var HOURS = {1:[9.5,18], 2:[9.5,18], 3:[9,17], 4:[9.5,16], 5:[9.5,18]};
-  var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var form = document.getElementById('book-form');
-  if(!form) return;
-  var nameEl = document.getElementById('bk-name'),
-      phoneEl = document.getElementById('bk-phone'),
-      serviceEl = document.getElementById('bk-service'),
-      dateEl = document.getElementById('bk-date'),
-      timeEl = document.getElementById('bk-time'),
-      noteEl = document.getElementById('bk-note');
-  /* No past dates */
-  var t = new Date();
-  dateEl.min = t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0');
-  function fmtTime(h){
-    var hh = Math.floor(h), ap = hh >= 12 ? 'PM' : 'AM', h12 = hh % 12 || 12;
-    return h12 + ':' + (h % 1 ? '30' : '00') + ' ' + ap;
-  }
-  dateEl.addEventListener('change', function(){
-    timeEl.innerHTML = ''; noteEl.textContent = '';
-    if(!dateEl.value) return;
-    var d = new Date(dateEl.value + 'T12:00:00'), dow = d.getDay();
+  var RICH='13174800062';
+  var HOURS={1:[9.5,18],2:[9.5,18],3:[9,17],4:[9.5,16],5:[9.5,18]};
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var form=document.getElementById('book-form');
+  if(!form)return;
+  var nameEl=document.getElementById('bk-name'),phoneEl=document.getElementById('bk-phone'),serviceEl=document.getElementById('bk-service'),
+      dateEl=document.getElementById('bk-date'),timeEl=document.getElementById('bk-time'),noteEl=document.getElementById('bk-note');
+  var t=new Date();
+  dateEl.min=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+  function fmtTime(h){var hh=Math.floor(h),ap=hh>=12?'PM':'AM',h12=hh%12||12;return h12+':'+(h%1?'30':'00')+' '+ap}
+  dateEl.addEventListener('change',function(){
+    timeEl.innerHTML='';noteEl.textContent='';
+    if(!dateEl.value)return;
+    var d=new Date(dateEl.value+'T12:00:00'),dow=d.getDay();
     if(!HOURS[dow]){
-      noteEl.textContent = 'The shop is closed on ' + DAYS[dow] + 's. Please pick a weekday.';
-      var o = document.createElement('option'); o.textContent = 'Closed that day'; timeEl.appendChild(o);
-      return;
+      noteEl.textContent='The shop is closed on '+DAYS[dow]+'s. Please pick a weekday.';
+      var o=document.createElement('option');o.textContent='Closed that day';o.value='';timeEl.appendChild(o);return;
     }
-    var open = HOURS[dow][0], close = HOURS[dow][1];
-    for(var s = open; s <= close - 0.5; s += 0.5){
-      var opt = document.createElement('option');
-      opt.value = opt.textContent = fmtTime(s);
-      timeEl.appendChild(opt);
-    }
+    for(var s=HOURS[dow][0];s<=HOURS[dow][1]-0.5;s+=0.5){var opt=document.createElement('option');opt.value=opt.textContent=fmtTime(s);timeEl.appendChild(opt)}
   });
   function buildMessage(){
-    var name = nameEl.value.trim(), phone = phoneEl.value.trim(),
-        service = serviceEl.value, dateVal = dateEl.value, timeVal = timeEl.value;
-    if(!name || !phone){
-      noteEl.textContent = 'Please add your name and cell number so Rich can confirm.';
-      return null;
-    }
-    if(!dateVal || !timeVal || timeVal.indexOf('Closed') === 0 || timeVal.indexOf('Pick') === 0){
-      noteEl.textContent = 'Please pick a day and time first.';
-      return null;
-    }
-    var d = new Date(dateVal + 'T12:00:00');
-    var dateStr = DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate();
-    noteEl.textContent = '';
-    return 'Hi Rich, I would like to book a ' + service + ' on ' + dateStr + ' at ' + timeVal +
-           '. My name is ' + name + ' and my number is ' + phone + '. Thanks!';
+    var name=nameEl.value.trim(),phone=phoneEl.value.trim(),service=serviceEl.value,dateVal=dateEl.value,timeVal=timeEl.value;
+    if(!name||!phone){noteEl.textContent='Please add your name and cell number so Rich can confirm.';return null}
+    if(!dateVal||!timeVal){noteEl.textContent='Please pick a day and time first.';return null}
+    var d=new Date(dateVal+'T12:00:00');
+    var dateStr=DAYS[d.getDay()]+', '+MONTHS[d.getMonth()]+' '+d.getDate();
+    noteEl.textContent='';
+    return 'Hi Rich, I would like to book a '+service+' on '+dateStr+' at '+timeVal+'. My name is '+name+' and my number is '+phone+'. Thanks!';
   }
-  document.getElementById('bk-whatsapp').addEventListener('click', function(){
-    var msg = buildMessage();
-    if(msg) window.open('https://wa.me/' + RICH + '?text=' + encodeURIComponent(msg), '_blank');
-  });
-  document.getElementById('bk-sms').addEventListener('click', function(){
-    var msg = buildMessage();
-    if(msg) window.location.href = 'sms:+1' + RICH + '?&body=' + encodeURIComponent(msg);
-  });
+  document.getElementById('bk-whatsapp').addEventListener('click',function(){var m=buildMessage();if(m)window.open('https://wa.me/'+RICH+'?text='+encodeURIComponent(m),'_blank')});
+  document.getElementById('bk-sms').addEventListener('click',function(){var m=buildMessage();if(m)window.location.href='sms:+'+RICH+'?&body='+encodeURIComponent(m)});
 })();
 </script>
-
 </body>
 </html>
