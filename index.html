@@ -223,14 +223,44 @@ button{font:inherit;color:inherit}
 .holo-tag b{color:var(--acc-d);font-weight:700}
 .holo-cap{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font:600 .66rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
-.work{background:var(--bg)}
-.work-head{margin-bottom:clamp(28px,4vw,48px)}
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.6vw,20px)}
-.wk{margin:0;overflow:hidden;border-radius:4px;aspect-ratio:1/1;background:var(--surface);box-shadow:var(--shadow);transition-delay:calc(var(--i)*60ms)}
-.wk img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
-.wk:hover img{transform:scale(1.05)}
-@media (max-width:767px){.work-grid{grid-template-columns:repeat(2,1fr)}.wk:last-child{grid-column:span 2;aspect-ratio:2/1}.wk:last-child img{object-position:50% 30%}}
-@media (prefers-reduced-motion:reduce){.wk img{transition:none}.wk:hover img{transform:none}}
+/* ---------- style book ---------- */
+.sbook{background:var(--bg-2);overflow:hidden}
+.sb-head{text-align:center;margin-bottom:clamp(24px,4vw,44px)}
+.book-wrap{display:flex;flex-direction:column;align-items:center}
+.book{position:relative;width:min(88vw,420px);aspect-ratio:3/4.3;perspective:2200px;outline:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.book:focus-visible{box-shadow:0 0 0 3px var(--accent);border-radius:6px}
+.leaf{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;z-index:var(--z);transition:transform 1.1s var(--ease)}
+.leaf.flipped{transform:rotateY(-178deg);opacity:0;transition:transform 1.1s var(--ease),opacity .35s .75s}
+.leaf{opacity:1}
+.pg{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:4px 10px 10px 4px;background:#fbf6ec;color:#2a2018;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35),inset 14px 0 18px -14px rgba(0,0,0,.35);display:flex;flex-direction:column}
+.pg.back{transform:rotateY(180deg);border-radius:10px 4px 4px 10px}
+.pg figure{margin:12px 12px 0;flex:1 1 auto;min-height:0;overflow:hidden;border-radius:3px}
+.pg figure img{width:100%;height:100%;object-fit:cover}
+.pg-txt{padding:14px 18px 18px}
+.pg-no{font:600 .62rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#7a6b5a}
+.pg-txt h3{font:400 clamp(1.6rem,6vw,2.1rem)/1 var(--serif);margin:.25em 0 .2em;letter-spacing:-.02em}
+.pg-txt p{margin:0 0 12px;color:#4a4037;font-size:.95rem;line-height:1.4}
+.pg .pick{width:100%;justify-content:center;background:var(--acc-l);border-color:var(--acc-l);color:#fff}
+.cover,.pg.last{background:#1a1411;color:#f3eadb;justify-content:center;align-items:center;text-align:center}
+.cover{background:radial-gradient(120% 80% at 30% 20%,color-mix(in srgb,var(--acc-d) 30%,#1a1411),#120d0b);border-left:6px solid color-mix(in srgb,var(--acc-d) 60%,#000)}
+.cover-in{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px}
+.cover-in small{font:600 .7rem/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--acc-d)}
+.cover-in strong{font:400 clamp(3rem,13vw,4.4rem)/.9 var(--serif);letter-spacing:-.03em;font-weight:400}
+.cover-in em{font-family:var(--ital);font-style:italic;color:var(--acc-d)}
+.cover-in p{margin:0;color:#d2c6b4}
+.cover .logo-pole{width:18px;height:46px}
+.cover-hint{font:500 .78rem/1 var(--sans);color:#a39684;letter-spacing:.06em}
+.endp{background:#efe6d6;align-items:center;justify-content:center}
+.endp span{font:italic 1rem/1 var(--ital);color:#7a6b5a}
+.book-ctl{display:flex;align-items:center;gap:18px;margin-top:22px}
+.bk-arrow{width:48px;height:48px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:1.2rem;cursor:pointer}
+.bk-arrow:disabled{opacity:.35;cursor:default}
+.book-count{font:600 .75rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);min-width:7em;text-align:center}
+.bk-style{display:none;align-items:center;gap:10px;margin:4px 0 0;padding:10px 14px;border:1px solid var(--line-2);border-radius:999px;font-size:.9rem}
+.bk-style.on{display:inline-flex}
+.bk-style b{color:var(--accent)}
+.bk-style button{border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:0 2px}
+@media (prefers-reduced-motion:reduce){.leaf{transition:none}}
 /* ---------- jukebox ---------- */
 .jbox{background:var(--bg);overflow:hidden}
 .jb-grid{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:clamp(36px,6vw,96px);align-items:center;margin-top:40px}
@@ -535,27 +565,6 @@ button{font:inherit;color:inherit}
     </div>
   </section>
 
-  <!-- 2b. The work: Rich-approved portfolio photos -->
-  <section class="sec work" id="work" aria-labelledby="workH">
-    <div class="wrap">
-      <div class="rv work-head">
-        <span class="kick">The work</span>
-        <h2 class="h2" id="workH">Every chair,<br><em>a signature.</em></h2>
-      </div>
-      <div class="work-grid">
-        <figure class="wk rv" style="--i:0"><img src="media/work/w01.webp" width="900" height="900" loading="lazy" decoding="async" alt="A full beard being lined with a straight razor"></figure>
-        <figure class="wk rv" style="--i:1"><img src="media/work/w02.webp" width="900" height="900" loading="lazy" decoding="async" alt="A spiked fade with a hard part design"></figure>
-        <figure class="wk rv" style="--i:2"><img src="media/work/w03.webp" width="900" height="900" loading="lazy" decoding="async" alt="A modern mullet with a tapered fade"></figure>
-        <figure class="wk rv" style="--i:3"><img src="media/work/w05.webp" width="900" height="900" loading="lazy" decoding="async" alt="A short cut and trimmed salt-and-pepper beard"></figure>
-        <figure class="wk rv" style="--i:4"><img src="media/work/w06.webp" width="900" height="900" loading="lazy" decoding="async" alt="A long white beard shaped to a clean point"></figure>
-        <figure class="wk rv" style="--i:5"><img src="media/work/w07.webp" width="900" height="900" loading="lazy" decoding="async" alt="A full sculpted beard in a vest, by the barber pole"></figure>
-        <figure class="wk rv" style="--i:6"><img src="media/work/w11.webp" width="900" height="900" loading="lazy" decoding="async" alt="A crisp crop with a groomed red beard"></figure>
-        <figure class="wk rv" style="--i:7"><img src="media/work/w12.webp" width="900" height="900" loading="lazy" decoding="async" alt="A hot towel wrapped over a long beard"></figure>
-        <figure class="wk rv" style="--i:8"><img src="media/work/w14.webp" width="900" height="900" loading="lazy" decoding="async" alt="A sculpted full beard and short sides"></figure>
-      </div>
-    </div>
-  </section>
-
   <!-- TODO(every-angle): the v6 "Every angle. Every line." 360 section was removed in v8 because its dapper-360 frames were 100% AI and implied Rich's work and identity. Rebuild it only from a real photo or turntable shoot of a real client, with permission. -->
 
   <!-- 5. Before/after slider intentionally omitted: no true before/after pair of real client photos exists yet. Never fake one with AI. -->
@@ -639,6 +648,38 @@ button{font:inherit;color:inherit}
     </div>
   </section>
 
+  <!-- 7b. Style book: flip through Rich's cuts, pick one, prefill the booking request -->
+  <section class="sec sbook" id="stylebook" aria-labelledby="sbH">
+    <div class="wrap">
+      <div class="rv sb-head">
+        <span class="kick">The style book</span>
+        <h2 class="h2" id="sbH">Flip through.<br><em>Pick your cut.</em></h2>
+      </div>
+      <div class="book-wrap rv">
+        <div class="book" id="book" tabindex="0" role="region" aria-roledescription="flip book" aria-label="Style book, use arrow keys to turn pages">
+        <div class="leaf" style="--z:13"><div class="pg front cover"><div class="cover-in"><span class="logo-pole" aria-hidden="true"></span><small>Look Good Feel Good</small><strong>The Style<br><em>Book</em></strong><span class="cover-hint">Swipe or tap to open</span></div></div><div class="pg back endp"><span>Terre Haute, Indiana</span></div></div>
+        <div class="leaf" style="--z:12"><div class="pg front"><figure><img src="media/work/w08.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:62% 40%" alt="The Slick Fade: Skin fade, slicked back, sharp at the temple."></figure><div class="pg-txt"><span class="pg-no">No. 01</span><h3>The Slick Fade</h3><p>Skin fade, slicked back, sharp at the temple.</p><button type="button" class="btn btn--acc pick" data-cut="The Slick Fade" data-svc="Precision haircut">I want this cut</button></div></div><div class="pg back endp"><span>01 / 11</span></div></div>
+        <div class="leaf" style="--z:11"><div class="pg front"><figure><img src="media/work/w02.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:60% 40%" alt="The Hard Part: Spiked texture on top, a fade and a carved part."></figure><div class="pg-txt"><span class="pg-no">No. 02</span><h3>The Hard Part</h3><p>Spiked texture on top, a fade and a carved part.</p><button type="button" class="btn btn--acc pick" data-cut="The Hard Part" data-svc="Precision haircut">I want this cut</button></div></div><div class="pg back endp"><span>02 / 11</span></div></div>
+        <div class="leaf" style="--z:10"><div class="pg front"><figure><img src="media/work/w03.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:55% 35%" alt="The Modern Mullet: Business up front, a tapered flow in back."></figure><div class="pg-txt"><span class="pg-no">No. 03</span><h3>The Modern Mullet</h3><p>Business up front, a tapered flow in back.</p><button type="button" class="btn btn--acc pick" data-cut="The Modern Mullet" data-svc="Precision haircut">I want this cut</button></div></div><div class="pg back endp"><span>03 / 11</span></div></div>
+        <div class="leaf" style="--z:9"><div class="pg front"><figure><img src="media/work/w11.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:50% 40%" alt="The Clean Crop: Short textured crop with a groomed beard."></figure><div class="pg-txt"><span class="pg-no">No. 04</span><h3>The Clean Crop</h3><p>Short textured crop with a groomed beard.</p><button type="button" class="btn btn--acc pick" data-cut="The Clean Crop" data-svc="Precision haircut">I want this cut</button></div></div><div class="pg back endp"><span>04 / 11</span></div></div>
+        <div class="leaf" style="--z:8"><div class="pg front"><figure><img src="media/work/w05.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:50% 40%" alt="The Gentleman: Tidy short cut, beard trimmed to frame the face."></figure><div class="pg-txt"><span class="pg-no">No. 05</span><h3>The Gentleman</h3><p>Tidy short cut, beard trimmed to frame the face.</p><button type="button" class="btn btn--acc pick" data-cut="The Gentleman" data-svc="Precision haircut">I want this cut</button></div></div><div class="pg back endp"><span>05 / 11</span></div></div>
+        <div class="leaf" style="--z:7"><div class="pg front"><figure><img src="media/work/w04.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:48% 40%" alt="The Side Part: Classic slick side part over a sculpted beard."></figure><div class="pg-txt"><span class="pg-no">No. 06</span><h3>The Side Part</h3><p>Classic slick side part over a sculpted beard.</p><button type="button" class="btn btn--acc pick" data-cut="The Side Part" data-svc="Freehand beard sculpting">I want this cut</button></div></div><div class="pg back endp"><span>06 / 11</span></div></div>
+        <div class="leaf" style="--z:6"><div class="pg front"><figure><img src="media/work/w07.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:50% 40%" alt="The Full Sculpt: A full beard shaped freehand, line by line."></figure><div class="pg-txt"><span class="pg-no">No. 07</span><h3>The Full Sculpt</h3><p>A full beard shaped freehand, line by line.</p><button type="button" class="btn btn--acc pick" data-cut="The Full Sculpt" data-svc="Freehand beard sculpting">I want this cut</button></div></div><div class="pg back endp"><span>07 / 11</span></div></div>
+        <div class="leaf" style="--z:5"><div class="pg front"><figure><img src="media/work/w14.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:50% 35%" alt="The Short and Full: Tight sides, a full beard with a clean neckline."></figure><div class="pg-txt"><span class="pg-no">No. 08</span><h3>The Short and Full</h3><p>Tight sides, a full beard with a clean neckline.</p><button type="button" class="btn btn--acc pick" data-cut="The Short and Full" data-svc="Freehand beard sculpting">I want this cut</button></div></div><div class="pg back endp"><span>08 / 11</span></div></div>
+        <div class="leaf" style="--z:4"><div class="pg front"><figure><img src="media/work/w06.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:50% 40%" alt="The Point: A long beard tapered to a clean point."></figure><div class="pg-txt"><span class="pg-no">No. 09</span><h3>The Point</h3><p>A long beard tapered to a clean point.</p><button type="button" class="btn btn--acc pick" data-cut="The Point" data-svc="Freehand beard sculpting">I want this cut</button></div></div><div class="pg back endp"><span>09 / 11</span></div></div>
+        <div class="leaf" style="--z:3"><div class="pg front"><figure><img src="media/work/w01.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:40% 40%" alt="The Razor Line: Long beard, edges set with a straight razor."></figure><div class="pg-txt"><span class="pg-no">No. 10</span><h3>The Razor Line</h3><p>Long beard, edges set with a straight razor.</p><button type="button" class="btn btn--acc pick" data-cut="The Razor Line" data-svc="Freehand beard sculpting">I want this cut</button></div></div><div class="pg back endp"><span>10 / 11</span></div></div>
+        <div class="leaf" style="--z:2"><div class="pg front"><figure><img src="media/work/w12.webp" width="900" height="900" loading="lazy" decoding="async" style="object-position:50% 40%" alt="The Hot Towel: Warm towel, rich lather, a slow razor pass."></figure><div class="pg-txt"><span class="pg-no">No. 11</span><h3>The Hot Towel</h3><p>Warm towel, rich lather, a slow razor pass.</p><button type="button" class="btn btn--acc pick" data-cut="The Hot Towel" data-svc="Hot towel shave">I want this cut</button></div></div><div class="pg back endp"><span>11 / 11</span></div></div>
+        <div class="leaf" style="--z:0"><div class="pg front last"><div class="cover-in"><small>Not seeing it?</small><strong>Bring a<br><em>picture.</em></strong><p>Rich will read it and make it yours.</p><a class="btn btn--acc" href="#visit">Book the chair</a></div></div></div>
+        </div>
+        <div class="book-ctl">
+          <button type="button" class="bk-arrow" id="bookPrev" aria-label="Previous page">&#8592;</button>
+          <span class="book-count" id="bookCount" aria-live="polite">Cover</span>
+          <button type="button" class="bk-arrow" id="bookNext" aria-label="Next page">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Visit + booking (WhatsApp / SMS) -->
   <section class="sec visit" id="visit" aria-labelledby="visitH">
     <div class="wrap visit-grid">
@@ -660,6 +701,7 @@ button{font:inherit;color:inherit}
               <label>Day<input type="date" id="bk-date"></label>
             </div>
             <label>Time<select id="bk-time"><option value="">Pick a day first</option></select></label>
+            <p class="bk-style" id="bk-style"><span>Style: <b id="bk-style-name"></b></span><button type="button" id="bk-style-x" aria-label="Remove style">&times;</button></p>
             <p class="bk-note" id="bk-note" role="status"></p>
             <div class="bk-actions">
               <button type="button" class="btn btn--acc" id="bk-whatsapp">Send via WhatsApp</button>
@@ -953,10 +995,43 @@ button{font:inherit;color:inherit}
     var d=new Date(dateVal+'T12:00:00');
     var dateStr=DAYS[d.getDay()]+', '+MONTHS[d.getMonth()]+' '+d.getDate();
     noteEl.textContent='';
-    return 'Hi Rich, I would like to book a '+service+' on '+dateStr+' at '+timeVal+'. My name is '+name+' and my number is '+phone+'. Thanks!';
+    var st=window.LGFG_STYLE?', '+window.LGFG_STYLE+' from your style book,':'';
+    return 'Hi Rich, I would like to book a '+service+st+' on '+dateStr+' at '+timeVal+'. My name is '+name+' and my number is '+phone+'. Thanks!';
   }
   document.getElementById('bk-whatsapp').addEventListener('click',function(){var m=buildMessage();if(m)window.open('https://wa.me/'+RICH+'?text='+encodeURIComponent(m),'_blank')});
   document.getElementById('bk-sms').addEventListener('click',function(){var m=buildMessage();if(m)window.location.href='sms:+'+RICH+'?&body='+encodeURIComponent(m)});
+})();
+</script>
+<script>
+/* Style book: page flip with swipe, buttons, keys; "I want this cut" prefills the booking request */
+(function(){
+  var book=document.getElementById('book');if(!book)return;
+  var leaves=[].slice.call(book.querySelectorAll('.leaf')),cur=0,N=leaves.length;
+  var prev=document.getElementById('bookPrev'),next=document.getElementById('bookNext'),count=document.getElementById('bookCount');
+  function render(){
+    leaves.forEach(function(l,i){var f=i<cur;l.classList.toggle('flipped',f);l.style.zIndex=f?(N+i):(N-i);
+      l.querySelectorAll('button,a').forEach(function(b){b.tabIndex=(i===cur)?0:-1})});
+    prev.disabled=cur===0;next.disabled=cur>=N-1;
+    count.textContent=cur===0?'Cover':(cur===N-1?'The end':(cur+' / '+(N-2)));
+  }
+  function go(d){var c=Math.max(0,Math.min(N-1,cur+d));if(c!==cur){cur=c;render()}}
+  prev.addEventListener('click',function(){go(-1)});next.addEventListener('click',function(){go(1)});
+  book.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){go(1);e.preventDefault()}if(e.key==='ArrowLeft'){go(-1);e.preventDefault()}});
+  var sx=null,sy=0;
+  book.addEventListener('pointerdown',function(e){sx=e.clientX;sy=e.clientY});
+  book.addEventListener('pointerup',function(e){if(sx===null)return;var dx=e.clientX-sx,dy=e.clientY-sy;sx=null;
+    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){go(dx<0?1:-1)}
+    else if(Math.abs(dx)<8&&Math.abs(dy)<8&&!e.target.closest('button,a')){var r=book.getBoundingClientRect();go(e.clientX-r.left<r.width*.3?-1:1)}});
+  book.addEventListener('pointercancel',function(){sx=null});
+  var chip=document.getElementById('bk-style'),chipName=document.getElementById('bk-style-name'),svc=document.getElementById('bk-service');
+  book.querySelectorAll('.pick').forEach(function(b){b.addEventListener('click',function(){
+    window.LGFG_STYLE=b.getAttribute('data-cut');
+    if(svc)svc.value=b.getAttribute('data-svc');
+    if(chip){chipName.textContent=window.LGFG_STYLE;chip.classList.add('on')}
+    var v=document.getElementById('visit');if(v)v.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  })});
+  var x=document.getElementById('bk-style-x');if(x)x.addEventListener('click',function(){window.LGFG_STYLE=null;chip.classList.remove('on')});
+  render();
 })();
 </script>
 </body>
