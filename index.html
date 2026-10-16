@@ -223,6 +223,14 @@ button{font:inherit;color:inherit}
 .holo-tag b{color:var(--acc-d);font-weight:700}
 .holo-cap{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font:600 .66rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
+.work{background:var(--bg)}
+.work-head{margin-bottom:clamp(28px,4vw,48px)}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.6vw,20px)}
+.wk{margin:0;overflow:hidden;border-radius:4px;aspect-ratio:1/1;background:var(--surface);box-shadow:var(--shadow);transition-delay:calc(var(--i)*60ms)}
+.wk img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.wk:hover img{transform:scale(1.05)}
+@media (max-width:767px){.work-grid{grid-template-columns:repeat(2,1fr)}.wk:last-child{grid-column:span 2;aspect-ratio:2/1}.wk:last-child img{object-position:50% 30%}}
+@media (prefers-reduced-motion:reduce){.wk img{transition:none}.wk:hover img{transform:none}}
 /* ---------- jukebox ---------- */
 .jbox{background:var(--bg);overflow:hidden}
 .jb-grid{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:clamp(36px,6vw,96px);align-items:center;margin-top:40px}
@@ -486,11 +494,11 @@ button{font:inherit;color:inherit}
       <div class="stack" aria-label="Photos from the shop">
         <figure class="print p1" data-depth="-0.08">
           <span class="tape" aria-hidden="true"></span>
-          <div class="ph"><img src="media/img/shop-chair.webp" width="480" height="600" loading="lazy" decoding="async" alt="Rich's red barber chair inside the shop, with chrome hood dryers behind it"></div>
-          <figcaption>The real one. <span>Wabash Ave</span></figcaption>
+          <div class="ph"><img src="media/work/w08.webp" width="900" height="810" loading="lazy" decoding="async" style="object-position:62% 40%" alt="A client's slicked-back skin fade beside the barber pole"></div>
+          <figcaption>The fade. <span>Wabash Ave</span></figcaption>
         </figure>
         <figure class="print p2" data-depth="0.12">
-          <div class="ph"><img src="media/img/haircut-detail.webp" width="498" height="640" loading="lazy" decoding="async" alt="A client's freshly finished classic side-part haircut"></div>
+          <div class="ph"><img src="media/work/w04.webp" width="900" height="809" loading="lazy" decoding="async" style="object-position:48% 40%" alt="A smiling client with a sculpted red beard and slick side part"></div>
           <figcaption>Fresh off the chair.</figcaption>
         </figure>
       </div>
@@ -524,6 +532,27 @@ button{font:inherit;color:inherit}
       <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/beard/48.webp"><img src="media/walk/d/beard/48.webp" loading="lazy" decoding="async" alt="A client with a full sculpted beard in the chair"></picture><figcaption><div class="cap"><div class="no">02</div><h3>The <em>Beard</em></h3><p>Freehand sculpting is Rich's signature. Lines are set to strengthen your face, bulk is balanced, and the beard leaves looking intentional without looking overworked.</p></div></figcaption></figure>
       <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/shave/48.webp?v=2"><img src="media/walk/d/shave/48.webp?v=2" loading="lazy" decoding="async" alt="A client relaxing under a hot towel"></picture><figcaption><div class="cap"><div class="no">03</div><h3>The <em>Shave</em></h3><p>Warm towel. Rich lather. A measured razor pass. The traditional hot towel shave slows the world down for a while and leaves a finish no cartridge can match.</p></div></figcaption></figure>
       <figure><picture><source media="(max-aspect-ratio: 1/1), (max-width: 767px)" srcset="media/walk/m/rich/48.webp?v=2"><img src="media/walk/d/rich/48.webp" loading="lazy" decoding="async" alt="Rich Beasley smiling behind the chair"></picture><figcaption><div class="cap"><div class="no">04</div><h3>Behind the chair.<br><em>Behind the camera.</em></h3><p>Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</p></div></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 2b. The work: Rich-approved portfolio photos -->
+  <section class="sec work" id="work" aria-labelledby="workH">
+    <div class="wrap">
+      <div class="rv work-head">
+        <span class="kick">The work</span>
+        <h2 class="h2" id="workH">Every chair,<br><em>a signature.</em></h2>
+      </div>
+      <div class="work-grid">
+        <figure class="wk rv" style="--i:0"><img src="media/work/w01.webp" width="900" height="900" loading="lazy" decoding="async" alt="A full beard being lined with a straight razor"></figure>
+        <figure class="wk rv" style="--i:1"><img src="media/work/w02.webp" width="900" height="900" loading="lazy" decoding="async" alt="A spiked fade with a hard part design"></figure>
+        <figure class="wk rv" style="--i:2"><img src="media/work/w03.webp" width="900" height="900" loading="lazy" decoding="async" alt="A modern mullet with a tapered fade"></figure>
+        <figure class="wk rv" style="--i:3"><img src="media/work/w05.webp" width="900" height="900" loading="lazy" decoding="async" alt="A short cut and trimmed salt-and-pepper beard"></figure>
+        <figure class="wk rv" style="--i:4"><img src="media/work/w06.webp" width="900" height="900" loading="lazy" decoding="async" alt="A long white beard shaped to a clean point"></figure>
+        <figure class="wk rv" style="--i:5"><img src="media/work/w07.webp" width="900" height="900" loading="lazy" decoding="async" alt="A full sculpted beard in a vest, by the barber pole"></figure>
+        <figure class="wk rv" style="--i:6"><img src="media/work/w11.webp" width="900" height="900" loading="lazy" decoding="async" alt="A crisp crop with a groomed red beard"></figure>
+        <figure class="wk rv" style="--i:7"><img src="media/work/w12.webp" width="900" height="900" loading="lazy" decoding="async" alt="A hot towel wrapped over a long beard"></figure>
+        <figure class="wk rv" style="--i:8"><img src="media/work/w14.webp" width="900" height="900" loading="lazy" decoding="async" alt="A sculpted full beard and short sides"></figure>
+      </div>
     </div>
   </section>
 
