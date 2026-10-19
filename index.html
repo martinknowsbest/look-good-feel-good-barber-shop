@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js-anim');</script>
   <style>
     :root{
       color-scheme:light dark;
@@ -88,7 +89,13 @@
     .service-copy-v2 p{color:#d1c9bc;line-height:1.7;font-size:15px}
     .service-copy-v2 .tags{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:14px;border-top:1px solid var(--line);text-transform:uppercase;letter-spacing:.11em;font-size:8px;justify-content:center}
     .eye-v2{background:#0a0908}
-    .reveal{opacity:1;transform:translateY(24px);transition:transform .75s ease}.reveal.in{transform:none}
+    .reveal{opacity:1;transform:none}html.js-anim .reveal{opacity:0;transform:translateY(24px)}/* v7: reveals are driven by anime.js; .in hook retired */
+    .hero h1 em{display:inline-block}/* v7: allow transform on the second headline line */
+    .v7-divider{display:flex;justify-content:center;padding:30px max(24px,8vw);background:var(--ink)}
+    .v7-divider svg{width:min(520px,78%);height:24px;overflow:visible}
+    .v7-draw{fill:none;stroke:var(--gold);stroke-width:1.5}
+    .v7-dot{fill:var(--gold)}
+    html.js-anim .v7-divider{opacity:0}
     .walkthrough{position:relative;height:180vh;background:#080807;margin:0;padding:0}
     .walkthrough-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:flex-end}
     .walkthrough-stage canvas{position:absolute;inset:0;width:100%;height:100%}
@@ -348,9 +355,11 @@
   </section>
   <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>Precision haircuts</span><i>◆</i><span>Freehand beard sculpting</span><i>◆</i><span>Hot towel shaves</span><i>◆</i><span>Cutter Joe's</span><i>◆</i><span>Precision haircuts</span><i>◆</i><span>Freehand beard sculpting</span><i>◆</i><span>Hot towel shaves</span><i>◆</i><span>Cutter Joe's</span><i>◆</i></div></div>
 
-  <section class="intro" id="craft"><div class="intro-inner"><div class="number-label">00 / The chair</div><div class="intro-copy reveal"><h2>Old-school care.<em>Modern precision.</em></h2><p>Rich runs a one-chair experience built around attention. No assembly line and no rushed finish. Every appointment gets the judgment, conversation and handwork that turn a haircut into a signature.</p><div class="stats"><div><strong>20+ years</strong><span>behind the chair</span></div><div><strong>4.8 stars</strong><span>Google rating</span></div><div><strong>1 chair</strong><span>personal service</span></div></div></div></div></section>
+  <section class="intro" id="craft"><div class="intro-inner"><div class="number-label">00 / The chair</div><div class="intro-copy reveal"><h2>Old-school care.<em>Modern precision.</em></h2><p>Rich runs a one-chair experience built around attention. No assembly line and no rushed finish. Every appointment gets the judgment, conversation and handwork that turn a haircut into a signature.</p><div class="stats" data-stagger-group><div><strong>20+ years</strong><span>behind the chair</span></div><div><strong>4.8 stars</strong><span>Google rating</span></div><div><strong>1 chair</strong><span>personal service</span></div></div></div></div></section>
 
-  <section class="walkthrough" id="walkthrough" aria-label="Walk through the barber shop"><div class="walkthrough-stage"><img class="walkthrough-poster" src="assets/seq/chair/frame-01.jpg" alt="" aria-hidden="true"><canvas class="seq-canvas" data-seq="chair" aria-label="Slow walkthrough around the vintage barber chair"></canvas><div class="walkthrough-copy"><div class="number-label" style="color:var(--gold)">Step inside</div><h2>The shop,<br><em>every corner.</em></h2><p>Scroll to walk through. Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div></div></section>
+<div class="v7-divider" aria-hidden="true"><svg viewBox="0 0 600 24" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path class="v7-draw" d="M8 12 H286 M314 12 H592"/><rect class="v7-dot" x="295" y="7" width="10" height="10" transform="rotate(45 300 12)"/></svg></div>
+
+    <section class="walkthrough" id="walkthrough" aria-label="Walk through the barber shop"><div class="walkthrough-stage"><img class="walkthrough-poster" src="assets/seq/chair/frame-01.jpg" alt="" aria-hidden="true"><canvas class="seq-canvas" data-seq="chair" aria-label="Slow walkthrough around the vintage barber chair"></canvas><div class="walkthrough-copy reveal"><div class="number-label" style="color:var(--gold)">Step inside</div><h2>The shop,<br><em>every corner.</em></h2><p>Scroll to walk through. Walnut paneling, brass mirrors, the glow of the barber pole. This is where the ritual happens.</p></div></div></section>
 
   <section class="service-v2" id="cut"><div class="seq-hero"><img class="seq-img" data-seq="cut" src="assets/seq/cut/frame-01.jpg" alt="Precision fade haircut"></div><div class="service-copy-v2 reveal"><div class="service-no">01</div><h3>The Cut</h3><p>Classic, modern, clean or lived-in. Rich reads the way your hair grows, then shapes the cut to your head, your style and the way you actually live.</p><div class="tags"><span>Men's haircuts</span><span>Modern styling</span><span>Personal consultation</span></div></div></section>
 
@@ -360,11 +369,15 @@
 
   <section class="service-v2 eye-v2" id="eye"><div class="seq-hero"><img class="seq-img" data-seq="rich" src="assets/seq/rich/frame-01.jpg" alt="Rich the barber"></div><div class="service-copy-v2 reveal"><div class="service-no">04</div><h3>Behind the chair.<br><em>Behind the camera.</em></h3><p>Rich is a barber and a photographer. The same eye that frames a perfect shot shapes a perfect cut. Detail is not a step in his process. It is the process.</p></div></div></section>
 
-  <section class="finish" id="finish" aria-labelledby="finish-title"><div class="finish-stage"><img class="finish-photo" src="assets/dapper-360-00.jpg" alt="Dapper gentleman with a crisp skin fade and precisely shaped beard rotating through a full 360-degree view in a warm barber shop"><canvas class="finish-canvas" aria-hidden="true"></canvas><div class="finish-copy reveal"><div class="section-kicker">05 / The finish</div><h2 id="finish-title"><span>Every angle.</span><em>Every line.</em></h2><p>Precision that holds its shape from every point of view.</p></div></div></section>
+<div class="v7-divider" aria-hidden="true"><svg viewBox="0 0 600 24" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path class="v7-draw" d="M8 12 H286 M314 12 H592"/><rect class="v7-dot" x="295" y="7" width="10" height="10" transform="rotate(45 300 12)"/></svg></div>
+
+    <section class="finish" id="finish" aria-labelledby="finish-title"><div class="finish-stage"><img class="finish-photo" src="assets/dapper-360-00.jpg" alt="Dapper gentleman with a crisp skin fade and precisely shaped beard rotating through a full 360-degree view in a warm barber shop"><canvas class="finish-canvas" aria-hidden="true"></canvas><div class="finish-copy reveal"><div class="section-kicker">05 / The finish</div><h2 id="finish-title"><span>Every angle.</span><em>Every line.</em></h2><p>Precision that holds its shape from every point of view.</p></div></div></section>
 
   <section class="products" id="products"><canvas class="joe-holo-bg" aria-hidden="true"></canvas><div class="product-art reveal"><img src="assets/cutter-joes-portrait.jpg" alt="Vintage portrait for Cutter Joe's The Beard Company with the words All Natural Beard Care, Nothing Synthetic" loading="lazy"></div><div class="product-copy reveal"><div class="service-no">06</div><h3>Cutter<br>Joe’s</h3><p>Rich developed his own beard oils and balms from natural butters and oils after years of seeing what beards need in the chair: moisture, shape and a healthier feel.</p><div class="tags"><span>Beard oil</span><span>Beard balm</span><span>Made by a barber</span></div></div></section>
 
-  <section class="reviews" aria-labelledby="reviews-title"><div class="reviews-inner"><div class="reviews-head"><div><div class="number-label">07 / From the chair</div><h2 id="reviews-title">Good word travels.</h2></div><div class="review-rating"><strong>4.8</strong><span>★★★★★<br>Google rating · 40 reviews</span></div></div><div class="review-grid"><article class="review featured reveal"><blockquote>“I always get compliments on my hair after getting it cut here, and Rich is nothing less than an artist when dealing with beards.”</blockquote><cite>Douglas Montgomery · customer review</cite></article><article class="review reveal"><blockquote>“Rich is a hair wizard! Best haircut I’ve ever had. Very personable and real.”</blockquote><cite>Evan Richard · customer review</cite></article><article class="review reveal"><blockquote>“Got a haircut and beard trim, looks great. Rich is a great guy and an awesome barber.”</blockquote><cite>J Collings · customer review</cite></article></div></div></section>
+<div class="v7-divider" aria-hidden="true"><svg viewBox="0 0 600 24" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path class="v7-draw" d="M8 12 H286 M314 12 H592"/><rect class="v7-dot" x="295" y="7" width="10" height="10" transform="rotate(45 300 12)"/></svg></div>
+
+    <section class="reviews" aria-labelledby="reviews-title"><div class="reviews-inner"><div class="reviews-head"><div><div class="number-label">07 / From the chair</div><h2 id="reviews-title">Good word travels.</h2></div><div class="review-rating"><strong>4.8</strong><span>★★★★★<br>Google rating · 40 reviews</span></div></div><div class="review-grid" data-stagger-group><article class="review featured reveal"><blockquote>“I always get compliments on my hair after getting it cut here, and Rich is nothing less than an artist when dealing with beards.”</blockquote><cite>Douglas Montgomery · customer review</cite></article><article class="review reveal"><blockquote>“Rich is a hair wizard! Best haircut I’ve ever had. Very personable and real.”</blockquote><cite>Evan Richard · customer review</cite></article><article class="review reveal"><blockquote>“Got a haircut and beard trim, looks great. Rich is a great guy and an awesome barber.”</blockquote><cite>J Collings · customer review</cite></article></div></div></section>
 
   <section class="contact" id="visit"><div class="contact-inner"><div class="reveal"><div class="number-label">08 / Your turn</div><h2>Take the<br>chair.</h2><p class="contact-lead">Appointments are personal.<br>Call Rich to reserve yours.</p><a class="phone" href="tel:+13174800062">(317) 480-0062 →</a>
 <div class="booking reveal">
@@ -852,6 +865,122 @@
     var msg = buildMessage();
     if(msg) window.location.href = 'sms:+1' + RICH + '?&body=' + encodeURIComponent(msg);
   });
+})();
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@4.5.0/dist/bundles/anime.umd.min.js"></script>
+<script>
+/* v7 motion layer — anime.js v4. Content and layout untouched. */
+(function(){
+  'use strict';
+  var rootEl = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !window.anime) { rootEl.classList.remove('js-anim'); return; }
+  var anime = window.anime;
+  var animate = anime.animate;
+  var createTimeline = anime.createTimeline;
+  var stagger = anime.stagger;
+  var createDrawable = anime.createDrawable;
+  var set = anime.set;
+  var createSpring = null;
+  try { createSpring = anime.createSpring; } catch (e) { /* fall back below */ }
+
+  /* ---------- Hero entrance: Ken Burns + choreographed copy ---------- */
+  createTimeline({ defaults: { ease: 'outExpo' } })
+    .add('.hero-bg', { scale: [1.1, 1.015], duration: 2600 }, 0)
+    .add('.hero-inner', { opacity: [0, 1], y: [26, 0], duration: 850 }, 0)
+    .add('.hero .eyebrow', { opacity: [0, 1], x: [-16, 0], duration: 650 }, 200)
+    .add(['.hero h1 > span', '.hero h1 > em'], { opacity: [0, 1], y: [48, 0], duration: 1000 }, stagger(150, { start: 320 }))
+    .add('.hero-copy', { opacity: [0, 1], y: [18, 0], duration: 750 }, 620)
+    .add('.hero .actions .btn', { opacity: [0, 1], y: [16, 0], duration: 650 }, stagger(100, { start: 780 }))
+    .add('.hero .rating', { opacity: [0, 1], scale: [0.5, 1], rotate: [0, 7], duration: 900 }, 1000);
+
+  /* ---------- Scroll reveals (IntersectionObserver triggers anime.js) ---------- */
+  function revealOne(el){
+    animate(el, { opacity: [0, 1], y: [24, 0], duration: 900, ease: 'outExpo' });
+  }
+  function revealGroup(els){
+    animate(els, { opacity: [0, 1], y: [24, 0], duration: 850, ease: 'outExpo', delay: stagger(90) });
+  }
+  var groups = [];
+  Array.prototype.forEach.call(document.querySelectorAll('[data-stagger-group]'), function(g){
+    var members = g.querySelectorAll('.reveal');
+    if (members.length > 1) groups.push(Array.prototype.slice.call(members));
+  });
+  function groupOf(el){
+    for (var i = 0; i < groups.length; i++){
+      if (groups[i].indexOf(el) >= 0) return groups[i];
+    }
+    return null;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target;
+      io.unobserve(el);
+      var grp = groupOf(el);
+      if (grp){
+        grp.forEach(function(m){ io.unobserve(m); });
+        revealGroup(grp);
+      } else {
+        revealOne(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+  Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function(el){
+    if (el.closest('.hero')) return;                    /* hero is timeline-driven */
+    if (el.parentElement && el.parentElement.closest('.reveal')) return; /* nested: parent covers it */
+    io.observe(el);
+  });
+
+  /* ---------- SVG section dividers: line draws itself on scroll ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.v7-divider'), function(div){
+    var drawable = createDrawable(div.querySelectorAll('.v7-draw'));
+    set(drawable, { draw: '0 0' });
+    var dot = div.querySelector('.v7-dot');
+    var dio = new IntersectionObserver(function(entries, obs){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        obs.disconnect();
+        createTimeline()
+          .add(div, { opacity: [0, 1], duration: 400, ease: 'linear' }, 0)
+          .add(drawable, { draw: ['0 0', '0 1'], duration: 1200, ease: 'inOutExpo' }, 100)
+          .add(dot, { opacity: [0, 1], duration: 500, ease: 'outExpo' }, 800);
+      });
+    }, { threshold: 0.4 });
+    dio.observe(div);
+  });
+
+  /* ---------- Press-and-spring on buttons ---------- */
+  function springBack(el){
+    if (createSpring){
+      try { animate(el, { scale: 1, duration: 700, ease: createSpring({ stiffness: 280, damping: 13 }) }); return; }
+      catch (e) { /* fall through */ }
+    }
+    animate(el, { scale: 1, duration: 380, ease: 'outExpo' });
+  }
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.btn, .phone, .call-float, .directions, .jukebox-teaser'),
+    function(b){
+      b.addEventListener('pointerdown', function(){ animate(b, { scale: 0.95, duration: 140, ease: 'outExpo' }); });
+      ['pointerup', 'pointerleave', 'pointercancel'].forEach(function(ev){
+        b.addEventListener(ev, function(){ springBack(b); });
+      });
+    });
+
+  /* ---------- Booking form: nudge the note when validation speaks ---------- */
+  var noteEl = document.getElementById('bk-note');
+  if (noteEl && window.MutationObserver){
+    var lastText = noteEl.textContent;
+    new MutationObserver(function(){
+      var t = noteEl.textContent;
+      if (t && t !== lastText){
+        animate(noteEl, { x: [-7, 7, -5, 5, 0], opacity: [0.2, 1], duration: 450, ease: 'outExpo' });
+      }
+      lastText = t;
+    }).observe(noteEl, { childList: true, characterData: true, subtree: true });
+  }
 })();
 </script>
 
