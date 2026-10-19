@@ -891,9 +891,9 @@
     .add('.hero-bg', { scale: [1.1, 1.015], duration: 2600 }, 0)
     .add('.hero-inner', { opacity: [0, 1], y: [26, 0], duration: 850 }, 0)
     .add('.hero .eyebrow', { opacity: [0, 1], x: [-16, 0], duration: 650 }, 200)
-    .add(['.hero h1 > span', '.hero h1 > em'], { opacity: [0, 1], y: [48, 0], duration: 1000 }, stagger(150, { start: 320 }))
+    .add(['.hero h1 > span', '.hero h1 > em'], { opacity: [0, 1], y: [48, 0], duration: 1000, delay: stagger(150) }, 320)
     .add('.hero-copy', { opacity: [0, 1], y: [18, 0], duration: 750 }, 620)
-    .add('.hero .actions .btn', { opacity: [0, 1], y: [16, 0], duration: 650 }, stagger(100, { start: 780 }))
+    .add('.hero .actions .btn', { opacity: [0, 1], y: [16, 0], duration: 650, delay: stagger(100) }, 780)
     .add('.hero .rating', { opacity: [0, 1], scale: [0.5, 1], rotate: [0, 7], duration: 900 }, 1000);
 
   /* ---------- Scroll reveals (IntersectionObserver triggers anime.js) ---------- */
