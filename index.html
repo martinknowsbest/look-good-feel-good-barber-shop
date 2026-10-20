@@ -409,6 +409,10 @@ button{font:inherit;color:inherit}
   .js .rv{opacity:1;transform:none}
 }
 </style>
+  <!-- v9: anime.js letter spans -->
+  <style>
+    
+  </style>
 </head>
 <body>
 <a class="skip" href="#visit">Skip to booking</a>
@@ -745,6 +749,7 @@ button{font:inherit;color:inherit}
   <div class="wrap"><span>Look Good Feel Good · The Gentlemen's Barber Shop · Terre Haute, Indiana</span><span>By appointment · (317) 480-0062</span></div>
 </footer>
 
+<script src="assets/anime.umd.min.js"></script>
 <script>
 (function(){
   "use strict";
@@ -797,7 +802,7 @@ button{font:inherit;color:inherit}
     while(inflight<MAXF&&Q.length){
       var job=Q.shift(),s=job[0],i=job[1];if(s.imgs[i])continue;inflight++;
       (function(s,i){var im=new Image();im.decoding='async';s.imgs[i]=im;
-        im.onload=function(){s.ok[i]=1;inflight--;pump();req()};
+        im.onload=function(){s.ok[i]=1;inflight--;pump();req();if(scrubByAnime){if(s===heroSeq&&v9RepaintHero)v9RepaintHero();else if(s===heroSeq);else if(walkSeqs.indexOf(s)>-1&&v9RepaintWalk)v9RepaintWalk()}};
         im.onerror=function(){inflight--;pump()};
         im.src=s.urlFn(i)})(s,i);
     }
@@ -850,6 +855,47 @@ button{font:inherit;color:inherit}
     spy.forEach(function(a){var s=document.getElementById(a.getAttribute('data-spy'));if(s)sio.observe(s)});
   }
 
+  /* ---------- scrub (v9): hero + walkthrough progress driven by anime.js ScrollObserver ---------- */
+  function applyHero(hp){
+    if(HP.paint(heroSeq,Math.round(hp*69)))hero.classList.add('live');
+    heroMedia.style.transform='scale('+(1.14-hp*.12).toFixed(4)+') translate3d(0,'+(hp*-2).toFixed(2)+'%,0)';
+    var cp=clamp(hp*1.7);
+    heroCopy.style.transform='translate3d(0,'+(-cp*22).toFixed(2)+'vh,0) scale('+(1-cp*.06).toFixed(4)+')';
+    heroCopy.style.opacity=(1-clamp((hp-.18)*2.2)).toFixed(3);
+    cue.style.opacity=(0.75-hp*3).toFixed(3);
+    var lb=(clamp((hp-.55)/.45)*9).toFixed(2)+'vh';lbT.style.height=lb;lbB.style.height=lb;
+  }
+  function applyWalk(p){
+    var wr=walk.getBoundingClientRect(),gvh=window.innerHeight;
+    if(wr.top>gvh*1.5||wr.bottom<-gvh*.5)return;
+    if(!walkWanted){walkWanted=true;walkSeqs.forEach(enqueue)}
+    var S=SCENES.length,x=p*S,sc=Math.min(S-1,Math.floor(x)),t=x-sc;
+    var T0=.62,frameT=clamp(t/T0),scene=sc,capeX=-130;
+    if(sc<S-1&&t>T0){var ct=(t-T0)/(1-T0);capeX=-130+ease(ct)*260;if(ct>.5){scene=sc+1;frameT=0}}
+    if(sc===S-1)frameT=clamp(t/.9);
+    cape.style.transform='translate3d('+capeX.toFixed(2)+'%,0,0) skewX(-14deg)';
+    if(WP.paint(walkSeqs[scene],Math.round(frameT*47)))walk.classList.add('live');
+    if(scene!==lastScene){lastScene=scene;caps.forEach(function(c,i){c.classList.toggle('on',i===scene)});reelNo.textContent='0'+(scene+1)+' / 0'+S}
+    reelBar.style.transform='scaleX('+p.toFixed(4)+')';
+  }
+  var v9RepaintHero=null,v9RepaintWalk=null;
+  var AN=window.anime,scrubByAnime=false;
+  if(AN){
+    try{
+      var heroP={p:0},walkP={p:0};
+      AN.animate(heroP,{p:[0,1],duration:1000,ease:'linear',
+        onRender:function(){applyHero(heroP.p)},
+        autoplay:AN.onScroll({target:hero,enter:'top top',leave:'bottom bottom',sync:0.82})});
+      AN.animate(walkP,{p:[0,1],duration:1000,ease:'linear',
+        onRender:function(){applyWalk(walkP.p)},
+        autoplay:AN.onScroll({target:walk,enter:'top top',leave:'bottom bottom',sync:0.82})});
+      v9RepaintHero=function(){applyHero(heroP.p)};
+      v9RepaintWalk=function(){applyWalk(walkP.p)};
+      scrubByAnime=true;
+    }catch(x){scrubByAnime=false}
+  }
+  if(!STILL)try{applyHero(0)}catch(x){console.warn('v9 init paint failed',x&&x.message)}
+
   /* ---------- main scroll loop ---------- */
   var tick=0;
   function req(){if(!tick){tick=1;requestAnimationFrame(frame)}}
@@ -861,30 +907,11 @@ button{font:inherit;color:inherit}
     var sy=window.pageYOffset||document.documentElement.scrollTop,vh=window.innerHeight;
     hdr.classList.toggle('solid',sy>hero.offsetTop+hero.offsetHeight-vh*1.05||STILL&&sy>40);
     if(STILL)return;
-    /* hero */
-    var hTop=hero.offsetTop,hH=hero.offsetHeight;
-    if(sy<hTop+hH){
-      var hp=clamp((sy-hTop)/Math.max(1,hH-vh));
-      if(HP.paint(heroSeq,Math.round(hp*69)))hero.classList.add('live');
-      heroMedia.style.transform='scale('+(1.14-hp*.12).toFixed(4)+') translate3d(0,'+(hp*-2).toFixed(2)+'%,0)';
-      var cp=clamp(hp*1.7);
-      heroCopy.style.transform='translate3d(0,'+(-cp*22).toFixed(2)+'vh,0) scale('+(1-cp*.06).toFixed(4)+')';
-      heroCopy.style.opacity=(1-clamp((hp-.18)*2.2)).toFixed(3);
-      cue.style.opacity=(0.75-hp*3).toFixed(3);
-      var lb=(clamp((hp-.55)/.45)*9).toFixed(2)+'vh';lbT.style.height=lb;lbB.style.height=lb;
-    }
-    /* walkthrough */
-    var wTop=walk.offsetTop,wH=walk.offsetHeight;
-    if(sy+vh>wTop&&sy<wTop+wH){
-      if(!walkWanted){walkWanted=true;walkSeqs.forEach(enqueue)}
-      var p=clamp((sy-wTop)/Math.max(1,wH-vh)),S=SCENES.length,x=p*S,sc=Math.min(S-1,Math.floor(x)),t=x-sc;
-      var T0=.62,frameT=clamp(t/T0),scene=sc,capeX=-130;
-      if(sc<S-1&&t>T0){var ct=(t-T0)/(1-T0);capeX=-130+ease(ct)*260;if(ct>.5){scene=sc+1;frameT=0}}
-      if(sc===S-1)frameT=clamp(t/.9);
-      cape.style.transform='translate3d('+capeX.toFixed(2)+'%,0,0) skewX(-14deg)';
-      if(WP.paint(walkSeqs[scene],Math.round(frameT*47)))walk.classList.add('live');
-      if(scene!==lastScene){lastScene=scene;caps.forEach(function(c,i){c.classList.toggle('on',i===scene)});reelNo.textContent='0'+(scene+1)+' / 0'+S}
-      reelBar.style.transform='scaleX('+p.toFixed(4)+')';
+    if(!scrubByAnime){
+      var hTop=hero.offsetTop,hH=hero.offsetHeight;
+      if(sy<hTop+hH){applyHero(clamp((sy-hTop)/Math.max(1,hH-vh)))}
+      var wTop=walk.offsetTop,wH=walk.offsetHeight;
+      if(sy+vh>wTop&&sy<wTop+wH){applyWalk(clamp((sy-wTop)/Math.max(1,wH-vh)))}
     }
     /* legacy: Joe hologram -> Rich */
     var lTop=legacy.offsetTop,lH=legacy.offsetHeight;
@@ -1032,6 +1059,63 @@ button{font:inherit;color:inherit}
   })});
   var x=document.getElementById('bk-style-x');if(x)x.addEventListener('click',function(){window.LGFG_STYLE=null;chip.classList.remove('on')});
   render();
+})();
+</script>
+<script>
+/* v9 · anime.js entrances + mood color tween (adds to the scrub engine, never replaces it) */
+(function(){
+  "use strict";
+  var A=window.anime,d=document.documentElement;
+  if(!A||d.classList.contains('still'))return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+
+  function safe(fn){try{return fn()||true}catch(x){return false}}
+
+  /* headline letters: split once, cascade in when the heading scrolls into view */
+  [].slice.call(document.querySelectorAll('.h2')).forEach(function(h){
+    safe(function(){
+      var sp=A.splitText(h,{chars:true,accessible:true});
+      var chars=sp&&sp.chars?sp.chars:[];
+      if(chars.length)A.animate(chars,{opacity:[0,1],y:['0.55em','0em'],rotate:[3,0],duration:650,ease:'out(3)',delay:A.stagger(20)},
+        {autoplay:A.onScroll({target:h,enter:'top bottom-=140',repeat:false})});
+    });
+  });
+
+  /* hero intro: eyebrow, letters, CTA and cue arrive once, on load */
+  var h1=document.querySelector('.hero h1'),eyebrow=document.querySelector('.hero-eyebrow'),cta=document.querySelector('.hero-cta'),cue=document.getElementById('cue');
+  if(h1){
+    safe(function(){
+      var sp=A.splitText(h1,{chars:true,accessible:true});
+      var hc=sp&&sp.chars?sp.chars:[];
+      var tl=A.createTimeline({defaults:{ease:'out(3)',duration:600}});
+      if(eyebrow)tl.add(eyebrow,{opacity:[0,1],y:[12,0]},0);
+      if(hc.length)tl.add(hc,{opacity:[0,1],y:['0.7em','0em'],duration:550,delay:A.stagger(26)},60);
+      if(cta)tl.add(cta,{opacity:[0,1],y:[16,0],duration:500},'-=250');
+      if(cue)tl.add(cue,{opacity:[0,0.75],duration:400},'-=200');
+    });
+  }
+
+  /* records cascade on first view */
+  var recs=[].slice.call(document.querySelectorAll('#records .rec'));
+  if(recs.length){
+    safe(function(){
+      A.animate(recs,{opacity:[0,1],y:[18,0],scale:[.94,1],duration:550,ease:'out(2)',delay:A.stagger(70)},
+        {autoplay:A.onScroll({target:'#records',enter:'top bottom-=160',repeat:false})});
+    });
+  }
+
+  /* jukebox mood: accent colors glide instead of jumping (tween, then hand back to CSS) */
+  var MOODS={red:['#e05a4c','#a3291f'],brass:['#dcae55','#87600f'],blue:['#7aa6ea','#2a4d8c'],sunday:['#79b8d6','#2b6582'],green:['#74c495','#2c6844'],linen:['#df9a5e','#94501b']};
+  recs.forEach(function(b){
+    b.addEventListener('click',function(){
+      var to=MOODS[b.getAttribute('data-mood')];if(!to)return;
+      var cs=getComputedStyle(d);
+      safe(function(){
+        A.animate(d,{'--acc-d':[(cs.getPropertyValue('--acc-d')||'').trim(),to[0]],'--acc-l':[(cs.getPropertyValue('--acc-l')||'').trim(),to[1]],duration:520,ease:'out(2)',
+          onComplete:function(){d.style.removeProperty('--acc-d');d.style.removeProperty('--acc-l')}});
+      });
+    });
+  });
 })();
 </script>
 </body>
