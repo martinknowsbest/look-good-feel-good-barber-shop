@@ -452,14 +452,14 @@
     canvas.style.cssText='display:block;width:100%;height:100%;position:absolute;inset:0;';
     container.appendChild(canvas);
     var ctx=canvas.getContext('2d');
-    var frames=[], loaded=[], curBase='', lastDrawn=-1;
+    var frames=[], loaded=[], curBase='', lastF=-1;
     for(var i=0;i<48;i++){ frames.push(new Image()); loaded.push(false); }
     function base(){ return (v2IsPortrait()?'assets/seq-portrait/':'assets/seq/')+def.name+'/'; }
     function loadAll(){
-      curBase=base(); lastDrawn=-1;
+      curBase=base(); lastF=-1;
       frames.forEach(function(img,idx){
         loaded[idx]=false;
-        img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
+        img.onload=function(){ loaded[idx]=true; if(lastF<0){ try{update();}catch(e){} } };
         img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg?v=v7b'; /* v7b: cache-bust so new frames load fresh */
       });
     }
@@ -471,17 +471,31 @@
       }
       return -1;
     }
-    function draw(idx){
-      var r=closest(idx);
-      if(r<0||r===lastDrawn) return;
+    function paintFrame(r,alpha){
       var img=frames[r];
       var cr=canvas.getBoundingClientRect(), ratio=Math.min(2,window.devicePixelRatio||1);
       var cw=Math.max(1,Math.round(cr.width*ratio)), ch=Math.max(1,Math.round(cr.height*ratio));
       if(canvas.width!==cw||canvas.height!==ch){ canvas.width=cw; canvas.height=ch; }
       var scale=Math.max(cw/img.naturalWidth, ch/img.naturalHeight);
       var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
+      ctx.globalAlpha=alpha;
       ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
-      lastDrawn=r;
+      ctx.globalAlpha=1;
+    }
+    /* v7: fractional cross-dissolve — the scrub never hard-cuts between frames */
+    function draw(f){
+      var i0=Math.floor(f), i1=Math.min(47,i0+1), frac=f-i0;
+      if(frac<0.002) frac=0;
+      if(frac>0.998){ i0=i1; frac=0; }
+      if(f===lastF) return;
+      lastF=f;
+      var r0=closest(i0);
+      if(r0<0) return;
+      paintFrame(r0,1);
+      if(frac>0){
+        var r1=closest(i1);
+        if(r1>=0&&r1!==r0) paintFrame(r1,frac);
+      }
       canvas.classList.add('ready');
     }
     function update(){
@@ -491,7 +505,7 @@
       var r=sec.getBoundingClientRect(), vh=window.innerHeight;
       var total=Math.max(1,r.height-vh);
       var p=Math.min(1,Math.max(0,-r.top/total));
-      draw(Math.min(47,Math.floor(p*48)));
+      draw(Math.min(47,p*47));
     }
     loadAll();
     v2Players.push({update:update, reload:loadAll});
@@ -508,14 +522,14 @@
       stage.insertBefore(canvas, stage.firstChild);
     }
     var ctx=canvas.getContext('2d');
-    var frames=[], loaded=[], curBase='', lastDrawn=-1;
+    var frames=[], loaded=[], curBase='', lastF=-1;
     for(var i=0;i<48;i++){ frames.push(new Image()); loaded.push(false); }
     function base(){ return (v2IsPortrait()?'assets/seq-portrait/':'assets/seq/')+'chair/'; }
     function loadAll(){
-      curBase=base(); lastDrawn=-1;
+      curBase=base(); lastF=-1;
       frames.forEach(function(img,idx){
         loaded[idx]=false;
-        img.onload=function(){ loaded[idx]=true; if(lastDrawn<0){ try{update();}catch(e){} } };
+        img.onload=function(){ loaded[idx]=true; if(lastF<0){ try{update();}catch(e){} } };
         img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg?v=v7b'; /* v7b: cache-bust so new frames load fresh */
       });
     }
@@ -534,17 +548,33 @@
       var r=sec.getBoundingClientRect(), vh=window.innerHeight;
       var total=Math.max(1,r.height-vh);
       var p=Math.min(1,Math.max(0,-r.top/total));
-      var idx=Math.min(47,Math.floor(p*48));
-      var c=closest(idx);
-      if(c<0||c===lastDrawn) return;
-      var img=frames[c];
+      /* v7: fractional cross-dissolve — the scrub never hard-cuts between frames */
+      var f=Math.min(47,p*47);
+      var i0=Math.floor(f), i1=Math.min(47,i0+1), frac=f-i0;
+      if(frac<0.002) frac=0;
+      if(frac>0.998){ i0=i1; frac=0; }
+      if(f===lastF) return;
+      lastF=f;
+      var r0=closest(i0);
+      if(r0<0) return;
       var cr=canvas.getBoundingClientRect(), ratio=Math.min(2,window.devicePixelRatio||1);
       var cw=Math.max(1,Math.round(cr.width*ratio)), ch=Math.max(1,Math.round(cr.height*ratio));
       if(canvas.width!==cw||canvas.height!==ch){ canvas.width=cw; canvas.height=ch; }
-      var scale=Math.max(cw/img.naturalWidth, ch/img.naturalHeight);
-      var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
-      ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
-      lastDrawn=c;
+      var img0=frames[r0];
+      var scale0=Math.max(cw/img0.naturalWidth, ch/img0.naturalHeight);
+      var w0=img0.naturalWidth*scale0, h0=img0.naturalHeight*scale0;
+      ctx.drawImage(img0,(cw-w0)/2,(ch-h0)/2,w0,h0);
+      if(frac>0){
+        var r1=closest(i1);
+        if(r1>=0&&r1!==r0){
+          var img1=frames[r1];
+          var scale1=Math.max(cw/img1.naturalWidth, ch/img1.naturalHeight);
+          var w1=img1.naturalWidth*scale1, h1=img1.naturalHeight*scale1;
+          ctx.globalAlpha=frac;
+          ctx.drawImage(img1,(cw-w1)/2,(ch-h1)/2,w1,h1);
+          ctx.globalAlpha=1;
+        }
+      }
       canvas.classList.add('ready');
     }
     loadAll();
@@ -571,7 +601,7 @@
     var frames=[];
     var loaded=[];
     var targetFrame=0;
-    var drawnFrame=-1;
+    var lastSpinF=-1;
     var scrollQueued=false;
     var sizeChanged=true;
     var spinContext=spinCanvas.getContext('2d',{alpha:false});
@@ -592,11 +622,8 @@
       if(spinCanvas.width!==width||spinCanvas.height!==height){spinCanvas.width=width;spinCanvas.height=height}
       sizeChanged=false;
     }
-    function drawFrame(index){
-      var resolved=closestLoaded(index);
-      if(resolved<0||(!sizeChanged&&resolved===drawnFrame))return;
-      sizeCanvas();
-      var frame=frames[resolved];
+    function paintSpin(r,alpha){
+      var frame=frames[r];
       var cw=spinCanvas.width;
       var ch=spinCanvas.height;
       var scale=Math.max(cw/frame.naturalWidth,ch/frame.naturalHeight);
@@ -605,15 +632,32 @@
       var mobile=window.matchMedia('(max-width:760px)').matches;
       var x=(cw-width)*(mobile ? .58 : .5);
       var y=(ch-height)*(mobile ? .5 : .43);
+      spinContext.globalAlpha=alpha;
       spinContext.drawImage(frame,x,y,width,height);
-      drawnFrame=resolved;
+      spinContext.globalAlpha=1;
+    }
+    /* v7: fractional cross-dissolve — the spin never hard-cuts between frames */
+    function drawFrame(f){
+      var i0=Math.floor(f), i1=Math.min(frameCount-1,i0+1), frac=f-i0;
+      if(frac<0.002) frac=0;
+      if(frac>0.998){ i0=i1; frac=0; }
+      if(f===lastSpinF&&!sizeChanged) return;
+      lastSpinF=f;
+      sizeCanvas();
+      var r0=closestLoaded(i0);
+      if(r0<0) return;
+      paintSpin(r0,1);
+      if(frac>0){
+        var r1=closestLoaded(i1);
+        if(r1>=0&&r1!==r0) paintSpin(r1,frac);
+      }
       spinCanvas.classList.add('ready');
     }
     for(var i=0;i<frameCount;i++){
       (function(index){
         var frame=new Image();
         frame.decoding='async';
-        frame.onload=function(){loaded[index]=true;if(index===targetFrame||drawnFrame<0)drawFrame(targetFrame)};
+        frame.onload=function(){loaded[index]=true;if(index===targetFrame||lastSpinF<0)drawFrame(targetFrame)};
         frame.src=frameUrl(index);
         frames[index]=frame;
       })(i);
@@ -627,12 +671,12 @@
       spinStage.classList.toggle('is-ended',rect.bottom<viewportHeight);
       var travel=Math.max(1,spinSection.offsetHeight-viewportHeight);
       var progress=Math.max(0,Math.min(1,-rect.top/travel));
-      targetFrame=Math.round(progress*(frameCount-1));
+      targetFrame=progress*(frameCount-1);
       drawFrame(targetFrame);
     }
     function queueSpin(){if(!scrollQueued){scrollQueued=true;requestAnimationFrame(updateSpin)}}
     window.addEventListener('scroll',queueSpin,{passive:true});
-    window.addEventListener('resize',function(){sizeChanged=true;drawnFrame=-1;queueSpin()});
+    window.addEventListener('resize',function(){sizeChanged=true;lastSpinF=-1;queueSpin()});
     queueSpin();
   }
 })();
