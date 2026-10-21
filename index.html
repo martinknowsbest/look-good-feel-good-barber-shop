@@ -460,7 +460,7 @@
       frames.forEach(function(img,idx){
         loaded[idx]=false;
         img.onload=function(){ loaded[idx]=true; if(lastF<0){ try{update();}catch(e){} } };
-        img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg?v=v7b'; /* v7b: cache-bust so new frames load fresh */
+        img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg?v=v7c'; /* v7b: cache-bust so new frames load fresh */
       });
     }
     function closest(idx){
@@ -530,7 +530,7 @@
       frames.forEach(function(img,idx){
         loaded[idx]=false;
         img.onload=function(){ loaded[idx]=true; if(lastF<0){ try{update();}catch(e){} } };
-        img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg?v=v7b'; /* v7b: cache-bust so new frames load fresh */
+        img.src=curBase+'frame-'+String(idx+1).padStart(2,'0')+'.jpg?v=v7c'; /* v7b: cache-bust so new frames load fresh */
       });
     }
     function closest(idx){
