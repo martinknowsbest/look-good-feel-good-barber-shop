@@ -455,60 +455,46 @@
     var frames=[], loaded=[], curBase='', lastF=-1;
     var isShave=(def.name==='shave');
     function shaveFreeze(){ return v2IsPortrait()?5:9; } /* portrait wraps at 06, landscape at 10 */
-    /* v7: shave steam overlay — the man freezes on frame-06, steam animates live on its own canvas */
-    var steamCanvas=null, steamCtx=null, steamRAF=0, steamOn=false, steamSprites=[], steamWisps=[];
+    /* v7: shave steam — frozen man + live CSS steam (compositor-only: transform/opacity, zero per-frame JS) */
     if(isShave&&!reduce){
-      steamCanvas=document.createElement('canvas');
-      steamCanvas.className='seq-steam';
-      steamCanvas.setAttribute('aria-hidden','true');
-      steamCanvas.style.cssText='display:block;width:100%;height:100%;position:absolute;inset:0;pointer-events:none;';
-      container.appendChild(steamCanvas);
-      steamCtx=steamCanvas.getContext('2d');
-      for(var sp=0;sp<4;sp++){
-        var spr=document.createElement('canvas'); spr.width=128; spr.height=256;
-        var sg=spr.getContext('2d');
-        for(var b=0;b<4;b++){
-          var bx=64+(Math.random()*44-22), by=42+b*58+Math.random()*22, br=34+Math.random()*24;
-          var rg=sg.createRadialGradient(bx,by,0,bx,by,br);
-          rg.addColorStop(0,'rgba(255,251,243,0.22)');
-          rg.addColorStop(1,'rgba(255,251,243,0)');
-          sg.fillStyle=rg; sg.beginPath(); sg.arc(bx,by,br,0,6.3); sg.fill();
-        }
-        steamSprites.push(spr);
+      var sprC=document.createElement('canvas'); sprC.width=120; sprC.height=240;
+      var sgc=sprC.getContext('2d');
+      for(var sb=0;sb<5;sb++){
+        var sx=60+(Math.random()*40-20), sy=36+sb*44+Math.random()*18, sr=30+Math.random()*22;
+        var rg2=sgc.createRadialGradient(sx,sy,0,sx,sy,sr);
+        rg2.addColorStop(0,'rgba(255,251,243,0.20)');
+        rg2.addColorStop(1,'rgba(255,251,243,0)');
+        sgc.fillStyle=rg2; sgc.beginPath(); sgc.arc(sx,sy,sr,0,6.3); sgc.fill();
       }
-      for(var wi=0;wi<11;wi++){
-        steamWisps.push({x:0.14+Math.random()*0.72, ph:Math.random(), dur:9+Math.random()*6,
-          sway:16+Math.random()*40, size:80+Math.random()*120, a:0.05+Math.random()*0.08,
-          spr:wi%4, fq:0.5+Math.random()*0.9});
+      var sprURL=sprC.toDataURL('image/png');
+      var stCss='.seq-steam{position:absolute;inset:0;pointer-events:none;overflow:hidden}'
+        +'.seq-steam i{position:absolute;top:60%;display:block;opacity:0;animation-name:steamRise;animation-timing-function:linear;animation-iteration-count:infinite;will-change:transform,opacity}'
+        +'.seq-steam i b{position:absolute;inset:0;display:block;background-position:center;background-size:contain;background-repeat:no-repeat;animation-name:steamSway;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate;will-change:transform}'
+        +'@keyframes steamRise{0%{transform:translate3d(0,0,0) scale(.7);opacity:0}16%{opacity:var(--peak,.09)}78%{opacity:var(--peak,.09)}100%{transform:translate3d(0,-62vh,0) scale(1.5);opacity:0}}'
+        +'@keyframes steamSway{from{transform:translateX(calc(var(--sway,26px)*-1))}to{transform:translateX(var(--sway,26px))}}'
+        +'@media(prefers-reduced-motion:reduce){.seq-steam{display:none}}';
+      var stEl=document.createElement('style'); stEl.textContent=stCss; document.head.appendChild(stEl);
+      var steamDiv=document.createElement('div');
+      steamDiv.className='seq-steam';
+      steamDiv.setAttribute('aria-hidden','true');
+      var wisps=[[16,12,-3,.09,4.2,26,120],[30,14,-8,.07,3.6,34,150],[44,10,-1,.10,4.8,22,110],[58,13,-6,.08,3.9,30,140],[70,11,-4,.09,4.4,24,125],[82,15,-10,.06,3.4,36,155],[24,13.5,-7,.07,4.0,28,135],[52,10.5,-2,.08,4.6,20,115]];
+      for(var szi=0;szi<wisps.length;szi++){
+        var wpd=wisps[szi];
+        var wEl=document.createElement('i');
+        wEl.style.left=wpd[0]+'%';
+        wEl.style.width=wpd[6]+'px';
+        wEl.style.height=(wpd[6]*2)+'px';
+        wEl.style.animationDuration=wpd[1]+'s';
+        wEl.style.animationDelay=wpd[2]+'s';
+        wEl.style.setProperty('--peak',wpd[3]);
+        var bEl=document.createElement('b');
+        bEl.style.backgroundImage='url('+sprURL+')';
+        bEl.style.animationDuration=wpd[4]+'s';
+        bEl.style.setProperty('--sway',wpd[5]+'px');
+        wEl.appendChild(bEl);
+        steamDiv.appendChild(wEl);
       }
-    }
-    function steamTick(now){
-      if(!steamOn) return;
-      var r=steamCanvas.getBoundingClientRect(), ratio=Math.min(2,window.devicePixelRatio||1);
-      var cw=Math.max(1,Math.round(r.width*ratio)), ch=Math.max(1,Math.round(r.height*ratio));
-      if(steamCanvas.width!==cw||steamCanvas.height!==ch){ steamCanvas.width=cw; steamCanvas.height=ch; }
-      steamCtx.clearRect(0,0,cw,ch);
-      steamCtx.globalCompositeOperation='lighter';
-      var t=now/1000;
-      for(var i=0;i<steamWisps.length;i++){
-        var w=steamWisps[i];
-        var lt=((t/w.dur)+w.ph)%1;
-        var y=ch*0.74-lt*ch*0.98;
-        var x=w.x*cw+Math.sin(lt*6.283*w.fq+w.ph*7)*w.sway*ratio;
-        var s=w.size*ratio*(0.55+lt*1.15);
-        steamCtx.globalAlpha=w.a*Math.sin(Math.PI*lt);
-        steamCtx.drawImage(steamSprites[w.spr],x-s/2,y-s*0.9,s,s*1.8);
-      }
-      steamCtx.globalAlpha=1;
-      steamCtx.globalCompositeOperation='source-over';
-      steamRAF=requestAnimationFrame(steamTick);
-    }
-    function steamCheck(){
-      if(!steamCanvas) return;
-      var r=container.getBoundingClientRect(), vh=window.innerHeight;
-      var vis=r.bottom>-vh*0.2&&r.top<vh*1.2;
-      if(vis&&!steamOn){ steamOn=true; steamRAF=requestAnimationFrame(steamTick); }
-      else if(!vis&&steamOn){ steamOn=false; cancelAnimationFrame(steamRAF); }
+      container.appendChild(steamDiv);
     }
     for(var i=0;i<48;i++){ frames.push(new Image()); loaded.push(false); }
     function base(){ return (v2IsPortrait()?'assets/seq-portrait/':'assets/seq/')+def.name+'/'; }
@@ -564,7 +550,6 @@
       var total=Math.max(1,r.height-vh);
       var p=Math.min(1,Math.max(0,-r.top/total));
       draw(isShave?Math.min(shaveFreeze(),p*47):Math.min(47,p*47));
-      steamCheck();
     }
     loadAll();
     v2Players.push({update:update, reload:loadAll});
