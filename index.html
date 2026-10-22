@@ -549,7 +549,9 @@
     var frames=[], loaded=[], curBase='', lastF=-1;
     
     for(var i=0;i<48;i++){ frames.push(new Image()); loaded.push(false); }
-    function base(){ return (v2IsPortrait()?'assets/seq-portrait/':'assets/seq/')+def.name+'/'; }
+    function base(){ /* v7: rich always uses the landscape animation (portrait frames retired: stained towel) */
+      if(def.name==='rich') return 'assets/seq/rich/';
+      return (v2IsPortrait()?'assets/seq-portrait/':'assets/seq/')+def.name+'/'; }
     function loadAll(){
       curBase=base(); lastF=-1;
       frames.forEach(function(img,idx){
@@ -574,7 +576,8 @@
       var scale=Math.max(cw/img.naturalWidth, ch/img.naturalHeight);
       var w=img.naturalWidth*scale, h=img.naturalHeight*scale;
       ctx.globalAlpha=alpha;
-      ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
+        var hBias=(def.name==='rich'&&v2IsPortrait())?0.62:0.5; /* v7: keep Rich's face in the 9:16 crop */
+    ctx.drawImage(img,(cw-w)*hBias,(ch-h)/2,w,h);
       ctx.globalAlpha=1;
     }
     /* v7: fractional cross-dissolve — the scrub never hard-cuts between frames */
