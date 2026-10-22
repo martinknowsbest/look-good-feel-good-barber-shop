@@ -449,14 +449,13 @@
     var container=document.querySelector(def.sel);
     if(!container) return;
     if(def.name==='shave'){
-      /* v7: Flow towel-wrap video, orientation-aware. Plays once when the hero enters
-         view, holds the wrapped end frame. Poster = end frame, so pre-play is already
-         the composed look. Reduced motion / no-JS: static composed image, no autoplay. */
+      /* v7: Flow towel-wrap video, orientation-aware, SCROLL-DRIVEN like the other
+         v2 sections: currentTime scrubs with section progress (p=0 uncovered, p=1
+         wrapped). Poster = end frame. Reduced motion / no-JS: static composed image. */
       var heroImg=container.querySelector('.seq-img');
       var shaveVids={portrait:'assets/vid/shave-portrait.mp4?v=v7e',landscape:'assets/vid/shave-landscape.mp4?v=v7f'};
       var shavePosters={portrait:'assets/vid/shave-portrait-poster.jpg?v=v7e',landscape:'assets/vid/shave-landscape-poster.jpg?v=v7f'};
       function shaveKey(){ return v2IsPortrait()?'portrait':'landscape'; }
-      var shavePlayed=false;
       var shaveVid=document.createElement('video');
       shaveVid.className='seq-shave-vid';
       shaveVid.muted=true; shaveVid.playsInline=true;
@@ -467,7 +466,6 @@
         var k=shaveKey();
         if(shaveVid.dataset.k===k) return;
         shaveVid.dataset.k=k;
-        shavePlayed=false;
         shaveVid.poster=shavePosters[k];
         shaveVid.src=shaveVids[k];
         shaveVid.load();
@@ -483,12 +481,16 @@
         if(heroImg) heroImg.style.display='';
       },true);
       container.insertBefore(shaveVid,container.firstChild);
-      function shaveTryPlay(){
-        if(shavePlayed||reduce) return;
-        var r=container.getBoundingClientRect(), vh=window.innerHeight;
-        if(r.bottom>vh*0.2&&r.top<vh*0.8){
-          shavePlayed=true;
-          try{ var pr=shaveVid.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){}
+      function shaveScrub(){
+        if(reduce) return;
+        if(!shaveVid.duration||shaveVid.readyState<1) return;
+        var sec=container.closest('section'); if(!sec) return;
+        var r=sec.getBoundingClientRect(), vh=window.innerHeight;
+        var total=Math.max(1,r.height-vh);
+        var p=Math.min(1,Math.max(0,-r.top/total));
+        var t=p*shaveVid.duration;
+        if(Math.abs(shaveVid.currentTime-t)>0.04){
+          try{ shaveVid.currentTime=t; }catch(e){}
         }
       }
 /* v7: shave steam — frozen man + live CSS steam (compositor-only: transform/opacity, zero per-frame JS) */
@@ -534,9 +536,8 @@
     }
       v2Players.push({update:function(){
         shaveSetSrc(); /* picks up orientation changes */
-        shaveTryPlay();
+        shaveScrub();
       }, reload:function(){ shaveSetSrc(); }});
-      setTimeout(shaveTryPlay,900);
       return;
     }
     /* sticky from CSS - do not override; keep poster img, append canvas over it */
