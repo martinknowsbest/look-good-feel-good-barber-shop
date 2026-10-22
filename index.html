@@ -70,7 +70,8 @@
     .service-v2{position:relative;height:220vh;background:#080807;margin:0}
     .seq-hero{position:sticky;top:0;width:100%;height:100svh;overflow:hidden}
     /* v7 FINAL: shave is a composed still, full-bleed with scroll-tied Ken Burns */
-    #shave .seq-hero .seq-img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:50% 42%}
+    #shave .seq-hero .seq-img{width:100%;height:100%;object-fit:cover;display:block}
+    .seq-shave-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#0b0b0a}
     .seq-hero canvas{position:absolute;inset:0;width:100%;height:100%}
     .service-copy-v2{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:0 max(24px,8vw) 90px;background:linear-gradient(transparent 30%,rgba(5,5,4,.82));pointer-events:none}
     .service-copy-v2 .service-no{font:400 clamp(42px,4vw,63px)/1 "Libre Caslon Display",serif;color:var(--gold)}
@@ -448,13 +449,47 @@
     var container=document.querySelector(def.sel);
     if(!container) return;
     if(def.name==='shave'){
-      /* v7 FINAL: no scrub. One composed frame + Ken Burns + steam. Finished-composition-first:
-         with JS off or reduced motion, this is still a complete designed image. */
+      /* v7: Flow towel-wrap video, orientation-aware. Plays once when the hero enters
+         view, holds the wrapped end frame. Poster = end frame, so pre-play is already
+         the composed look. Reduced motion / no-JS: static composed image, no autoplay. */
       var heroImg=container.querySelector('.seq-img');
+      var shaveVids={portrait:'assets/vid/shave-portrait.mp4?v=v7e',landscape:'assets/vid/shave-landscape.mp4?v=v7e'};
+      var shavePosters={portrait:'assets/vid/shave-portrait-poster.jpg?v=v7e',landscape:'assets/vid/shave-landscape-poster.jpg?v=v7e'};
+      function shaveKey(){ return v2IsPortrait()?'portrait':'landscape'; }
+      var shavePlayed=false;
+      var shaveVid=document.createElement('video');
+      shaveVid.className='seq-shave-vid';
+      shaveVid.muted=true; shaveVid.playsInline=true;
+      shaveVid.setAttribute('playsinline',''); shaveVid.setAttribute('muted','');
+      shaveVid.setAttribute('aria-hidden','true');
+      shaveVid.preload='auto';
+      function shaveSetSrc(){
+        var k=shaveKey();
+        if(shaveVid.dataset.k===k) return;
+        shaveVid.dataset.k=k;
+        shavePlayed=false;
+        shaveVid.poster=shavePosters[k];
+        shaveVid.src=shaveVids[k];
+        shaveVid.load();
+      }
+      shaveSetSrc();
       if(heroImg){
-        heroImg.src='assets/seq-portrait/shave/frame-06.jpg?v=v7d';
+        heroImg.src=shavePosters.portrait; /* fallback still if the video errors; no-JS keeps the HTML poster */
         heroImg.alt='Client resting under a hot towel';
-        if(!reduce) heroImg.style.willChange='transform';
+        heroImg.style.display='none';
+      }
+      shaveVid.addEventListener('error',function(){
+        shaveVid.style.display='none';
+        if(heroImg) heroImg.style.display='';
+      },true);
+      container.insertBefore(shaveVid,container.firstChild);
+      function shaveTryPlay(){
+        if(shavePlayed||reduce) return;
+        var r=container.getBoundingClientRect(), vh=window.innerHeight;
+        if(r.bottom>vh*0.2&&r.top<vh*0.8){
+          shavePlayed=true;
+          try{ var pr=shaveVid.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){}
+        }
       }
 /* v7: shave steam — frozen man + live CSS steam (compositor-only: transform/opacity, zero per-frame JS) */
     if(!reduce){
@@ -498,13 +533,10 @@
       container.appendChild(steamDiv);
     }
       v2Players.push({update:function(){
-        if(reduce||!heroImg) return;
-        var sec=container.closest('section'); if(!sec) return;
-        var r=sec.getBoundingClientRect(), vh=window.innerHeight;
-        var total=Math.max(1,r.height-vh);
-        var p=Math.min(1,Math.max(0,-r.top/total));
-        heroImg.style.transform='scale('+(1+p*0.09).toFixed(4)+')';
-      }, reload:function(){}});
+        shaveSetSrc(); /* picks up orientation changes */
+        shaveTryPlay();
+      }, reload:function(){ shaveSetSrc(); }});
+      setTimeout(shaveTryPlay,900);
       return;
     }
     /* sticky from CSS - do not override; keep poster img, append canvas over it */
